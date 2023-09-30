@@ -1,3 +1,10 @@
+/*
+ * Given an integer numRows, return the first numRows of Pascal's triangle.
+ * 
+ * In Pascal's triangle, each number is the sum of the two numbers directly
+ * above it as shown:
+ */
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,3 +50,27 @@ public class PascalTriangle {
         }
     }
 }
+
+// LeetCode //
+
+// class Solution {
+// public List<List<Integer>> generate(int numRows) {
+// List<List<Integer>> num = new ArrayList<>();
+// for (int i = 1; i <= numRows; i++) {
+// List<Integer> arr = new ArrayList<>();
+// int ans = 1;
+// arr.add(1);
+// for (int j = 1; j < i; j++) {
+// ans = ans * (i - j);
+// ans = ans / j;
+// arr.add(ans);
+// }
+
+// num.add(arr);
+
+// }
+
+// return num;
+
+// }
+// }
