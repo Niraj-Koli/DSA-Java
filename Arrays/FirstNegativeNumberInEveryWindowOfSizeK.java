@@ -11,7 +11,7 @@ public class FirstNegativeNumberInEveryWindowOfSizeK {
         int j = 0;
 
         ArrayList<Integer> support = new ArrayList<Integer>();
-        List<Integer> answer = new ArrayList<Integer>();
+        List<Integer> result = new ArrayList<Integer>();
 
         while (j < len) {
             if (nums[j] < 0) {
@@ -20,9 +20,9 @@ public class FirstNegativeNumberInEveryWindowOfSizeK {
 
             if (j - i + 1 == k) {
                 if (support.isEmpty()) {
-                    answer.add(0);
+                    result.add(0);
                 } else {
-                    answer.add(support.get(0));
+                    result.add(support.get(0));
                 }
 
                 support.remove(Integer.valueOf(nums[i]));
@@ -31,15 +31,15 @@ public class FirstNegativeNumberInEveryWindowOfSizeK {
             j++;
         }
 
-        return answer;
+        return result;
     }
 
     public static void main(String[] args) {
         int[] nums = { 12, -1, -7, 8, -15, 30, 16, 28 };
         int k = 3;
 
-        List<Integer> result = firstNegative(nums, k);
+        List<Integer> answer = firstNegative(nums, k);
 
-        System.out.println(result);
+        System.out.println(answer);
     }
 }
