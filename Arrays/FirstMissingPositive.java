@@ -34,9 +34,9 @@ public class FirstMissingPositive {
     public static void main(String[] args) {
         int[] nums = { 3, 4, -1, 1 };
 
-        int result = firstMissingPositive(nums);
+        int answer = firstMissingPositive(nums);
 
-        System.out.println(result);
+        System.out.println(answer);
     }
 }
 
