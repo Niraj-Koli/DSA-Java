@@ -12,7 +12,7 @@ public class MaximumOfAllSubarraysOfSizeK {
         int j = 0;
 
         ArrayList<Integer> support = new ArrayList<Integer>();
-        List<Integer> answer = new ArrayList<Integer>();
+        List<Integer> result = new ArrayList<Integer>();
 
         while (j < len) {
             int numAtJ = nums[j];
@@ -22,7 +22,7 @@ public class MaximumOfAllSubarraysOfSizeK {
             if (support.size() == k) {
                 int windowMax = Collections.max(support);
 
-                answer.add(windowMax);
+                result.add(windowMax);
 
                 support.remove(Integer.valueOf(nums[i]));
 
@@ -31,15 +31,15 @@ public class MaximumOfAllSubarraysOfSizeK {
             j++;
         }
 
-        return answer;
+        return result;
     }
 
     public static void main(String[] args) {
         int[] nums = { 1, 3, -1, -3, 5, 3, 6, 7 };
         int k = 3;
 
-        List<Integer> result = maxSubarrays(nums, k);
+        List<Integer> answer = maxSubarrays(nums, k);
 
-        System.out.println(result);
+        System.out.println(answer);
     }
 }
