@@ -31,8 +31,8 @@ class LargestSubarrayOfSumK {
         int[] nums = { 4, 1, 1, 1, 2, 3, 5 };
         int k = 5;
 
-        int result = LargestSubarrayOfSum(nums, k);
+        int answer = LargestSubarrayOfSum(nums, k);
 
-        System.out.println(result);
+        System.out.println(answer);
     }
 }
