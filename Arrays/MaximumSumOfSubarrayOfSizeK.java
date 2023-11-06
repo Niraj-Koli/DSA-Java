@@ -29,8 +29,8 @@ public class MaximumSumOfSubarrayOfSizeK {
         int[] nums = { 2, 5, 1, 8, 2, 9, 1 };
         int k = 3;
 
-        int result = maxSum(nums, k);
+        int answer = maxSum(nums, k);
 
-        System.out.println(result);
+        System.out.println(answer);
     }
 }
