@@ -53,9 +53,9 @@ public class MaximumProductSubarray {
     public static void main(String[] args) {
         int[] nums = { 2, 3, -2, 4 };
 
-        int result = maxProduct(nums);
+        int answer = maxProduct(nums);
 
-        System.out.println(result);
+        System.out.println(answer);
     }
 }
 
