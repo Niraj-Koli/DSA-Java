@@ -40,9 +40,9 @@ public class PascalTriangle {
     public static void main(String[] args) {
         int numRows = 5;
 
-        List<List<Integer>> result = generate(numRows);
+        List<List<Integer>> answer = generate(numRows);
 
-        for (List<Integer> row : result) {
+        for (List<Integer> row : answer) {
             for (int num : row) {
                 System.out.print(num + " ");
             }
