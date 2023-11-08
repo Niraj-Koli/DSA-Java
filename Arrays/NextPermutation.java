@@ -65,10 +65,10 @@ public class NextPermutation {
     public static void main(String[] args) {
         int[] nums = { 1, 3, 2 };
 
-        int[] result = nextPermutation(nums);
+        int[] answer = nextPermutation(nums);
 
-        for (int integer : result) {
-            System.out.println(integer);
+        for (int ans : answer) {
+            System.out.print(ans + " ");
         }
     }
 }
@@ -90,12 +90,13 @@ public class NextPermutation {
 // }
 // return ans;
 // }
-// public static int ncr(int n , int r){
+
+// public static int ncr(int n, int r) {
 // long res = 1;
-// for(int i= 0 ; i<r ; i++){
-// res = res * (n-i);
-// res = res / (i+1);
+// for (int i = 0; i < r; i++) {
+// res = res * (n - i);
+// res = res / (i + 1);
 // }
-// return (int)res;
+// return (int) res;
 // }
 // }
