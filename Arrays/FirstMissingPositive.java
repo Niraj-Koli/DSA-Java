@@ -40,8 +40,6 @@ public class FirstMissingPositive {
     }
 }
 
-// LeetCode //
-
 // class Solution {
 // public int firstMissingPositive(int[] nums) {
 // int smallestPosValue = 0;
