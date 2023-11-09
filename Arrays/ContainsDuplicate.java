@@ -31,8 +31,6 @@ public class ContainsDuplicate {
     }
 }
 
-// LeetCode //
-
 // class Solution {
 // public boolean containsDuplicate(int[] nums) {
 // for (int i = 1; i < nums.length; i++) {
