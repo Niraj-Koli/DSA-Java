@@ -36,8 +36,6 @@ public class BestTimeToBuyAndSellStock {
     }
 }
 
-// LeetCode //
-
 // class Solution {
 // public int maxProfit(int[] prices) {
 // int min = prices[0];
