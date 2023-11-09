@@ -38,8 +38,6 @@ public class BinarySearch {
     }
 }
 
-// LeetCode //
-
 // class Solution {
 // public int search(int[] nums, int target) {
 // int lower = 0;
