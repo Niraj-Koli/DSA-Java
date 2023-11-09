@@ -41,8 +41,6 @@ public class ContainerWithMostWater {
     }
 }
 
-// LeetCode //
-
 // class Solution {
 // public int maxArea(int[] hs) {
 // int max = 0, i = 0, j = hs.length - 1;
