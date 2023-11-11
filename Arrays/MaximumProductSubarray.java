@@ -59,8 +59,6 @@ public class MaximumProductSubarray {
     }
 }
 
-// LeetCode //
-
 // class Solution {
 // public int maxProduct(int[] nums) {
 // int max = Integer.MIN_VALUE;
