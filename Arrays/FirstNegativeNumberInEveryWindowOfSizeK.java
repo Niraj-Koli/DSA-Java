@@ -1,4 +1,7 @@
-/* Find the first negative number in every window of size k return 0 if not */
+/*
+ * Given an array A[] of size N and a positive integer K, find the first
+ * negative integer for each and every window(contiguous subarray) of size K.
+ */
 
 import java.util.ArrayList;
 import java.util.List;
