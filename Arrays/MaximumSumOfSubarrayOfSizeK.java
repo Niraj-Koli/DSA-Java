@@ -1,4 +1,7 @@
-/* Find the maximum sum of a subarray with size k */
+/*
+ * Given an array of integers Arr of size N and a number K. Return the maximum
+ * sum of a subarray of size K.
+ */
 
 public class MaximumSumOfSubarrayOfSizeK {
     public static int maxSum(int[] nums, int k) {
