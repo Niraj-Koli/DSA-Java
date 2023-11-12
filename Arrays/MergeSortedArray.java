@@ -42,8 +42,6 @@ public class MergeSortedArray {
     }
 }
 
-// LeetCode //
-
 // class Solution {
 // public void merge(int[] nums1, int m, int[] nums2, int n) {
 // int[] nums1Copy = new int[m];
