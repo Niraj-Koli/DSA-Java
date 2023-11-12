@@ -51,8 +51,6 @@ public class PascalTriangle {
     }
 }
 
-// LeetCode //
-
 // class Solution {
 // public List<List<Integer>> generate(int numRows) {
 // List<List<Integer>> num = new ArrayList<>();
