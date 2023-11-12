@@ -73,14 +73,11 @@ public class NextPermutation {
     }
 }
 
-// LeetCode //
-
 // class Solution {
 // public List<List<Integer>> generate(int numRows) {
 
 // List<List<Integer>> ans = new ArrayList<>();
 
-// // Store the entire Pascal's triangle:
 // for (int row = 1; row <= numRows; row++) {
 // List<Integer> tempLst = new ArrayList<>(); // temporary list
 // for (int col = 1; col <= row; col++) {
