@@ -6,13 +6,12 @@
  */
 
 import java.util.ArrayList;
-import java.util.List;
 
 class SetMatrixZero {
     public static void setZeroes(int[][] matrix) {
         int iterations = 0;
 
-        List<int[]> indexesPair = new ArrayList<>();
+        ArrayList<int[]> indexesPair = new ArrayList<>();
 
         int numOfRows = matrix.length;
         int numOfCols = matrix[0].length;
@@ -60,12 +59,11 @@ class SetMatrixZero {
     }
 }
 
-// LeetCode //
-
 // class Solution {
 // public void setZeroes(int[][] matrix) {
 // int n = matrix.length;
 // int m = matrix[0].length;
+
 // int col0 = 1;
 // for (int i = 0; i < n; i++) {
 // for (int j = 0; j < m; j++) {
