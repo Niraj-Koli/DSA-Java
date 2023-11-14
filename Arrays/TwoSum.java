@@ -8,25 +8,22 @@
  * You can return the answer in any order.
  */
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.HashMap;
-import java.util.Map;
 
-class TwoSum {
+public class TwoSum {
     public static int[] twoSum(int[] nums, int target) {
-        Map<Integer, Integer> numMap = new HashMap<>();
+        HashMap<Integer, Integer> map = new HashMap<>();
 
         int n = nums.length;
 
         for (int i = 0; i < n; i++) {
             int complement = target - nums[i];
 
-            if (numMap.containsKey(complement)) {
-                return new int[] { numMap.get(complement), i };
+            if (map.containsKey(complement)) {
+                return new int[] { map.get(complement), i };
             }
 
-            numMap.put(nums[i], i);
+            map.put(nums[i], i);
         }
 
         return new int[] {};
@@ -36,26 +33,22 @@ class TwoSum {
         int[] nums = { 2, 7, 11, 15 };
         int target = 9;
 
-        List<Integer> result = new ArrayList<>();
+        int[] answer = twoSum(nums, target);
 
-        for (int num : twoSum(nums, target)) {
-            result.add(num);
+        for (int ans : answer) {
+            System.out.print(ans + " ");
         }
-
-        System.out.println(result);
     }
 }
 
-// LeetCode //
-
 // class Solution {
 // public int[] twoSum(int[] nums, int target) {
-// int arr[]=new int[2];
-// for(int i=0;i<nums.length;i++){
-// for(int j=i+1;j<nums.length;j++){
-// if(nums[i]+nums[j]==target){
-// arr[0]=i;
-// arr[1]=j;
+// int arr[] = new int[2];
+// for (int i = 0; i < nums.length; i++) {
+// for (int j = i + 1; j < nums.length; j++) {
+// if (nums[i] + nums[j] == target) {
+// arr[0] = i;
+// arr[1] = j;
 // }
 // }
 // }
