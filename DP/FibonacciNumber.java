@@ -19,44 +19,40 @@ public class FibonacciNumber {
             return n;
         }
 
-        int[][] t = new int[n + 1][2];
+        int[] t = new int[n + 1];
 
-        t[0][0] = 0;
-        t[0][1] = 1;
+        t[0] = 0;
+        t[1] = 1;
 
-        for (int i = 1; i <= n; i++) {
-            t[i][0] = t[i - 1][1];
-            t[i][1] = t[i - 1][0] + t[i - 1][1];
+        for (int i = 2; i <= n; i++) {
+            t[i] = t[i - 1] + t[i - 2];
         }
 
-        return t[n][1];
+        return t[n];
     }
 
     // 2D Array -> Recursive //
 
-    private static int[][] t;
+    private static int[] t;
 
     public static int fibRecursive(int n) {
-        t = new int[n + 1][2]; 
-        
-        return calculateFibonacci(n)[1]; 
+        t = new int[n + 1];
+
+        return calculateFibonacci(n);
     }
 
-    private static int[] calculateFibonacci(int n) {
+    private static int calculateFibonacci(int n) {
         if (n <= 1) {
-            t[n][0] = n; 
-            t[n][1] = n;
+            t[n] = n;
 
             return t[n];
         }
 
-        if (t[n][0] == 0 && t[n][1] == 0) {
-            int[] fib1 = calculateFibonacci(n - 1);
-            int[] fib2 = calculateFibonacci(n - 2);
-            
-            t[n][0] = fib1[1];
-            t[n][1] = fib1[1] + fib2[1];
+        if (t[n] != 0) {
+            return t[n];
         }
+
+        t[n] = calculateFibonacci(n - 1) + calculateFibonacci(n - 2);
 
         return t[n];
     }
@@ -81,9 +77,9 @@ public class FibonacciNumber {
     }
 
     public static void main(String[] args) {
-        int n = 4;
+        int n = 5;
 
-        int answer = fib(n);
+        int answer = fibRecursive(n);
 
         System.out.println(answer);
     }
