@@ -9,23 +9,23 @@
  */
 
 public class IsSubsequence {
-    public static boolean isSubsequence(String s, String t) {
+    public static boolean isSubsequence(String s, String r) {
         int n = s.length();
-        int m = t.length();
+        int m = r.length();
 
-        int[][] dp = new int[n + 1][m + 1];
+        int[][] t = new int[n + 1][m + 1];
 
         for (int i = 1; i < n + 1; i++) {
             for (int j = 1; j < m + 1; j++) {
-                if (s.charAt(i - 1) == t.charAt(j - 1)) {
-                    dp[i][j] = 1 + dp[i - 1][j - 1];
+                if (s.charAt(i - 1) == r.charAt(j - 1)) {
+                    t[i][j] = 1 + t[i - 1][j - 1];
                 } else {
-                    dp[i][j] = Math.max(dp[i][j - 1], dp[i - 1][j]);
+                    t[i][j] = Math.max(t[i][j - 1], t[i - 1][j]);
                 }
             }
         }
 
-        int lcsLength = dp[n][m];
+        int lcsLength = t[n][m];
 
         if (lcsLength == n) {
             return true;
@@ -36,9 +36,9 @@ public class IsSubsequence {
 
     public static void main(String[] args) {
         String s = "abc";
-        String t = "ahbgdc";
+        String r = "ahbgdc";
 
-        boolean answer = isSubsequence(s, t);
+        boolean answer = isSubsequence(s, r);
 
         System.out.println(answer);
     }
