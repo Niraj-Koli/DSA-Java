@@ -5,6 +5,29 @@ If the frog is currently on Stone i, jump to one of the following: Stone i+1,i+2
 Find the minimum possible total cost incurred before the frog reaches Stone N. */
 
 public class FrogJumpII {
+    public static int[] t = new int[100000];
+
+    static int solveUtil(int i, int[] height, int k) {
+        if (i == 0) {
+            return 0;
+        }
+
+        if (t[i] != 0) {
+            return t[i];
+        }
+
+        int mmSteps = Integer.MAX_VALUE;
+
+        for (int j = 1; j <= k; j++) {
+            if (i - j >= 0) {
+                int jump = solveUtil(i - j, height, k) + Math.abs(height[i] - height[i - j]);
+                mmSteps = Math.min(jump, mmSteps);
+            }
+        }
+
+        return t[i] = mmSteps;
+    }
+
     public static int frogJump(int[] heights, int k) {
         int n = heights.length;
 
