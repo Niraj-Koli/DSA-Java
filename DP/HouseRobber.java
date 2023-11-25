@@ -11,6 +11,29 @@
  */
 
 public class HouseRobber {
+    public static int[] t = new int[100000];
+
+    static int solve(int i, int[] nums) {
+        if (i < 0) {
+            return 0;
+        }
+
+        if (i == 0) {
+            return nums[i];
+        }
+
+        if (t[i] != 0) {
+            return t[i];
+        }
+
+        int pick = nums[i] + solve(i - 2, nums);
+        int nonPick = solve(i - 1, nums);
+
+        t[i] = Math.max(pick, nonPick);
+
+        return t[i];
+    }
+
     public static int rob(int[] nums) {
         int n = nums.length;
 
