@@ -17,7 +17,7 @@ public class PrintingLongestIncreasingSubsequence {
         int[] t = new int[n];
         int[] hash = new int[n];
 
-        for (int i = 0; i <= n - 1; i++) {
+        for (int i = 0; i < n; i++) {
             hash[i] = i;
             for (int prev = 0; prev <= i - 1; prev++) {
                 if (nums[prev] < nums[i] && 1 + t[prev] > t[i]) {
@@ -30,7 +30,7 @@ public class PrintingLongestIncreasingSubsequence {
         int ans = -1;
         int lastIndex = -1;
 
-        for (int i = 0; i <= n - 1; i++) {
+        for (int i = 0; i < n; i++) {
             if (t[i] > ans) {
                 ans = t[i];
                 lastIndex = i;
