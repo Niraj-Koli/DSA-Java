@@ -13,23 +13,23 @@ public class BestTimeToBuyAndSellStockIV {
     public static int maxProfit(int[] prices, int k) {
         int n = prices.length;
 
-        int[][][] t = new int[n + 1][2][k + 1];
+        int[][][] dp = new int[n + 1][2][k + 1];
 
         for (int i = n - 1; i >= 0; i--) {
             for (int j = 0; j <= 1; j++) {
                 for (int cap = 1; cap <= k; cap++) {
                     if (j == 0) {
-                        t[i][j][cap] = Math.max(0 + t[i + 1][0][cap],
-                                -prices[i] + t[i + 1][1][cap]);
+                        dp[i][j][cap] = Math.max(0 + dp[i + 1][0][cap],
+                                -prices[i] + dp[i + 1][1][cap]);
                     } else {
-                        t[i][j][cap] = Math.max(0 + t[i + 1][1][cap],
-                                prices[i] + t[i + 1][0][cap - 1]);
+                        dp[i][j][cap] = Math.max(0 + dp[i + 1][1][cap],
+                                prices[i] + dp[i + 1][0][cap - 1]);
                     }
                 }
             }
         }
 
-        return t[0][0][k];
+        return dp[0][0][k];
     }
 
     public static void main(String[] args) {
@@ -45,18 +45,18 @@ public class BestTimeToBuyAndSellStockIV {
 // class Solution {
 // public int maxProfit(int k, int[] prices) {
 // int len = prices.length;
-// int[] t = new int[2 * k + 1];
+// int[] dp = new int[2 * k + 1];
 // for (int i = 1; i <= 2 * k; i += 2) {
-// t[i] = -prices[0];
+// dp[i] = -prices[0];
 // }
 
 // for (int i = 1; i < len; i++) {
 // for (int j = 1; j <= k * 2; j += 2) {
-// t[j] = Math.max(t[j], t[j - 1] - prices[i]);
-// t[j + 1] = Math.max(t[j + 1], t[j] + prices[i]);
+// dp[j] = Math.max(dp[j], dp[j - 1] - prices[i]);
+// dp[j + 1] = Math.max(dp[j + 1], dp[j] + prices[i]);
 // }
 // }
 
-// return t[2 * k];
+// return dp[2 * k];
 // }
 // }
