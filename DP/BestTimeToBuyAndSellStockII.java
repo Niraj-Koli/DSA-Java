@@ -10,15 +10,15 @@
  */
 
 public class BestTimeToBuyAndSellStockII {
-    public static int[][] t;
+    public static int[][] dp;
 
     public static int getProfitRecursive(int[] prices, int index, int buy, int n) {
         if (index == n) {
             return 0;
         }
 
-        if (t[index][buy] != 0) {
-            return t[index][buy];
+        if (dp[index][buy] != 0) {
+            return dp[index][buy];
         }
 
         int profit = 0;
@@ -33,41 +33,41 @@ public class BestTimeToBuyAndSellStockII {
                     prices[index] + getProfitRecursive(prices, index + 1, 0, n));
         }
 
-        t[index][buy] = profit;
+        dp[index][buy] = profit;
 
-        return t[index][buy];
+        return dp[index][buy];
     }
 
     public static int getProfitIterative(int[] prices) {
         int n = prices.length;
 
-        int[][] t = new int[n + 1][2];
+        int[][] dp = new int[n + 1][2];
 
-        t[n][0] = t[n][1] = 0;
+        dp[n][0] = dp[n][1] = 0;
 
         int profit = 0;
 
         for (int i = n - 1; i >= 0; i--) {
             for (int j = 0; j <= 1; j++) {
                 if (j == 0) {
-                    profit = Math.max(0 + t[i + 1][0], -prices[i] + t[i + 1][1]);
+                    profit = Math.max(0 + dp[i + 1][0], -prices[i] + dp[i + 1][1]);
                 }
 
                 if (j == 1) {
-                    profit = Math.max(0 + t[i + 1][1], prices[i] + t[i + 1][0]);
+                    profit = Math.max(0 + dp[i + 1][1], prices[i] + dp[i + 1][0]);
                 }
 
-                t[i][j] = profit;
+                dp[i][j] = profit;
             }
         }
 
-        return t[0][0];
+        return dp[0][0];
     }
 
     static int maxProfit(int[] prices) {
         int n = prices.length;
 
-        t = new int[n][2];
+        dp = new int[n][2];
 
         return getProfitIterative(prices);
     }
