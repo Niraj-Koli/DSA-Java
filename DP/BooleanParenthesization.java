@@ -15,14 +15,14 @@
 import java.util.Arrays;
 
 public class BooleanParenthesization {
-    public static int[][][] t;
+    public static int[][][] dp;
 
     public static int countWays(String s) {
         int n = s.length();
 
-        t = new int[n][n][2];
+        dp = new int[n][n][2];
 
-        for (int[][] row : t) {
+        for (int[][] row : dp) {
             for (int[] innerRow : row) {
                 Arrays.fill(innerRow, -1);
             }
@@ -35,8 +35,8 @@ public class BooleanParenthesization {
         if (i > j)
             return 0;
 
-        if (t[i][j][isTrue ? 1 : 0] != -1) {
-            return t[i][j][isTrue ? 1 : 0];
+        if (dp[i][j][isTrue ? 1 : 0] != -1) {
+            return dp[i][j][isTrue ? 1 : 0];
         }
 
         if (i == j) {
@@ -46,10 +46,10 @@ public class BooleanParenthesization {
         int ways = 0;
 
         for (int k = i + 1; k <= j - 1; k += 2) {
-            int leftTrue = (t[i][k - 1][1] == -1) ? parenthesization(str, i, k - 1, true) : t[i][k - 1][1];
-            int leftFalse = (t[i][k - 1][0] == -1) ? parenthesization(str, i, k - 1, false) : t[i][k - 1][0];
-            int rightTrue = (t[k + 1][j][1] == -1) ? parenthesization(str, k + 1, j, true) : t[k + 1][j][1];
-            int rightFalse = (t[k + 1][j][0] == -1) ? parenthesization(str, k + 1, j, false) : t[k + 1][j][0];
+            int leftTrue = (dp[i][k - 1][1] == -1) ? parenthesization(str, i, k - 1, true) : dp[i][k - 1][1];
+            int leftFalse = (dp[i][k - 1][0] == -1) ? parenthesization(str, i, k - 1, false) : dp[i][k - 1][0];
+            int rightTrue = (dp[k + 1][j][1] == -1) ? parenthesization(str, k + 1, j, true) : dp[k + 1][j][1];
+            int rightFalse = (dp[k + 1][j][0] == -1) ? parenthesization(str, k + 1, j, false) : dp[k + 1][j][0];
 
             if (str.charAt(k) == '&') {
                 ways += (isTrue ? (leftTrue * rightTrue)
@@ -63,9 +63,9 @@ public class BooleanParenthesization {
             }
         }
 
-        t[i][j][isTrue ? 1 : 0] = ways;
+        dp[i][j][isTrue ? 1 : 0] = ways;
 
-        return t[i][j][isTrue ? 1 : 0];
+        return dp[i][j][isTrue ? 1 : 0];
     }
 
     public static void main(String[] args) {
