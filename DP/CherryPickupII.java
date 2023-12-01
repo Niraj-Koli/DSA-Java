@@ -20,7 +20,7 @@
  */
 
 public class CherryPickupII {
-    public static int[][][] t = new int[100000][100000][100000];
+    public static int[][][] dp = new int[100000][100000][100000];
 
     static int solve(int i, int j1, int j2, int n, int m, int[][] grid) {
         if (j1 < 0 || j1 >= m || j2 < 0 || j2 >= m) {
@@ -35,8 +35,8 @@ public class CherryPickupII {
             }
         }
 
-        if (t[i][j1][j2] != 0) {
-            return t[i][j1][j2];
+        if (dp[i][j1][j2] != 0) {
+            return dp[i][j1][j2];
         }
 
         int max = Integer.MIN_VALUE;
@@ -53,21 +53,21 @@ public class CherryPickupII {
                 max = Math.max(max, ans);
             }
         }
-        return t[i][j1][j2] = max;
+        return dp[i][j1][j2] = max;
     }
 
     public static int cherryPickup(int[][] grid) {
         int n = grid.length;
         int m = grid[0].length;
 
-        int t[][][] = new int[n][m][m];
+        int dp[][][] = new int[n][m][m];
 
         for (int j1 = 0; j1 < m; j1++) {
             for (int j2 = 0; j2 < m; j2++) {
                 if (j1 == j2) {
-                    t[n - 1][j1][j2] = grid[n - 1][j1];
+                    dp[n - 1][j1][j2] = grid[n - 1][j1];
                 } else {
-                    t[n - 1][j1][j2] = grid[n - 1][j1] + grid[n - 1][j2];
+                    dp[n - 1][j1][j2] = grid[n - 1][j1] + grid[n - 1][j2];
                 }
             }
         }
@@ -90,19 +90,19 @@ public class CherryPickupII {
                             if ((j1 + di < 0 || j1 + di >= m) || (j2 + dj < 0 || j2 + dj >= m)) {
                                 ans += (int) Math.pow(-10, 9);
                             } else {
-                                ans += t[i + 1][j1 + di][j2 + dj];
+                                ans += dp[i + 1][j1 + di][j2 + dj];
                             }
 
                             max = Math.max(ans, max);
                         }
                     }
 
-                    t[i][j1][j2] = max;
+                    dp[i][j1][j2] = max;
                 }
             }
         }
 
-        return t[0][0][m - 1];
+        return dp[0][0][m - 1];
     }
 
     public static void main(String[] args) {
