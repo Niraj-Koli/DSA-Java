@@ -7,16 +7,16 @@
 
 public class ClimbingStairs {
     public static int climbStairs(int n) {
-        int[] t = new int[n + 1];
+        int[] dp = new int[n + 1];
 
-        t[0] = 1;
-        t[1] = 1;
+        dp[0] = 1;
+        dp[1] = 1;
 
         for (int i = 2; i < n + 1; i++) {
-            t[i] = t[i - 1] + t[i - 2];
+            dp[i] = dp[i - 1] + dp[i - 2];
         }
 
-        return t[n];
+        return dp[n];
     }
 
     public static void main(String[] args) {
@@ -34,12 +34,12 @@ public class ClimbingStairs {
 // return 1;
 // }
 
-// int[] t = new int[n + 1];
-// t[0] = t[1] = 1;
+// int[] dp = new int[n + 1];
+// dp[0] = dp[1] = 1;
 
 // for (int i = 2; i <= n; i++) {
-// t[i] = t[i - 1] + t[i - 2];
+// dp[i] = dp[i - 1] + dp[i - 2];
 // }
-// return t[n];
+// return dp[n];
 // }
 // }
