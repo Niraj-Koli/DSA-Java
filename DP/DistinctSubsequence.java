@@ -1,13 +1,13 @@
 /*
- * Given two strings s and t, return the number of distinct subsequences of s
- * which equals t.
+ * Given two strings s and dp, return the number of distinct subsequences of s
+ * which equals dp.
  * 
  * The test cases are generated so that the answer fits on a 32-bit signed
  * integer.
  */
 
 public class DistinctSubsequence {
-    public static int[][] t = new int[1000][1000];
+    public static int[][] dp = new int[1000][1000];
 
     static int solve(String s1, String s2, int i, int j) {
         if (j < 0) {
@@ -18,17 +18,17 @@ public class DistinctSubsequence {
             return 0;
         }
 
-        if (t[i][j] != 0) {
-            return t[i][j];
+        if (dp[i][j] != 0) {
+            return dp[i][j];
         }
 
         if (s1.charAt(i) == s2.charAt(j)) {
             int leaveOne = solve(s1, s2, i - 1, j - 1);
             int stay = solve(s1, s2, i - 1, j);
 
-            return t[i][j] = (leaveOne + stay);
+            return dp[i][j] = (leaveOne + stay);
         } else {
-            return t[i][j] = solve(s1, s2, i - 1, j);
+            return dp[i][j] = solve(s1, s2, i - 1, j);
         }
     }
 
@@ -36,43 +36,43 @@ public class DistinctSubsequence {
         int n = s1.length();
         int m = s2.length();
 
-        int[][] t = new int[n + 1][m + 1];
+        int[][] dp = new int[n + 1][m + 1];
 
         for (int i = 0; i < n + 1; i++) {
-            t[i][0] = 1;
+            dp[i][0] = 1;
         }
 
         for (int i = 1; i < m + 1; i++) {
-            t[0][i] = 0;
+            dp[0][i] = 0;
         }
 
         for (int i = 1; i < n + 1; i++) {
             for (int j = 1; j < m + 1; j++) {
                 if (s1.charAt(i - 1) == s2.charAt(j - 1)) {
-                    t[i][j] = t[i - 1][j - 1] + t[i - 1][j];
+                    dp[i][j] = dp[i - 1][j - 1] + dp[i - 1][j];
                 } else {
-                    t[i][j] = t[i - 1][j];
+                    dp[i][j] = dp[i - 1][j];
                 }
             }
         }
 
-        return t[n][m];
+        return dp[n][m];
     }
 
     public static void main(String[] args) {
         String s = "babgbag";
-        String t = "bag";
+        String dp = "bag";
 
-        int answer = numDistinct(s, t);
+        int answer = numDistinct(s, dp);
 
         System.out.println(answer);
     }
 }
 
 // class Solution {
-// public int numDistinct(String s, String t) {
+// public int numDistinct(String s, String dp) {
 // int m = s.length();
-// int n = t.length();
+// int n = dp.length();
 
 // int[] dp = new int[n];
 
@@ -83,7 +83,7 @@ public class DistinctSubsequence {
 // for (int j = n - 1; j >= 0; j--) {
 // int old_dpj = dp[j];
 
-// if (s.charAt(i) == t.charAt(j))
+// if (s.charAt(i) == dp.charAt(j))
 // dp[j] += prev;
 
 // prev = old_dpj;
