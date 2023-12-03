@@ -10,7 +10,7 @@
  */
 
 public class EditDistance {
-    public static int[][] t = new int[1000][1000];
+    public static int[][] dp = new int[1000][1000];
 
     static int solve(String x, String y, int i, int j) {
         if (i < 0) {
@@ -21,19 +21,19 @@ public class EditDistance {
             return i + 1;
         }
 
-        if (t[i][j] != -1) {
-            return t[i][j];
+        if (dp[i][j] != -1) {
+            return dp[i][j];
         }
 
         if (x.charAt(i) == y.charAt(j)) {
-            t[i][j] = solve(x, y, i - 1, j - 1);
+            dp[i][j] = solve(x, y, i - 1, j - 1);
 
-            return t[i][j];
+            return dp[i][j];
         } else {
-            t[i][j] = 1 + Math.min(solve(x, y, i - 1, j - 1),
+            dp[i][j] = 1 + Math.min(solve(x, y, i - 1, j - 1),
                     Math.min(solve(x, y, i - 1, j), solve(x, y, i, j - 1)));
 
-            return t[i][j];
+            return dp[i][j];
         }
     }
 
@@ -41,27 +41,27 @@ public class EditDistance {
         int n = x.length();
         int m = y.length();
 
-        int[][] t = new int[n + 1][m + 1];
+        int[][] dp = new int[n + 1][m + 1];
 
         for (int i = 0; i < n + 1; i++) {
-            t[i][0] = i;
+            dp[i][0] = i;
         }
 
         for (int j = 0; j < m + 1; j++) {
-            t[0][j] = j;
+            dp[0][j] = j;
         }
 
         for (int i = 1; i < n + 1; i++) {
             for (int j = 1; j < m + 1; j++) {
                 if (x.charAt(i - 1) == y.charAt(j - 1)) {
-                    t[i][j] = t[i - 1][j - 1];
+                    dp[i][j] = dp[i - 1][j - 1];
                 } else {
-                    t[i][j] = 1 + Math.min(t[i - 1][j - 1], Math.min(t[i - 1][j], t[i][j - 1]));
+                    dp[i][j] = 1 + Math.min(dp[i - 1][j - 1], Math.min(dp[i - 1][j], dp[i][j - 1]));
                 }
             }
         }
 
-        return t[n][m];
+        return dp[n][m];
     }
 
     public static void main(String[] args) {
