@@ -19,42 +19,42 @@ public class FibonacciNumber {
             return n;
         }
 
-        int[] t = new int[n + 1];
+        int[] dp = new int[n + 1];
 
-        t[0] = 0;
-        t[1] = 1;
+        dp[0] = 0;
+        dp[1] = 1;
 
         for (int i = 2; i <= n; i++) {
-            t[i] = t[i - 1] + t[i - 2];
+            dp[i] = dp[i - 1] + dp[i - 2];
         }
 
-        return t[n];
+        return dp[n];
     }
 
     // 2D Array -> Recursive //
 
-    private static int[] t;
+    private static int[] dp;
 
     public static int fibRecursive(int n) {
-        t = new int[n + 1];
+        dp = new int[n + 1];
 
         return calculateFibonacci(n);
     }
 
     private static int calculateFibonacci(int n) {
         if (n <= 1) {
-            t[n] = n;
+            dp[n] = n;
 
-            return t[n];
+            return dp[n];
         }
 
-        if (t[n] != 0) {
-            return t[n];
+        if (dp[n] != 0) {
+            return dp[n];
         }
 
-        t[n] = calculateFibonacci(n - 1) + calculateFibonacci(n - 2);
+        dp[n] = calculateFibonacci(n - 1) + calculateFibonacci(n - 2);
 
-        return t[n];
+        return dp[n];
     }
 
     // Map -> Recursive //
