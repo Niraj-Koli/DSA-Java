@@ -8,40 +8,40 @@
  */
 
 public class FrogJump {
-    public static int[] t = new int[100000];
+    public static int[] dp = new int[100000];
 
     public static int solve(int i, int[] height) {
         if (i == 0) {
             return 0;
         }
 
-        if (t[i] != 0)
-            return t[i];
+        if (dp[i] != 0)
+            return dp[i];
 
         int jumpOne = solve(i - 1, height) + Math.abs(height[i] - height[i - 1]);
 
         int jumpTwo = i > 1 ? solve(i - 2, height) + Math.abs(height[i] - height[i - 2]) : Integer.MAX_VALUE;
 
-        t[i] = Math.min(jumpOne, jumpTwo);
+        dp[i] = Math.min(jumpOne, jumpTwo);
 
-        return t[i];
+        return dp[i];
     }
 
     public static int frogJump(int[] heights) {
         int n = heights.length;
 
-        int[] t = new int[n];
+        int[] dp = new int[n];
 
         for (int i = 1; i < n; i++) {
 
-            int jumpOne = t[i - 1] + Math.abs(heights[i] - heights[i - 1]);
+            int jumpOne = dp[i - 1] + Math.abs(heights[i] - heights[i - 1]);
 
-            int jumpTwo = i > 1 ? t[i - 2] + Math.abs(heights[i] - heights[i - 2]) : Integer.MAX_VALUE;
+            int jumpTwo = i > 1 ? dp[i - 2] + Math.abs(heights[i] - heights[i - 2]) : Integer.MAX_VALUE;
 
-            t[i] = Math.min(jumpOne, jumpTwo);
+            dp[i] = Math.min(jumpOne, jumpTwo);
         }
 
-        return t[n - 1];
+        return dp[n - 1];
     }
 
     public static void main(String[] args) {
