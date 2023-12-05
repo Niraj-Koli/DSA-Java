@@ -11,7 +11,7 @@
  */
 
 public class HouseRobber {
-    public static int[] t = new int[100000];
+    public static int[] dp = new int[100000];
 
     static int solve(int i, int[] nums) {
         if (i < 0) {
@@ -22,38 +22,38 @@ public class HouseRobber {
             return nums[i];
         }
 
-        if (t[i] != 0) {
-            return t[i];
+        if (dp[i] != 0) {
+            return dp[i];
         }
 
         int pick = nums[i] + solve(i - 2, nums);
         int nonPick = solve(i - 1, nums);
 
-        t[i] = Math.max(pick, nonPick);
+        dp[i] = Math.max(pick, nonPick);
 
-        return t[i];
+        return dp[i];
     }
 
     public static int rob(int[] nums) {
         int n = nums.length;
 
-        int[] t = new int[n];
+        int[] dp = new int[n];
 
-        t[0] = nums[0];
+        dp[0] = nums[0];
 
         for (int i = 1; i < n; i++) {
             int pick = nums[i];
 
             if (i > 1) {
-                pick += t[i - 2];
+                pick += dp[i - 2];
             }
 
-            int nonPick = t[i - 1];
+            int nonPick = dp[i - 1];
 
-            t[i] = Math.max(pick, nonPick);
+            dp[i] = Math.max(pick, nonPick);
         }
 
-        return t[n - 1];
+        return dp[n - 1];
     }
 
     public static void main(String[] args) {
