@@ -8,23 +8,23 @@ import java.util.Arrays;
 import java.util.Collections;
 
 public class LongestIncreasingSubsequence {
-    public static int[][] t = new int[1000][1000];
+    public static int[][] dp = new int[1000][1000];
 
     public static int lis(int nums[], int n, int curr, int prev) {
         if (curr == n) {
             return 0;
         }
 
-        if (t[curr][prev + 1] != 0) {
-            return t[curr][prev + 1];
+        if (dp[curr][prev + 1] != 0) {
+            return dp[curr][prev + 1];
         }
 
         int pick = ((prev == -1) || nums[curr] > nums[prev]) ? 1 + lis(nums, n, curr + 1, curr) : 0;
         int notPick = 0 + lis(nums, n, curr + 1, prev);
 
-        t[curr][prev + 1] = Math.max(pick, notPick);
+        dp[curr][prev + 1] = Math.max(pick, notPick);
 
-        return t[curr][prev + 1];
+        return dp[curr][prev + 1];
     }
 
     public static int lisBinarySearch(int[] nums) {
@@ -57,14 +57,14 @@ public class LongestIncreasingSubsequence {
     public static int lisSpace(int[] nums) {
         int n = nums.length;
 
-        int t[] = new int[n];
-        Arrays.fill(t, 1);
+        int dp[] = new int[n];
+        Arrays.fill(dp, 1);
 
-        for (int i = 0; i <= n - 1; i++) {
-            for (int prev = 0; prev <= i - 1; prev++) {
+        for (int i = 0; i < n; i++) {
+            for (int prev = 0; prev < i; prev++) {
 
                 if (nums[prev] < nums[i]) {
-                    t[i] = Math.max(t[i], 1 + t[prev]);
+                    dp[i] = Math.max(dp[i], 1 + dp[prev]);
                 }
             }
         }
@@ -72,7 +72,7 @@ public class LongestIncreasingSubsequence {
         int max = -1;
 
         for (int i = 0; i < n; i++) {
-            max = Math.max(max, t[i]);
+            max = Math.max(max, dp[i]);
         }
 
         return max;
@@ -81,19 +81,19 @@ public class LongestIncreasingSubsequence {
     public static int longestIncreasingSubsequence(int[] nums) {
         int n = nums.length;
 
-        int t[][] = new int[n + 1][n + 1];
+        int dp[][] = new int[n + 1][n + 1];
 
         for (int curr = n - 1; curr >= 0; curr--) {
             for (int prev = curr - 1; prev >= -1; prev--) {
 
-                int pick = ((prev == -1) || nums[curr] > nums[prev]) ? 1 + t[curr + 1][curr + 1] : 0;
-                int notPick = 0 + t[curr + 1][prev + 1];
+                int pick = ((prev == -1) || nums[curr] > nums[prev]) ? 1 + dp[curr + 1][curr + 1] : 0;
+                int notPick = 0 + dp[curr + 1][prev + 1];
 
-                t[curr][prev + 1] = Math.max(pick, notPick);
+                dp[curr][prev + 1] = Math.max(pick, notPick);
             }
         }
 
-        return t[0][0];
+        return dp[0][0];
     }
 
     public static void main(String[] args) {
