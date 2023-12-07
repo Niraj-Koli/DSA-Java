@@ -1,6 +1,6 @@
 /*
- * Given two strings s and dp, return the number of distinct subsequences of s
- * which equals dp.
+ * Given two strings s and t, return the number of distinct subsequences of s
+ * which equals t.
  * 
  * The test cases are generated so that the answer fits on a 32-bit signed
  * integer.
@@ -61,18 +61,18 @@ public class DistinctSubsequence {
 
     public static void main(String[] args) {
         String s = "babgbag";
-        String dp = "bag";
+        String t = "bag";
 
-        int answer = numDistinct(s, dp);
+        int answer = numDistinct(s, t);
 
         System.out.println(answer);
     }
 }
 
 // class Solution {
-// public int numDistinct(String s, String dp) {
+// public int numDistinct(String s, String t) {
 // int m = s.length();
-// int n = dp.length();
+// int n = t.length();
 
 // int[] dp = new int[n];
 
