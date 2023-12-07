@@ -9,12 +9,12 @@
  */
 
 public class MatrixChainMultiplication {
-    public static int[][] t;
+    public static int[][] dp;
 
     public static int matrixChainMultiplicationRecursive(int[] nums) {
         int n = nums.length;
 
-        t = new int[n][n];
+        dp = new int[n][n];
 
         return mcm(nums, 1, n - 1);
     }
@@ -24,8 +24,8 @@ public class MatrixChainMultiplication {
             return 0;
         }
 
-        if (t[i][j] != 0) {
-            return t[i][j];
+        if (dp[i][j] != 0) {
+            return dp[i][j];
         }
 
         int min = Integer.MAX_VALUE;
@@ -36,33 +36,33 @@ public class MatrixChainMultiplication {
             min = Math.min(min, cost);
         }
 
-        t[i][j] = min;
+        dp[i][j] = min;
 
-        return t[i][j];
+        return dp[i][j];
     }
 
     public static int matrixChainMultiplicationIterative(int[] nums) {
         int n = nums.length;
 
-        int[][] t = new int[n + 1][n + 1];
+        int[][] dp = new int[n + 1][n + 1];
 
         for (int length = 2; length < n; length++) {
             for (int i = 1; i < n - length + 1; i++) {
                 int j = i + length - 1;
 
-                t[i][j] = Integer.MAX_VALUE;
+                dp[i][j] = Integer.MAX_VALUE;
 
                 for (int k = i; k < j; k++) {
-                    int cost = t[i][k] + t[k + 1][j] + (nums[i - 1] * nums[k] * nums[j]);
+                    int cost = dp[i][k] + dp[k + 1][j] + (nums[i - 1] * nums[k] * nums[j]);
 
-                    if (cost < t[i][j]) {
-                        t[i][j] = cost;
+                    if (cost < dp[i][j]) {
+                        dp[i][j] = cost;
                     }
                 }
             }
         }
 
-        return t[1][n - 1];
+        return dp[1][n - 1];
     }
 
     public static void main(String[] args) {
