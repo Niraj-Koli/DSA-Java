@@ -11,7 +11,7 @@
 import java.util.Arrays;
 
 public class MinimumFallingPathSum {
-    public static int[][] t = new int[100000][100000];
+    public static int[][] dp = new int[100000][100000];
 
     public static int solve(int i, int j, int m, int[][] matrix) {
         if (j < 0 || j >= m) {
@@ -22,23 +22,23 @@ public class MinimumFallingPathSum {
             return matrix[0][j];
         }
 
-        if (t[i][j] != 0) {
-            return t[i][j];
+        if (dp[i][j] != 0) {
+            return dp[i][j];
         }
 
         int up = matrix[i][j] + solve(i - 1, j, m, matrix);
         int leftDiagonal = matrix[i][j] + solve(i - 1, j - 1, m, matrix);
         int rightDiagonal = matrix[i][j] + solve(i - 1, j + 1, m, matrix);
 
-        return t[i][j] = Math.min(up, Math.min(leftDiagonal, rightDiagonal));
+        return dp[i][j] = Math.min(up, Math.min(leftDiagonal, rightDiagonal));
     }
 
     public static int getMaxPathSum(int[][] matrix) {
         int n = matrix.length;
         int m = matrix[0].length;
 
-        int t[][] = new int[n][m];
-        for (int row[] : t)
+        int dp[][] = new int[n][m];
+        for (int row[] : dp)
             Arrays.fill(row, -1);
 
         int max = Integer.MIN_VALUE;
@@ -55,28 +55,28 @@ public class MinimumFallingPathSum {
         int n = matrix.length;
         int m = matrix[0].length;
 
-        int[][] t = new int[n][m];
+        int[][] dp = new int[n][m];
 
         for (int j = 0; j < m; j++) {
-            t[0][j] = matrix[0][j];
+            dp[0][j] = matrix[0][j];
         }
 
         for (int i = 1; i < n; i++) {
             for (int j = 0; j < m; j++) {
 
-                int up = t[i - 1][j];
+                int up = dp[i - 1][j];
 
-                int leftDiagonal = j - 1 >= 0 ? t[i - 1][j - 1] : Integer.MAX_VALUE;
-                int rightDiagonal = j + 1 < m ? t[i - 1][j + 1] : Integer.MAX_VALUE;
+                int leftDiagonal = j - 1 >= 0 ? dp[i - 1][j - 1] : Integer.MAX_VALUE;
+                int rightDiagonal = j + 1 < m ? dp[i - 1][j + 1] : Integer.MAX_VALUE;
 
-                t[i][j] = matrix[i][j] + Math.min(up, Math.min(leftDiagonal, rightDiagonal));
+                dp[i][j] = matrix[i][j] + Math.min(up, Math.min(leftDiagonal, rightDiagonal));
             }
         }
 
         int min = Integer.MAX_VALUE;
 
         for (int k = 0; k < m; k++) {
-            min = Math.min(min, t[n - 1][k]);
+            min = Math.min(min, dp[n - 1][k]);
         }
 
         return min;
