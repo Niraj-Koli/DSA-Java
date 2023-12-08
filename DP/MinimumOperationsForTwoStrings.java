@@ -7,19 +7,19 @@
 
 public class MinimumOperationsForTwoStrings {
     public static int longestCommonSubsequence(String x, String y, int n, int m) {
-        int[][] t = new int[n + 1][m + 1];
+        int[][] dp = new int[n + 1][m + 1];
 
         for (int i = 1; i < n + 1; i++) {
             for (int j = 1; j < m + 1; j++) {
                 if (x.charAt(i - 1) == y.charAt(j - 1)) {
-                    t[i][j] = 1 + t[i - 1][j - 1];
+                    dp[i][j] = 1 + dp[i - 1][j - 1];
                 } else {
-                    t[i][j] = Math.max(t[i][j - 1], t[i - 1][j]);
+                    dp[i][j] = Math.max(dp[i][j - 1], dp[i - 1][j]);
                 }
             }
         }
 
-        return t[n][m];
+        return dp[n][m];
     }
 
     public static int minOperations(String x, String y) {
@@ -45,26 +45,26 @@ public class MinimumOperationsForTwoStrings {
 // public int minDistance(String word1, String word2) {
 // int m = word1.length();
 // int n = word2.length();
-// int[] t = new int[n + 1];
+// int[] dp = new int[n + 1];
 
 // for (int i = 0; i <= n; i++) {
-// t[i] = i;
+// dp[i] = i;
 // }
 
 // for (int i = 1; i <= m; i++) {
-// int pre = t[0];
-// t[0] = i;
+// int pre = dp[0];
+// dp[0] = i;
 // for (int j = 1; j <= n; j++) {
-// int tmp = t[j];
+// int tmp = dp[j];
 // if (word1.charAt(i - 1) == word2.charAt(j - 1)) {
-// t[j] = pre;
+// dp[j] = pre;
 // } else {
-// t[j] = 1 + Math.min(t[j - 1], t[j]);
+// dp[j] = 1 + Math.min(dp[j - 1], dp[j]);
 // }
 // pre = tmp;
 // }
 // }
 
-// return t[n];
+// return dp[n];
 // }
 // }
