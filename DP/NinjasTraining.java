@@ -11,11 +11,11 @@
  */
 
 public class NinjasTraining {
-    public static int[][] t = new int[100000][100000];
+    public static int[][] dp = new int[100000][100000];
 
     public static int solve(int day, int last, int[][] points) {
-        if (t[day][last] != 0) {
-            return t[day][last];
+        if (dp[day][last] != 0) {
+            return dp[day][last];
         }
 
         if (day == 0) {
@@ -27,9 +27,9 @@ public class NinjasTraining {
                 }
             }
 
-            t[day][last] = max;
+            dp[day][last] = max;
 
-            return t[day][last];
+            return dp[day][last];
         }
 
         int max = 0;
@@ -41,33 +41,33 @@ public class NinjasTraining {
             }
         }
 
-        t[day][last] = max;
+        dp[day][last] = max;
 
-        return t[day][last];
+        return dp[day][last];
     }
 
     public static int ninjaTraining(int[][] points) {
         int n = points.length;
 
-        int[][] t = new int[n][4];
+        int[][] dp = new int[n][4];
 
-        t[0][0] = Math.max(points[0][1], points[0][2]);
-        t[0][1] = Math.max(points[0][0], points[0][2]);
-        t[0][2] = Math.max(points[0][0], points[0][1]);
-        t[0][3] = Math.max(points[0][0], Math.max(points[0][1], points[0][2]));
+        dp[0][0] = Math.max(points[0][1], points[0][2]);
+        dp[0][1] = Math.max(points[0][0], points[0][2]);
+        dp[0][2] = Math.max(points[0][0], points[0][1]);
+        dp[0][3] = Math.max(points[0][0], Math.max(points[0][1], points[0][2]));
 
         for (int day = 1; day < n; day++) {
             for (int last = 0; last < 4; last++) {
                 for (int task = 0; task <= 2; task++) {
                     if (task != last) {
-                        int activity = points[day][task] + t[day - 1][task];
-                        t[day][last] = Math.max(t[day][last], activity);
+                        int activity = points[day][task] + dp[day - 1][task];
+                        dp[day][last] = Math.max(dp[day][last], activity);
                     }
                 }
             }
         }
 
-        return t[n - 1][3];
+        return dp[n - 1][3];
     }
 
     public static void main(String[] args) {
