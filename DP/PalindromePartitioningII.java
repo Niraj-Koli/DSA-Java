@@ -9,7 +9,7 @@
  */
 
 public class PalindromePartitioningII {
-    public static int[][] t;
+    public static int[][] dp;
 
     public static boolean isPalindrome(String s, int i, int j) {
         while (i < j) {
@@ -27,7 +27,7 @@ public class PalindromePartitioningII {
     public static int minCut(String s) {
         int n = s.length();
 
-        t = new int[n][n];
+        dp = new int[n][n];
 
         return palindromeCuts(s, 0, n - 1);
     }
@@ -37,24 +37,24 @@ public class PalindromePartitioningII {
             return 0;
         }
 
-        if (t[i][j] != 0) {
-            return t[i][j];
+        if (dp[i][j] != 0) {
+            return dp[i][j];
         }
 
         int min = Integer.MAX_VALUE;
 
         for (int k = i; k <= j - 1; k++) {
-            int left = t[i][k] != 0 ? t[i][k] : palindromeCuts(s, i, k);
-            int right = t[k + 1][j] != 0 ? t[k + 1][j] : palindromeCuts(s, k + 1, j);
+            int left = dp[i][k] != 0 ? dp[i][k] : palindromeCuts(s, i, k);
+            int right = dp[k + 1][j] != 0 ? dp[k + 1][j] : palindromeCuts(s, k + 1, j);
 
             int cuts = 1 + left + right;
 
             min = Math.min(min, cuts);
         }
 
-        t[i][j] = min;
+        dp[i][j] = min;
 
-        return t[i][j];
+        return dp[i][j];
     }
 
     public static int minPalPartion(String s) {
