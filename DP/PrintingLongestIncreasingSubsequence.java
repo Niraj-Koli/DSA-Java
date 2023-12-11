@@ -14,14 +14,14 @@ public class PrintingLongestIncreasingSubsequence {
     public static List<Integer> printLIS(int[] nums) {
         int n = nums.length;
 
-        int[] t = new int[n];
+        int[] dp = new int[n];
         int[] hash = new int[n];
 
         for (int i = 0; i < n; i++) {
             hash[i] = i;
-            for (int prev = 0; prev <= i - 1; prev++) {
-                if (nums[prev] < nums[i] && 1 + t[prev] > t[i]) {
-                    t[i] = 1 + t[prev];
+            for (int prev = 0; prev < i; prev++) {
+                if (nums[prev] < nums[i] && 1 + dp[prev] > dp[i]) {
+                    dp[i] = 1 + dp[prev];
                     hash[i] = prev;
                 }
             }
@@ -31,8 +31,8 @@ public class PrintingLongestIncreasingSubsequence {
         int lastIndex = -1;
 
         for (int i = 0; i < n; i++) {
-            if (t[i] > ans) {
-                ans = t[i];
+            if (dp[i] > ans) {
+                ans = dp[i];
                 lastIndex = i;
             }
         }
