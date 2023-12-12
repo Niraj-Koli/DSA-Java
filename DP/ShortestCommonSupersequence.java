@@ -3,8 +3,8 @@
  * str1 and str2 as subsequences. If there are multiple valid strings, return
  * any of them.
  * 
- * A string s is a subsequence of string t if deleting some number of characters
- * from t (possibly 0) results in the string s.
+ * A string s is a subsequence of string dp if deleting some number of characters
+ * from dp (possibly 0) results in the string s.
  */
 
 public class ShortestCommonSupersequence {
@@ -12,14 +12,14 @@ public class ShortestCommonSupersequence {
         int n = x.length();
         int m = y.length();
 
-        int[][] t = new int[n + 1][m + 1];
+        int[][] dp = new int[n + 1][m + 1];
 
         for (int i = 1; i < n + 1; i++) {
             for (int j = 1; j < m + 1; j++) {
                 if (x.charAt(i - 1) == y.charAt(j - 1)) {
-                    t[i][j] = 1 + t[i - 1][j - 1];
+                    dp[i][j] = 1 + dp[i - 1][j - 1];
                 } else {
-                    t[i][j] = Math.max(t[i][j - 1], t[i - 1][j]);
+                    dp[i][j] = Math.max(dp[i][j - 1], dp[i - 1][j]);
                 }
             }
         }
@@ -36,7 +36,7 @@ public class ShortestCommonSupersequence {
                 i--;
                 j--;
             } else {
-                if (t[i][j - 1] > t[i - 1][j]) {
+                if (dp[i][j - 1] > dp[i - 1][j]) {
                     result.append(y.charAt(j - 1));
 
                     j--;
@@ -79,13 +79,13 @@ public class ShortestCommonSupersequence {
 // int n = str1.length();
 // int m = str2.length();
 
-// int[][] t = new int[n + 1][m + 1];
+// int[][] dp = new int[n + 1][m + 1];
 // for (int i = n - 1; i >= 0; i--) {
 // for (int j = m - 1; j >= 0; j--) {
 // if (char1[i] == char2[j])
-// t[i][j] = t[i + 1][j + 1] + 1;
+// dp[i][j] = dp[i + 1][j + 1] + 1;
 // else
-// t[i][j] = Math.max(t[i + 1][j], t[i][j + 1]);
+// dp[i][j] = Math.max(dp[i + 1][j], dp[i][j + 1]);
 // }
 // }
 // StringBuilder sb = new StringBuilder();
@@ -95,7 +95,7 @@ public class ShortestCommonSupersequence {
 // sb.append(char1[i]);
 // i++;
 // j++;
-// } else if (t[i][j] == t[i + 1][j]) {
+// } else if (dp[i][j] == dp[i + 1][j]) {
 // sb.append(char1[i]);
 // i++;
 // } else {
