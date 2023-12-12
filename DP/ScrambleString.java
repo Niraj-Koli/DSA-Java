@@ -1,5 +1,5 @@
 /*
- * We can scramble a string s to get a string t using the following algorithm:
+ * We can scramble a string s to get a string dp using the following algorithm:
  * 
  * If the length of the string is 1, stop.
  * If the length of the string is > 1, do the following:
