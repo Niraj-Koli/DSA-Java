@@ -20,10 +20,9 @@ public class GenerateSubstrings {
 
         List<String> result = new ArrayList<String>();
 
-        for (int start = 0; start < n; start++) {
-            for (int end = start + 1; end <= n; end++) {
-                String substring = s.substring(start, end);
-                result.add(substring);
+        for (int i = 0; i < n; i++) {
+            for (int j = i + 1; j <= n; j++) {
+                result.add(s.substring(i, j));
             }
         }
 
