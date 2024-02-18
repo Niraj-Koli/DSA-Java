@@ -20,7 +20,7 @@ public class BreadthFirstSearch {
             res.add(node);
 
             for (int vertex : adj.get(node)) {
-                if (vis[vertex] == false) {
+                if (!vis[vertex]) {
                     vis[vertex] = true;
                     queue.offer(vertex);
                 }
