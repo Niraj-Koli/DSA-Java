@@ -3,10 +3,10 @@
  * k is non-negative.
  */
 
-public class RotateArray {
+class RotateArray {
 
-    // Time -> O(n)
-    // Space -> O(1)
+    // Time -> O(n) //
+    // Space -> O(1) //
 
     private static void reverse(int[] nums, int left, int right) {
         while (left < right) {

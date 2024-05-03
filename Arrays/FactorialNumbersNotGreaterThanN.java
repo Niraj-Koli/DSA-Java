@@ -10,7 +10,7 @@
 
 import java.util.ArrayList;
 
-public class FactorialNumbersNotGreaterThanN {
+class FactorialNumbersNotGreaterThanN {
 
     // Time -> O(n) //
     // Space -> O(n) //
@@ -25,6 +25,7 @@ public class FactorialNumbersNotGreaterThanN {
             fact *= count;
 
             res.add(fact);
+            
             count++;
         }
 

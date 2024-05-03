@@ -11,7 +11,7 @@
  * answer to the ‘ith’ query.
  */
 
-public class CountOfGreaterElementsToTheRight {
+class CountOfGreaterElementsToTheRight {
 
     // Time -> O(n * m) //
     // Space -> O(m) //
@@ -24,6 +24,7 @@ public class CountOfGreaterElementsToTheRight {
 
         for (int i = 0; i < m; i++) {
             int queryIndex = query[i];
+
             for (int j = queryIndex + 1; j < n; j++) {
                 if (nums[j] > nums[queryIndex]) {
                     res[i]++;

@@ -11,13 +11,13 @@
 import java.util.Arrays;
 import java.util.HashMap;
 
-public class HandOfStraights {
+class HandOfStraights {
 
     // Time -> O(n * log(n)) //
     // Space -> O(n) //
 
     private static boolean isNStraightHand(int[] hand, int groupSize) {
-        HashMap<Integer, Integer> map = new HashMap<>();
+        HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
 
         for (int num : hand) {
             map.put(num, map.getOrDefault(num, 0) + 1);
@@ -33,6 +33,7 @@ public class HandOfStraights {
                     if (map.getOrDefault(nextNum, 0) == 0) {
                         return false;
                     }
+
                     map.put(nextNum, map.get(nextNum) - 1);
                 }
             }

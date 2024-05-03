@@ -11,10 +11,10 @@
 
 import java.util.Arrays;
 
-public class AssignCookies {
+class AssignCookies {
 
-    // Time -> O((n * log n) + (m * log m))
-    // Space -> O(1)
+    // Time -> O((n * log n) + (m * log m) + (max(n, m))) //
+    // Space -> O(1) //
 
     private static int findContentChildren(int[] g, int[] s) {
         int n = g.length;

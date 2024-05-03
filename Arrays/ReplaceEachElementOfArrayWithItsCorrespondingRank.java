@@ -17,10 +17,10 @@
 import java.util.Arrays;
 import java.util.HashMap;
 
-public class ReplaceEachElementOfArrayWithItsCorrespondingRank {
+class ReplaceEachElementOfArrayWithItsCorrespondingRank {
 
-    // Time -> O(n * log(n))
-    // Space -> O(n)
+    // Time -> O((n * log(n)) * (2 * n)) //
+    // Space -> O(n) //
 
     private static int[] replaceWithRank(int[] nums) {
         int n = nums.length;

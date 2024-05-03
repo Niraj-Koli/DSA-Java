@@ -13,10 +13,10 @@
  * Return k.
  */
 
-public class RemoveDuplicatesFromSortedArray {
+class RemoveDuplicatesFromSortedArray {
 
-    // Time -> O(n)
-    // Space -> O(1)
+    // Time -> O(n) //
+    // Space -> O(1) //
 
     private static int removeDuplicates(int[] nums) {
         int n = nums.length;

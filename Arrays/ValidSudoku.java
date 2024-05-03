@@ -13,8 +13,12 @@
  * Only the filled cells need to be validated according to the mentioned rules.
  */
 
-public class ValidSudoku {
-    public static boolean isValid(char[][] board, int row, int col, char ch) {
+class ValidSudoku {
+
+    // Time -> O(1) //
+    // Space -> O(1) //
+
+    private static boolean isValid(char[][] board, int row, int col, char ch) {
         for (int i = 0; i < 9; i++) {
             if (board[i][col] == ch && i != row) {
                 return false;
@@ -31,10 +35,11 @@ public class ValidSudoku {
                 return false;
             }
         }
+
         return true;
     }
 
-    public static boolean isValidSudoku(char[][] board) {
+    private static boolean isValidSudoku(char[][] board) {
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
                 if (board[i][j] != '.') {
@@ -44,6 +49,7 @@ public class ValidSudoku {
                 }
             }
         }
+
         return true;
     }
 
@@ -60,59 +66,6 @@ public class ValidSudoku {
                 { '.', '.', '.', '.', '8', '.', '.', '7', '9' }
         };
 
-        boolean answer = isValidSudoku(board);
-
-        System.out.println(answer);
+        System.out.println(isValidSudoku(board));
     }
 }
-
-// class Solution {
-// public boolean isValidSudoku(char[][] board) {
-// for (int i = 0; i < board.length; i++) {
-// boolean c = checkGroup(board[i]);
-// if (!c) {
-// return false;
-// }
-// }
-// for (int i = 0; i < board[0].length; i++) {
-// char[] arr = new char[9];
-// for (int j = 0; j < 9; j++) {
-// arr[j] = board[j][i];
-// }
-// boolean c = checkGroup(arr);
-// if (!c) {
-// return false;
-// }
-// }
-// for (int i = 0; i < 3; i++) {
-// for (int j = 0; j < 3; j++) {
-// char[] arr = new char[9];
-// for (int k = 0; k < 3; k++) {
-// for (int l = 0; l < 3; l++) {
-// arr[3 * k + l] = board[3 * i + k][3 * j + l];
-// }
-// }
-// boolean c = checkGroup(arr);
-// if (!c) {
-// return false;
-// }
-// }
-// }
-// return true;
-// }
-
-// private boolean checkGroup(char[] group) {
-// Map<Character, Integer> m = new HashMap<>();
-// for (int i = 0; i < group.length; i++) {
-// if (group[i] == '.') {
-// continue;
-// }
-// Integer v = m.get(group[i]);
-// if (v != null) {
-// return false;
-// }
-// m.put(group[i], 1);
-// }
-// return true;
-// }
-// }

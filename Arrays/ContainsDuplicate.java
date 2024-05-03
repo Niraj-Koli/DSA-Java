@@ -5,18 +5,22 @@
 
 import java.util.HashSet;
 
-public class ContainsDuplicate {
-    public static boolean containsDuplicate(int[] nums) {
-        int len = nums.length;
+class ContainsDuplicate {
+
+    // Time -> O(n) //
+    // Space -> O(n) //
+
+    private static boolean containsDuplicate(int[] nums) {
+        int n = nums.length;
 
         HashSet<Integer> set = new HashSet<Integer>();
 
-        for (int i = 0; i < len; i++) {
+        for (int i = 0; i < n; i++) {
             if (set.contains(nums[i])) {
                 return true;
-            } else {
-                set.add(nums[i]);
             }
+
+            set.add(nums[i]);
         }
 
         return false;
@@ -25,27 +29,6 @@ public class ContainsDuplicate {
     public static void main(String[] args) {
         int[] nums = { 1, 1, 1, 3, 3, 4, 3, 2, 4, 2 };
 
-        boolean answer = containsDuplicate(nums);
-
-        System.out.println(answer);
+        System.out.println(containsDuplicate(nums));
     }
 }
-
-// class Solution {
-// public boolean containsDuplicate(int[] nums) {
-// for (int i = 1; i < nums.length; i++) {
-// int current = nums[i];
-// int j = i - 1;
-// while (j >= 0 && nums[j] > current) {
-// nums[j + 1] = nums[j];
-// j--;
-// }
-
-// if (j >= 0 && nums[j] == current)
-// return true;
-// nums[j + 1] = current;
-// }
-
-// return false;
-// }
-// }

@@ -3,39 +3,27 @@
  * the only number in the range that is missing from the array.
  */
 
-import java.util.Arrays;
+class MissingNumber {
 
-public class MissingNumber {
-    public static int missingNumber(int[] nums) {
-        Arrays.sort(nums);
+    // Time -> O(n) //
+    // Space -> O(1) //
 
+    private static int missingNumber(int[] nums) {
         int n = nums.length;
 
-        for (int i = 0; i < n; i++) {
-            if (i != nums[i]) {
-                return i;
-            }
+        int xor = 0;
+        int index = 0;
+
+        for (index = 0; index < n; index++) {
+            xor ^= index ^ nums[index];
         }
 
-        return n;
+        return xor ^ index;
     }
 
     public static void main(String[] args) {
         int[] nums = { 9, 6, 4, 2, 3, 5, 7, 0, 1 };
 
-        int answer = missingNumber(nums);
-
-        System.out.println(answer);
+        System.out.println(missingNumber(nums));
     }
 }
-
-// class Solution {
-// public int missingNumber(int[] nums) {
-// int n = nums.length;
-// int sumOfAll = n * (n + 1) / 2;
-// for (int i : nums) {
-// sumOfAll -= i;
-// }
-// return sumOfAll;
-// }
-// }

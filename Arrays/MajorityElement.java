@@ -5,10 +5,10 @@
  * may assume that the majority element always exists in the array.
  */
 
-public class MajorityElement {
+class MajorityElement {
 
-    // Time -> O(n)
-    // Space -> O(1)
+    // Time -> O(n) //
+    // Space -> O(1) //
 
     private static int majorityElement(int[] nums) {
         int count = 0;

@@ -5,10 +5,10 @@
  * Note that you must do this in-place without making a copy of the array.
  */
 
-public class MoveZeroes {
+class MoveZeroes {
 
-    // Time -> O(n)
-    // Space -> O(1)
+    // Time -> O(n) //
+    // Space -> O(1) //
 
     private static void moveZeroes(int[] nums) {
         int n = nums.length;

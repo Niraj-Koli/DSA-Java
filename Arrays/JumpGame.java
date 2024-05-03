@@ -6,10 +6,10 @@
  * Return true if you can reach the last index, or false otherwise.
  */
 
-public class JumpGame {
+class JumpGame {
 
-    // Time -> O(n)
-    // Space -> O(1)
+    // Time -> O(n) //
+    // Space -> O(1) //
 
     private static boolean canJump(int[] nums) {
         int n = nums.length;

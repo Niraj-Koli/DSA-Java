@@ -15,7 +15,7 @@
 
 import java.util.Arrays;
 
-public class JobSequencingProblem {
+class JobSequencingProblem {
     private static class Job {
         private int deadline;
         private int profit;

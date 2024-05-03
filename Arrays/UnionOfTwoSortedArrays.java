@@ -13,10 +13,10 @@
 import java.util.ArrayList;
 import java.util.TreeSet;
 
-public class UnionOfTwoSortedArrays {
+class UnionOfTwoSortedArrays {
 
-    // Time -> O((n + m) * size)
-    // Space -> O(n + m + size)
+    // Time -> O((n + m) * size) //
+    // Space -> O(n + m + size) //
 
     private static ArrayList<Integer> findUnion(int[] nums1, int[] nums2) {
         TreeSet<Integer> set = new TreeSet<Integer>();

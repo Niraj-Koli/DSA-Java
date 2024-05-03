@@ -12,10 +12,10 @@
 
 import java.util.Arrays;
 
-public class MinimumPlatforms {
+class MinimumPlatforms {
 
-    // Time -> O(n * log(n))
-    // Space -> O(1)
+    // Time -> O(n * log(n)) //
+    // Space -> O(1) //
 
     private static int findPlatform(int n, int[] arrival, int[] departure) {
         Arrays.sort(arrival);

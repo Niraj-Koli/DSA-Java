@@ -9,10 +9,10 @@
 
 import java.util.ArrayList;
 
-public class ReversePairs {
+class ReversePairs {
 
-    // Time -> O(n log(n))
-    // Space -> O(n)
+    // Time -> O((n * log(n)) + (n)) //
+    // Space -> O(n) //
 
     private static void merge(int[] nums, int low, int mid, int high) {
         ArrayList<Integer> temp = new ArrayList<Integer>();

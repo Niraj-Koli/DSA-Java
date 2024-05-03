@@ -11,10 +11,10 @@
 
 import java.util.ArrayList;
 
-public class SuperiorElements {
+class SuperiorElements {
 
-    // Time -> O(n)
-    // Space -> O(n)
+    // Time -> O(n) //
+    // Space -> O(n) //
 
     private static ArrayList<Integer> superiorElements(int[] nums) {
         int n = nums.length;

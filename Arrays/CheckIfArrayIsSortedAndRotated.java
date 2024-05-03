@@ -10,10 +10,10 @@
  * operation.
  */
 
-public class CheckIfArrayIsSortedAndRotated {
+class CheckIfArrayIsSortedAndRotated {
 
-    // Time -> O(n)
-    // Space -> O(1)
+    // Time -> O(n) //
+    // Space -> O(1) //
 
     private static boolean check(int[] nums) {
         int n = nums.length;

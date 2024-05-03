@@ -6,20 +6,21 @@
  */
 
 import java.util.ArrayList;
-import java.util.List;
 
-public class PascalTriangle {
+class PascalTriangle {
 
-    public static List<List<Integer>> generate(int numRows) {
-        List<List<Integer>> triangle = new ArrayList<>();
+    // Time -> O(n^2) //
+    // Space -> O(n^2) //
+
+    private static ArrayList<ArrayList<Integer>> generate(int numRows) {
+        ArrayList<ArrayList<Integer>> triangle = new ArrayList<ArrayList<Integer>>();
 
         triangle.add(new ArrayList<>());
         triangle.get(0).add(1);
 
         for (int i = 1; i < numRows; i++) {
-            List<Integer> row = new ArrayList<>();
-
-            List<Integer> prevRow = triangle.get(i - 1);
+            ArrayList<Integer> row = new ArrayList<Integer>();
+            ArrayList<Integer> prevRow = triangle.get(i - 1);
 
             row.add(1);
 
@@ -28,7 +29,7 @@ public class PascalTriangle {
 
                 row.add(sum);
             }
-
+            
             row.add(1);
 
             triangle.add(row);
@@ -40,35 +41,6 @@ public class PascalTriangle {
     public static void main(String[] args) {
         int numRows = 5;
 
-        List<List<Integer>> answer = generate(numRows);
-
-        for (List<Integer> row : answer) {
-            for (int num : row) {
-                System.out.print(num + " ");
-            }
-            System.out.println();
-        }
+        System.out.println(generate(numRows));
     }
 }
-
-// class Solution {
-// public List<List<Integer>> generate(int numRows) {
-// List<List<Integer>> num = new ArrayList<>();
-// for (int i = 1; i <= numRows; i++) {
-// List<Integer> arr = new ArrayList<>();
-// int ans = 1;
-// arr.add(1);
-// for (int j = 1; j < i; j++) {
-// ans = ans * (i - j);
-// ans = ans / j;
-// arr.add(ans);
-// }
-
-// num.add(arr);
-
-// }
-
-// return num;
-
-// }
-// }

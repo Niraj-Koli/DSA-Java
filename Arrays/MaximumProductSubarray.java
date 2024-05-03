@@ -6,45 +6,27 @@
  * The test cases are generated so that the answer will fit in a 32-bit integer.
  */
 
-public class MaximumProductSubarray {
-    public static int maxProduct(int[] nums) {
-        int len = nums.length;
+class MaximumProductSubarray {
 
-        int i = 0;
-        int j = 0;
+    // Time -> O(n) //
+    // Space -> O(1) //
 
-        int product = 1;
-        int max = Integer.MIN_VALUE;
+    private static int maxProduct(int[] nums) {
+        int n = nums.length;
 
-        while (j < len) {
-            if (nums[j] == 0) {
-                max = Math.max(max, 0);
+        int prefix = 1;
+        int suffix = 1;
 
-                while (i < j - 1) {
-                    product /= nums[i];
+        int max = nums[0];
 
-                    max = Math.max(max, product);
+        for (int i = 0; i < n; i++) {
+            prefix = prefix == 0 ? 1 : prefix;
+            suffix = suffix == 0 ? 1 : suffix;
 
-                    i++;
-                }
+            prefix *= nums[i];
+            suffix *= nums[n - 1 - i];
 
-                product = 1;
-
-                i = j + 1;
-            } else {
-                product *= nums[j];
-
-                max = Math.max(max, product);
-            }
-            j++;
-        }
-
-        while (i < j - 1) {
-            product /= nums[i];
-
-            max = Math.max(max, product);
-
-            i++;
+            max = Math.max(max, Math.max(prefix, suffix));
         }
 
         return max;
@@ -53,32 +35,6 @@ public class MaximumProductSubarray {
     public static void main(String[] args) {
         int[] nums = { 2, 3, -2, 4 };
 
-        int answer = maxProduct(nums);
-
-        System.out.println(answer);
+        System.out.println(maxProduct(nums));
     }
 }
-
-// class Solution {
-// public int maxProduct(int[] nums) {
-// int max = Integer.MIN_VALUE;
-// int curr = 1;
-// for (int i = 0; i < nums.length; i++) {
-// curr *= nums[i];
-// max = Math.max(max, curr);
-// if (curr == 0) {
-// curr = 1;
-// }
-// }
-// curr = 1;
-// for (int i = nums.length - 1; i >= 0; i--) {
-// curr *= nums[i];
-// max = Math.max(curr, max);
-// if (curr == 0) {
-// curr = 1;
-// }
-// }
-// System.gc();
-// return max;
-// }
-// }

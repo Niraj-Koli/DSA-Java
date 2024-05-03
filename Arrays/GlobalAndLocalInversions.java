@@ -17,9 +17,9 @@
 
 import java.util.ArrayList;
 
-public class GlobalAndLocalInversions {
+class GlobalAndLocalInversions {
 
-    // Time -> O(n log(n))
+    // Time -> O((n * log(n)) + (n))
     // Space -> O(n)
 
     private static int merge(int[] nums, int low, int mid, int high) {

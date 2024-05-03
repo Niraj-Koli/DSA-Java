@@ -6,10 +6,10 @@
  * constant extra space.
  */
 
-public class SingleNumber {
+class SingleNumber {
 
-    // Time -> O(n)
-    // Space -> O(1)
+    // Time -> O(n) //
+    // Space -> O(1) //
 
     private static int singleNumber(int[] nums) {
         int res = 0;

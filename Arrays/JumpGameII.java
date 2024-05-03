@@ -12,10 +12,10 @@
  * generated such that you can reach nums[n - 1].
  */
 
-public class JumpGameII {
+class JumpGameII {
 
-    // Time -> O(n)
-    // Space -> O(1)
+    // Time -> O(n) //
+    // Space -> O(1) //
 
     private static int jump(int[] nums) {
         int n = nums.length;
@@ -26,6 +26,7 @@ public class JumpGameII {
 
         for (int i = 0; i < n - 1; i++) {
             nextIntervalEnd = Math.max(nextIntervalEnd, i + nums[i]);
+
             if (i == currentIntervalEnd) {
                 currentIntervalEnd = nextIntervalEnd;
                 jumps++;

@@ -12,7 +12,7 @@
 
 import java.util.Arrays;
 
-public class NMeetingsInOneRoom {
+class NMeetingsInOneRoom {
     private static class Meeting {
         private int start;
         private int end;
@@ -23,7 +23,7 @@ public class NMeetingsInOneRoom {
         }
     }
 
-    // Time -> O(n * log(n)) //
+    // Time -> O(n * log(n) * (n)) //
     // Space -> O(n) //
 
     private static int maxMeetings(int n, int start[], int end[]) {
@@ -33,7 +33,7 @@ public class NMeetingsInOneRoom {
             meetings[i] = new Meeting(start[i], end[i]);
         }
 
-        Arrays.sort(meetings, (meet1, meet2) -> meet1.end - meet2.end);
+        Arrays.sort(meetings, (meet1, meet2) -> Integer.compare(meet1.end, meet2.end));
 
         int endTime = meetings[0].end;
 

@@ -3,10 +3,10 @@
  * the array.
  */
 
-public class MaxConsecutiveOnes {
+class MaxConsecutiveOnes {
 
-    // Time -> O(n)
-    // Space -> O(1)
+    // Time -> O(n) //
+    // Space -> O(1) //
 
     private static int findMaxConsecutiveOnes(int[] nums) {
         int onesSoFar = 0;

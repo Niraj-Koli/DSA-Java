@@ -9,66 +9,44 @@
  * division operation.
  */
 
-public class ProductOfArrayExceptSelf {
-    public static int[] productExceptSelf(int[] nums) {
-        int len = nums.length;
+class ProductOfArrayExceptSelf {
 
-        int[] result = new int[len];
-        int[] prefixProducts = new int[len];
-        int[] suffixProducts = new int[len];
+    // Time -> O(3 * n) //
+    // Space -> O(n) //
+
+    private static int[] productExceptSelf(int[] nums) {
+        int n = nums.length;
+
+        int[] res = new int[n];
+        int[] prefixProducts = new int[n];
+        int[] suffixProducts = new int[n];
 
         prefixProducts[0] = 1;
 
-        for (int i = 1; i < len; i++) {
+        for (int i = 1; i < n; i++) {
             prefixProducts[i] = prefixProducts[i - 1] * nums[i - 1];
         }
 
-        suffixProducts[len - 1] = 1;
+        suffixProducts[n - 1] = 1;
 
-        for (int j = len - 2; j >= 0; j--) {
+        for (int j = n - 2; j >= 0; j--) {
             suffixProducts[j] = suffixProducts[j + 1] * nums[j + 1];
         }
 
-        for (int k = 0; k < len; k++) {
-            result[k] = prefixProducts[k] * suffixProducts[k];
+        for (int k = 0; k < n; k++) {
+            res[k] = prefixProducts[k] * suffixProducts[k];
         }
 
-        return result;
+        return res;
     }
 
     public static void main(String[] args) {
         int[] nums = { 1, 2, 3, 4 };
 
-        int[] answer = productExceptSelf(nums);
+        int[] ans = productExceptSelf(nums);
 
-        for (int ans : answer) {
-            System.out.print(ans + " ");
+        for (int an : ans) {
+            System.out.print(an + " ");
         }
     }
 }
-
-// class Solution {
-// public int[] productExceptSelf(int[] nums) {
-// int result[] = new int[nums.length];
-// int prefix[] = new int[nums.length];
-// int suffix[] = new int[nums.length];
-
-// prefix[0] = nums[0];
-// for (int i = 1; i < nums.length; i++) {
-// prefix[i] = prefix[i - 1] * nums[i];
-// }
-
-// suffix[nums.length - 1] = nums[nums.length - 1];
-// for (int i = nums.length - 2; i >= 0; i--) {
-// suffix[i] = suffix[i + 1] * nums[i];
-// }
-// result[0] = suffix[1];
-// result[nums.length - 1] = prefix[nums.length - 2];
-// for (int i = 1; i < nums.length - 1; i++) {
-// result[i] = prefix[i - 1] * suffix[i + 1];
-// }
-
-// return result;
-
-// }
-// }

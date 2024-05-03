@@ -21,17 +21,22 @@
  * The replacement must be in place and use only constant extra memory.
  */
 
-public class NextPermutation {
+class NextPermutation {
 
-    public static int[] nextPermutation(int[] nums) {
-        int i = nums.length - 2;
+    // Time -> O(n) //
+    // Space -> O(1) //
+
+    private static void nextPermutation(int[] nums) {
+        int n = nums.length;
+
+        int i = n - 2;
 
         while (i >= 0 && nums[i] >= nums[i + 1]) {
             i--;
         }
 
         if (i >= 0) {
-            int j = nums.length - 1;
+            int j = n - 1;
 
             while (nums[j] <= nums[i]) {
                 j--;
@@ -41,17 +46,15 @@ public class NextPermutation {
         }
 
         reverse(nums, i + 1);
-
-        return nums;
     }
 
-    public static void swap(int[] nums, int i, int j) {
+    private static void swap(int[] nums, int i, int j) {
         int temp = nums[i];
         nums[i] = nums[j];
         nums[j] = temp;
     }
 
-    public static void reverse(int[] nums, int start) {
+    private static void reverse(int[] nums, int start) {
         int i = start;
         int j = nums.length - 1;
 
@@ -63,37 +66,12 @@ public class NextPermutation {
     }
 
     public static void main(String[] args) {
-        int[] nums = { 1, 3, 2 };
+        int[] nums = { 1, 2, 3 };
 
-        int[] answer = nextPermutation(nums);
+        nextPermutation(nums);
 
-        for (int ans : answer) {
-            System.out.print(ans + " ");
+        for (int num : nums) {
+            System.out.print(num + " ");
         }
     }
 }
-
-// class Solution {
-// public List<List<Integer>> generate(int numRows) {
-
-// List<List<Integer>> ans = new ArrayList<>();
-
-// for (int row = 1; row <= numRows; row++) {
-// List<Integer> tempLst = new ArrayList<>(); // temporary list
-// for (int col = 1; col <= row; col++) {
-// tempLst.add(ncr(row - 1, col - 1));
-// }
-// ans.add(tempLst);
-// }
-// return ans;
-// }
-
-// public static int ncr(int n, int r) {
-// long res = 1;
-// for (int i = 0; i < r; i++) {
-// res = res * (n - i);
-// res = res / (i + 1);
-// }
-// return (int) res;
-// }
-// }

@@ -11,10 +11,10 @@
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class FourSum {
+class FourSum {
 
-    // Time -> O(n^3)
-    // Space -> O(n^2)
+    // Time -> O(n^3) // 
+    // Space -> O(n^2) //
 
     private static ArrayList<ArrayList<Integer>> fourSum(int[] nums, int target) {
         int n = nums.length;
@@ -47,7 +47,7 @@ public class FourSum {
                     } else if (sum > target) {
                         l--;
                     } else if (sum == target) {
-                        res.add(new ArrayList<>(Arrays.asList(nums[i], nums[j], nums[k], nums[l])));
+                        res.add(new ArrayList<Integer>(Arrays.asList(nums[i], nums[j], nums[k], nums[l])));
 
                         k++;
                         l--;

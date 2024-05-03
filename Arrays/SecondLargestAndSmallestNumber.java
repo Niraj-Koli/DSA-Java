@@ -7,10 +7,10 @@
  * of size 2.
  */
 
-public class SecondLargestAndSmallestNumber {
+class SecondLargestAndSmallestNumber {
 
-    // Time -> O(n)
-    // Space -> O(1)
+    // Time -> O(n) //
+    // Space -> O(1) //
 
     private static int[] getSecondOrderElements(int[] nums) {
         int n = nums.length;

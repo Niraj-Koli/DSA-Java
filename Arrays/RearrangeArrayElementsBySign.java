@@ -13,10 +13,10 @@
  * aforementioned conditions.
  */
 
-public class RearrangeArrayElementsBySign {
+class RearrangeArrayElementsBySign {
 
-    // Time -> O(n)
-    // Space -> O(n)
+    // Time -> O(n) //
+    // Space -> O(n) //
 
     private static int[] rearrangeArray(int[] nums) {
         int n = nums.length;

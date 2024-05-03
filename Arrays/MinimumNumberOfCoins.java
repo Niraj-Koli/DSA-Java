@@ -8,7 +8,7 @@
 
 import java.util.ArrayList;
 
-public class MinimumNumberOfCoins {
+class MinimumNumberOfCoins {
 
     // Time -> O(n) //
     // Space -> O(1) //

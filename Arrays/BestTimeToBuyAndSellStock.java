@@ -9,10 +9,10 @@
  * cannot achieve any profit, return 0.
  */
 
-public class BestTimeToBuyAndSellStock {
+class BestTimeToBuyAndSellStock {
 
-    // Time -> O(n)
-    // Space -> O(1)
+    // Time -> O(n) //
+    // Space -> O(1) //
 
     private static int maxProfit(int[] prices) {
         int n = prices.length;

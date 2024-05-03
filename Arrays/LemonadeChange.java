@@ -12,10 +12,10 @@
  * or false otherwise.
  */
 
-public class LemonadeChange {
+class LemonadeChange {
 
-    // Time -> O(n)
-    // Space -> O(1)
+    // Time -> O(n) //
+    // Space -> O(1) //
 
     private static boolean lemonadeChange(int[] bills) {
         int five = 0;

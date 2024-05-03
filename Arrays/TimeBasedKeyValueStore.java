@@ -17,6 +17,9 @@
 import java.util.HashMap;
 import java.util.TreeMap;
 
+// Time -> O(log n) //
+// Space -> O(n * m) //
+
 class TimeMap {
     private HashMap<String, TreeMap<Integer, String>> map;
 
@@ -59,63 +62,3 @@ public class TimeBasedKeyValueStore {
         System.out.println(timeMap.get("foo", 5));
     }
 }
-
-// class TimeMap {
-
-// Map<String, List<Node>> map;
-
-// public TimeMap() {
-// map = new HashMap<>();
-// }
-
-// public void set(String key, String value, int timestamp) {
-// List<Node> values = map.get(key);
-// if (values == null) {
-// values = new ArrayList<>();
-// map.put(key, values);
-// }
-
-// values.add(new Node(value, timestamp));
-// }
-
-// public String get(String key, int timestamp) {
-// if (!map.containsKey(key))
-// return "";
-
-// List<Node> values = map.get(key);
-// if (values.get(0).timestamp > timestamp)
-// return "";
-
-// Node lastNode = values.get(values.size() - 1);
-// if (lastNode.timestamp <= timestamp)
-// return lastNode.value;
-
-// return values.get(findIdx(values, timestamp)).value;
-// }
-
-// private int findIdx(List<Node> values, int target) {
-// int left = 0;
-// int right = values.size() - 1;
-// while (left <= right) {
-// int mid = left + (right - left) / 2;
-// int curTime = values.get(mid).timestamp;
-// if (curTime == target)
-// return mid;
-// if (curTime < target)
-// left = mid + 1;
-// else
-// right = mid - 1;
-// }
-// return right;
-// }
-
-// private class Node {
-// String value;
-// int timestamp;
-
-// public Node(String value, int timestamp) {
-// this.value = value;
-// this.timestamp = timestamp;
-// }
-// }
-// }

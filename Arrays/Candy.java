@@ -13,9 +13,9 @@
 
 import java.util.Arrays;
 
-public class Candy {
+class Candy {
 
-    // Time -> O(n) //
+    // Time -> O(4 * n) //
     // Space -> O(n) //
 
     private static int candy(int[] ratings) {

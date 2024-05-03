@@ -5,10 +5,10 @@
 
 import java.util.ArrayList;
 
-public class MajorityElementII {
+class MajorityElementII {
 
-    // Time -> O(n)
-    // Space -> O(n)
+    // Time -> O(2 * n) //
+    // Space -> O(n) //
 
     private static ArrayList<Integer> majorityElement(int[] nums) {
         int n = nums.length;
@@ -35,7 +35,7 @@ public class MajorityElementII {
             }
         }
 
-        ArrayList<Integer> res = new ArrayList<>();
+        ArrayList<Integer> res = new ArrayList<Integer>();
 
         count1 = 0;
         count2 = 0;
@@ -51,6 +51,7 @@ public class MajorityElementII {
         if (count1 > n / 3) {
             res.add(element1);
         }
+
         if (count2 > n / 3) {
             res.add(element2);
         }

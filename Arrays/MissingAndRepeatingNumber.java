@@ -6,11 +6,15 @@
 
 import java.util.ArrayList;
 
-public class MissingAndRepeatingNumber {
-    public static void swapSort(int[] nums) {
-        int i = 0;
+class MissingAndRepeatingNumber {
+
+    // Time -> O(n) //
+    // Space -> O(1) //
+
+    private static void swapSort(int[] nums) {
         int n = nums.length;
 
+        int i = 0;
         while (i < n) {
             if (nums[i] != nums[nums[i] - 1]) {
                 int temp = nums[i];
@@ -20,7 +24,6 @@ public class MissingAndRepeatingNumber {
                 i++;
             }
         }
-
     }
 
     public static void main(String[] args) {

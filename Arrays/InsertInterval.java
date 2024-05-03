@@ -14,8 +14,12 @@
 
 import java.util.ArrayList;
 
-public class InsertInterval {
-    public static int[][] insert(int[][] intervals, int[] newInterval) {
+class InsertInterval {
+
+    // Time -> O(n) //
+    // Space -> O(n) //
+
+    private static int[][] insert(int[][] intervals, int[] newInterval) {
         int n = intervals.length;
 
         ArrayList<int[]> res = new ArrayList<int[]>();
@@ -50,7 +54,6 @@ public class InsertInterval {
                 { 1, 2 }, { 3, 5 }, { 6, 7 },
                 { 8, 10 }, { 12, 16 }
         };
-
         int[] newInterval = { 4, 8 };
 
         int[][] ans = insert(intervals, newInterval);
@@ -63,29 +66,3 @@ public class InsertInterval {
         }
     }
 }
-
-// class Solution {
-// public int[][] insert(int[][] intervals, int[] newInterval) {
-// List<int[]> arr = new ArrayList<>();
-// int i = 0;
-// while (i < intervals.length && intervals[i][1] < newInterval[0]) {
-// arr.add(intervals[i]);
-// i++;
-// }
-// while (i < intervals.length && intervals[i][0] <= newInterval[1]) {
-// newInterval[0] = Math.min(intervals[i][0], newInterval[0]);
-// newInterval[1] = Math.max(intervals[i][1], newInterval[1]);
-// i++;
-// }
-// arr.add(newInterval);
-// while (i < intervals.length && intervals[i][0] > newInterval[1]) {
-// arr.add(intervals[i]);
-// i++;
-// }
-// int[][] result = new int[arr.size()][2];
-// for (int j = 0; j < result.length; j++) {
-// result[j] = arr.get(j);
-// }
-// return result;
-// }
-// }
