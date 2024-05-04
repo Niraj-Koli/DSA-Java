@@ -1,9 +1,9 @@
-public class CountDigits {
+class CountDigits {
 
     // Time -> O(log10(n)) //
     // Space -> O(1) //
 
-    public static int iterative(long n) {
+    private static int iterative(int n) {
         int count = 0;
 
         while (n != 0) {
@@ -17,25 +17,34 @@ public class CountDigits {
     // Time -> O(log(n)) //
     // Space -> O(log(n)) //
 
-    public static int recursive(long n) {
+    private static int recursive(int n) {
         if (n / 10 == 0) {
             return 1;
         }
+        
         return 1 + recursive(n / 10);
     }
 
     // Time -> O(1) //
     // Space -> O(1) //
 
-    public static int logarithm(long n) {
+    private static int string(int n) {
+        return Integer.toString(n).length();
+    }
+
+    // Time -> O(1) //
+    // Space -> O(1) //
+
+    private static int logarithm(int n) {
         return (int) Math.floor(Math.log10(n) + 1);
     }
 
     public static void main(String[] args) {
-        long number = 345289467;
+        int number = 345289467;
 
         System.out.println(iterative(number));
         System.out.println(recursive(number));
+        System.out.println(string(number));
         System.out.println(logarithm(number));
     }
 }

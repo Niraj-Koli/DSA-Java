@@ -1,9 +1,9 @@
-public class IsPrime {
+class IsPrime {
 
     // Time -> O(sqrt(n)) //
     // Space -> O(1) //
 
-    public static boolean isPrime(int n) {
+    private static boolean isPrime(int n) {
         if (n <= 1) {
             return false;
         } else if (n == 2) {
@@ -24,8 +24,6 @@ public class IsPrime {
     public static void main(String[] args) {
         int number = 13;
 
-        boolean answer = isPrime(number);
-
-        System.out.println(answer);
+        System.out.println(isPrime(number));
     }
 }

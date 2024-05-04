@@ -11,31 +11,19 @@
  * otherwise return false.
  */
 
-public class RectangleOverlap {
-    public static boolean isRectangleOverlap(int[] rec1, int[] rec2) {
-        boolean condition = rec1[2] > rec2[0] && rec1[3] > rec2[1] && rec2[2] > rec1[0] && rec2[3] > rec1[1];
+class RectangleOverlap {
 
-        if (condition) {
-            return true;
-        } else {
-            return false;
-        }
+    // Time -> O(1) //
+    // Space -> O(1) //
+
+    private static boolean isRectangleOverlap(int[] rec1, int[] rec2) {
+        return rec1[2] > rec2[0] && rec1[3] > rec2[1] && rec2[2] > rec1[0] && rec2[3] > rec1[1];
     }
 
     public static void main(String[] args) {
         int[] rec1 = { 0, 0, 2, 2 };
         int[] rec2 = { 1, 1, 3, 3 };
 
-        boolean answer = isRectangleOverlap(rec1, rec2);
-
-        System.out.println(answer);
+        System.out.println(isRectangleOverlap(rec1, rec2));
     }
 }
-
-// class Solution {
-// public boolean isRectangleOverlap(int[] rec1, int[] rec2) {
-// return rec1[0] < rec2[2] && rec1[1] < rec2[3] && rec1[2] > rec2[0] && rec1[3]
-// > rec2[1];
-
-// }
-// }

@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class PrintAllDivisors {
+class PrintAllDivisors {
 
     // Time -> O(n) //
     // Space -> O(n) //
@@ -23,13 +23,13 @@ public class PrintAllDivisors {
     private static ArrayList<Integer> printDivisorsQuotients(int n) {
         ArrayList<Integer> divisors = new ArrayList<Integer>();
 
-        for (int i = 1; i <= (int) Math.sqrt(n); i++) {
+        for (int i = 1; i * i <= n; i++) {
             if (n % i == 0) {
                 divisors.add(i);
-            }
 
-            if (i != n / i) {
-                divisors.add(n / i);
+                if (n / i != i) {
+                    divisors.add(n / i);
+                }
             }
         }
 
