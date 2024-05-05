@@ -1,4 +1,7 @@
-public class SwapTwoIntegers {
+class SwapTwoIntegers {
+
+    // Time -> O(1) //
+    // Space -> O(1) //
     public static void main(String[] args) {
         int x = 6;
         int y = 5;

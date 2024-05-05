@@ -1,5 +1,9 @@
-public class BitsManipulation {
-    public static String printBits(int n) {
+class BitsManipulation {
+
+    // Time -> O(log(n)) //
+    // Space -> O(log(n)) //
+
+    private static String printBits(int n) {
         return Integer.toBinaryString(n);
     }
 
@@ -11,14 +15,17 @@ public class BitsManipulation {
         System.out.println("y: " + y + " = " + printBits(y));
 
         // And //
+
         int and = x & y;
         System.out.println("And: " + and + " = " + printBits(and));
 
         // Or //
+
         int or = x | y;
         System.out.println("Or: " + or + " = " + printBits(or));
 
         // Xor //
+
         int xor = x ^ y;
         System.out.println("Xor: " + xor + " = " + printBits(xor));
 
@@ -39,6 +46,7 @@ public class BitsManipulation {
         System.out.println("RightY: " + rightY + " = " + printBits(rightY));
 
         // Not //
+        
         int notX = ~x;
         int notY = ~y;
 

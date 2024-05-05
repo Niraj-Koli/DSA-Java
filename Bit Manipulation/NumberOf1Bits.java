@@ -13,8 +13,11 @@
  * -3.
  */
 
-public class NumberOf1Bits {
-    public static int rightAnd(int n) {
+// Time -> O(1) //
+// Space -> O(1) //
+
+class NumberOf1Bits {
+    private static int rightAnd(int n) {
         int count = 0;
 
         while (n != 0) {
@@ -23,42 +26,30 @@ public class NumberOf1Bits {
             }
             n = n >> 1;
         }
+
         return count;
     }
 
-    public static int deleteLeastSignigicantBit(int n) {
+    private static int deleteLeastSignigicantBit(int n) {
         int count = 0;
 
         while (n != 0) {
             n = n & n - 1;
             count++;
         }
+
         return count;
     }
 
-    public static int hammingWeight(int n) {
+    private static int hammingWeight(int n) {
         return Integer.bitCount(n);
     }
 
     public static void main(String[] args) {
         int n = 00000000000000000000000000001011;
 
-        int answer = deleteLeastSignigicantBit(n);
-
-        System.out.println(answer);
+        System.out.println(rightAnd(n));
+        System.out.println(deleteLeastSignigicantBit(n));
+        System.out.println(hammingWeight(n));
     }
 }
-
-// public class Solution {
-
-// public int hammingWeight(int n) {
-// int count = 0;
-
-// while (n != 0) {
-// count += n & 1;
-// n = n >>> 1;
-// }
-
-// return count;
-// }
-// }

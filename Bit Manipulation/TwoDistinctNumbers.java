@@ -1,7 +1,9 @@
-public class TwoDistinctNumbers {
-    public static void main(String[] args) {
-        int[] nums = { 1, 1, 2, 5, 3, 2, 3, 4, 7, 4 };
+class TwoDistinctNumbers {
 
+    // Time -> O(n) //
+    // Space -> O(1) //
+
+    private static int[] twoOddNum(int[] nums) {
         int n = nums.length;
 
         int xor = 0;
@@ -32,6 +34,14 @@ public class TwoDistinctNumbers {
             }
         }
 
-        System.out.println(res1 + " " + res2);
+        return new int[] { res1, res2 };
+    }
+
+    public static void main(String[] args) {
+        int[] nums = { 1, 1, 2, 5, 3, 2, 3, 4, 7, 4 };
+
+        int[] ans = twoOddNum(nums);
+
+        System.out.println("[" + ans[0] + ", " + ans[1] + "]");
     }
 }

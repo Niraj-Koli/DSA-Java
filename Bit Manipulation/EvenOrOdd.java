@@ -1,8 +1,8 @@
 // Time -> O(1) //
 // Space -> O(1) //
 
-public class EvenOrOdd {
-    public static String remainder(int n) {
+class EvenOrOdd {
+    private static String remainder(int n) {
         if (n % 2 == 0) {
             return "Even";
         } else {
@@ -10,7 +10,7 @@ public class EvenOrOdd {
         }
     }
 
-    public static String or(int n) {
+    private static String or(int n) {
         if ((n | 1) > n) {
             return "Even";
         } else {
@@ -18,7 +18,7 @@ public class EvenOrOdd {
         }
     }
 
-    public static String and(int n) {
+    private static String and(int n) {
         if ((n & 1) == 1) {
             return "Odd";
         } else {
@@ -26,7 +26,7 @@ public class EvenOrOdd {
         }
     }
 
-    public static String xor(int n) {
+    private static String xor(int n) {
         if ((n ^ 1) == n + 1) {
             return "Even";
         } else {
@@ -34,7 +34,7 @@ public class EvenOrOdd {
         }
     }
 
-    public static String lsb(int n) {
+    private static String lsb(int n) {
         if (Integer.toBinaryString(n).endsWith("0")) {
             return "Even";
         } else {

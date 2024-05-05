@@ -1,7 +1,7 @@
-public class ArithmeticOperations {
+class ArithmeticOperations {
 
-    // Time -> O(log(max(a,b)))
-    // Space -> O(1)
+    // Time -> O(log(max(a,b))) //
+    // Space -> O(1) //
 
     private static int add(int a, int b) {
         while (b != 0) {
@@ -13,8 +13,8 @@ public class ArithmeticOperations {
         return a;
     }
 
-    // Time -> O(log(max(a,b)))
-    // Space -> O(1)
+    // Time -> O(log(max(a,b))) //
+    // Space -> O(1) //
 
     private static int subtract(int a, int b) {
         while (b != 0) {
@@ -26,8 +26,8 @@ public class ArithmeticOperations {
         return a;
     }
 
-    // Time -> O(log(b))
-    // Space -> O(1)
+    // Time -> O(log(b)) //
+    // Space -> O(1) //
 
     private static int multiply(int a, int b) {
         int res = 0;
@@ -43,8 +43,8 @@ public class ArithmeticOperations {
         return res;
     }
 
-    // Time -> O(log(a))
-    // Space -> O(1)
+    // Time -> O(log(a)) //
+    // Space -> O(1) //
 
     private static int divide(int a, int b) {
         int quotient = 0;

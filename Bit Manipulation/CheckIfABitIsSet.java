@@ -1,4 +1,7 @@
-public class CheckIfABitIsSet {
+class CheckIfABitIsSet {
+
+    // Time -> O(1) //
+    // Space -> O(1) //
     public static void main(String[] args) {
         int n = 12;
         int i = 3;

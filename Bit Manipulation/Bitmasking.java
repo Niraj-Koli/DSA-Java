@@ -1,4 +1,7 @@
-public class Bitmasking {
+// Time -> O(1) //
+// Space -> O(1) //
+
+class Bitmasking {
     private int bitmask;
 
     public Bitmasking() {

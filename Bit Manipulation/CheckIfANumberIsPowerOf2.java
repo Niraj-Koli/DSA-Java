@@ -1,4 +1,7 @@
-public class CheckIfANumberIsPowerOf2 {
+class CheckIfANumberIsPowerOf2 {
+
+    // Time -> O(1) //
+    // Space -> O(1) //
     public static void main(String[] args) {
         int n = 16;
 

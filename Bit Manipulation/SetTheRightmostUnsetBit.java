@@ -8,10 +8,10 @@
  * unchanged.
  */
 
-public class SetTheRightmostUnsetBit {
+class SetTheRightmostUnsetBit {
 
-    // Time -> O(log(n))
-    // Space -> O(1)
+    // Time -> O(log(n)) //
+    // Space -> O(1) //
 
     private static int setBits(int n) {
         if (n == 0) {

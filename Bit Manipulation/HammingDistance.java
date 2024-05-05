@@ -5,11 +5,18 @@
  * Given two integers x and y, return the Hamming distance between them.
  */
 
-public class HammingDistance {
-    public static int hammingDistance(int x, int y) {
+// Time -> O(1) //
+// Space -> O(1) //
+
+class HammingDistance {
+    private static int minBitFlips(int x, int y) {
+        return Integer.bitCount(x ^ y);
+    }
+
+    private static int hammingDistance(int x, int y) {
         int res = 0;
 
-        for (int i = 31; i >= 0; i--) {
+        for (int i = 0; i < 32; i++) {
             int bit1 = (x >> i) & 1;
             int bit2 = (y >> i) & 1;
 
@@ -17,6 +24,7 @@ public class HammingDistance {
                 res++;
             }
         }
+        
         return res;
     }
 
@@ -24,20 +32,7 @@ public class HammingDistance {
         int x = 1;
         int y = 4;
 
-        int answer = hammingDistance(x, y);
-
-        System.out.println(answer);
+        System.out.println(minBitFlips(x, y));
+        System.out.println(hammingDistance(x, y));
     }
 }
-
-// class Solution {
-// public int hammingDistance(int x, int y) {
-// int res = 0;
-// int xor = x ^ y;
-// while (xor != 0) {
-// res += xor & 1;
-// xor >>= 1;
-// }
-// return res;
-// }
-// }
