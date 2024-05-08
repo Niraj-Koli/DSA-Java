@@ -14,91 +14,114 @@
  * inserted string word that has the prefix prefix, and false otherwise.
  */
 
-public class ImplementTrieI {
-    class TrieNode {
-        TrieNode[] links;
-        boolean flag;
+class ImplementTrieI {
+
+    // Time -> O(1) //
+    // Space -> O(1) //
+
+    private static class TrieNode {
+        private TrieNode[] links;
+        private boolean flag;
 
         public TrieNode() {
             links = new TrieNode[26];
             flag = false;
         }
 
-        boolean containsKey(char ch) {
+        private boolean containsKey(char ch) {
             return (links[ch - 'a'] != null);
         }
 
-        TrieNode get(char ch) {
+        private TrieNode get(char ch) {
             return links[ch - 'a'];
         }
 
-        void put(char ch, TrieNode node) {
+        private void put(char ch, TrieNode node) {
             links[ch - 'a'] = node;
         }
 
-        void setEnd() {
+        private void setEnd() {
             flag = true;
         }
 
-        boolean isEnd() {
+        private boolean isEnd() {
             return flag;
         }
     }
 
-    private TrieNode root;
+    private static class Trie {
+        private TrieNode root;
 
-    ImplementTrieI() {
-        root = new TrieNode();
-    }
-
-    public void insert(String word) {
-        TrieNode node = root;
-
-        for (int i = 0; i < word.length(); i++) {
-            char ch = word.charAt(i);
-
-            if (!node.containsKey(ch)) {
-                node.put(ch, new TrieNode());
-            }
-            node = node.get(ch);
-        }
-        node.setEnd();
-    }
-
-    public boolean search(String word) {
-        TrieNode node = root;
-
-        for (int i = 0; i < word.length(); i++) {
-            char ch = word.charAt(i);
-
-            if (!node.containsKey(ch)) {
-                return false;
-            }
-            node = node.get(ch);
+        public Trie() {
+            root = new TrieNode();
         }
 
-        if (node.isEnd()) {
+        // Time -> O(n) //
+        // Space -> O(n * m) //
+
+        private void insert(String word) {
+            int n = word.length();
+
+            TrieNode node = root;
+
+            for (int i = 0; i < n; i++) {
+                char ch = word.charAt(i);
+
+                if (!node.containsKey(ch)) {
+                    node.put(ch, new TrieNode());
+                }
+                node = node.get(ch);
+            }
+            node.setEnd();
+        }
+
+        // Time -> O(n) //
+        // Space -> O(1) //
+
+        private boolean search(String word) {
+            int n = word.length();
+
+            TrieNode node = root;
+
+            for (int i = 0; i < n; i++) {
+                char ch = word.charAt(i);
+
+                if (!node.containsKey(ch)) {
+                    return false;
+                }
+                node = node.get(ch);
+            }
+
+            if (node.isEnd()) {
+                return true;
+            }
+
+            return false;
+        }
+
+        // Time -> O(n) //
+        // Space -> O(1) //
+
+        private boolean startsWith(String prefix) {
+            int n = prefix.length();
+
+            TrieNode node = root;
+
+            for (int i = 0; i < n; i++) {
+                char ch = prefix.charAt(i);
+
+                if (!node.containsKey(ch)) {
+                    return false;
+                }
+                node = node.get(ch);
+            }
+
             return true;
         }
-        return false;
-    }
-
-    public boolean startsWith(String prefix) {
-        TrieNode node = root;
-
-        for (int i = 0; i < prefix.length(); i++) {
-            char ch = prefix.charAt(i);
-
-            if (!node.containsKey(ch)) {
-                return false;
-            }
-            node = node.get(ch);
-        }
-        return true;
     }
 
     public static void main(String[] args) {
-        ImplementTrieI trie = new ImplementTrieI();
+        Trie trie = new Trie();
 
         trie.insert("apple");
         System.out.println(trie.search("apple"));
@@ -108,29 +131,3 @@ public class ImplementTrieI {
         System.out.println(trie.search("app"));
     }
 }
-
-// class Trie {
-
-// ArrayList<String> list;
-
-// public Trie() {
-// list = new ArrayList<>();
-// }
-
-// public void insert(String word) {
-// list.add(word);
-// }
-
-// public boolean search(String word) {
-// return list.contains(word);
-// }
-
-// public boolean startsWith(String prefix) {
-// for (int i = 0; i < list.size(); i++) {
-// if (list.get(i).startsWith(prefix)) {
-// return true;
-// }
-// }
-// return false;
-// }
-// }

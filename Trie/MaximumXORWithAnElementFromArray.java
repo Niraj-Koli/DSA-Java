@@ -12,37 +12,39 @@
  */
 
 import java.util.Arrays;
-import java.util.Comparator;
 
-public class MaximumXORWithAnElementFromArray {
-    static class TrieNode {
-        TrieNode links[];
+class MaximumXORWithAnElementFromArray {
+    private static class TrieNode {
+        private TrieNode links[];
 
         public TrieNode() {
             links = new TrieNode[2];
         }
 
-        boolean containsKey(int bit) {
+        private boolean containsKey(int bit) {
             return (links[bit] != null);
         }
 
-        TrieNode get(int bit) {
+        private TrieNode get(int bit) {
             return links[bit];
         }
 
-        void put(int bit, TrieNode node) {
+        private void put(int bit, TrieNode node) {
             links[bit] = node;
         }
     }
 
-    static class Trie {
+    private static class Trie {
         private static TrieNode root;
 
-        Trie() {
+        public Trie() {
             root = new TrieNode();
         }
 
-        public void insert(int num) {
+        // Time -> O(1) //
+        // Space -> O(1) //
+
+        private void insert(int num) {
             TrieNode node = root;
 
             for (int i = 31; i >= 0; i--) {
@@ -55,7 +57,10 @@ public class MaximumXORWithAnElementFromArray {
             }
         }
 
-        public int getMax(int num) {
+        // Time -> O(1) //
+        // Space -> O(1) //
+
+        private int getMax(int num) {
             TrieNode node = root;
             int maxNum = 0;
 
@@ -69,11 +74,15 @@ public class MaximumXORWithAnElementFromArray {
                     node = node.get(bit);
                 }
             }
+
             return maxNum;
         }
     }
 
-    public static int[] maximizeXor(int[] nums, int[][] queries) {
+    // Time -> O((n + m) * log(n)) //
+    // Space -> O(m) //
+
+    private static int[] maximizeXor(int[] nums, int[][] queries) {
         int n = nums.length;
         int m = queries.length;
 
@@ -89,7 +98,7 @@ public class MaximumXORWithAnElementFromArray {
             offlineQueries[i] = oQ;
         }
 
-        Arrays.sort(offlineQueries, Comparator.comparingInt(a -> a[0]));
+        Arrays.sort(offlineQueries, (a, b) -> a[0] - b[0]);
 
         int index = 0;
 
@@ -104,12 +113,14 @@ public class MaximumXORWithAnElementFromArray {
                 trie.insert(nums[index]);
                 index++;
             }
+
             int queryIndex = offlineQueries[i][2];
 
             if (index != 0) {
                 res[queryIndex] = trie.getMax(offlineQueries[i][1]);
             }
         }
+
         return res;
     }
 
@@ -119,96 +130,8 @@ public class MaximumXORWithAnElementFromArray {
 
         int[] answer = maximizeXor(nums, queries);
 
-        for (int ans : answer) {
-            System.out.print(ans + " ");
+        for (int an : answer) {
+            System.out.print(an + " ");
         }
     }
 }
-
-// class Solution {
-
-// private static class TrieNode {
-// public TrieNode left, right;
-// }
-
-// private static class Query implements Comparable<Query> {
-// public int x, m, idx;
-
-// public Query(int x, int m, int idx) {
-// this.x = x;
-// this.m = m;
-// this.idx = idx;
-// }
-
-// @Override
-// public int compareTo(Query query) {
-// return this.m - query.m;
-// }
-// }
-
-// public int[] maximizeXor(int[] nums, int[][] queries) {
-// Arrays.sort(nums);
-// int[] ans = new int[queries.length];
-// Arrays.fill(ans, -1);
-// List<Query> queryList = new ArrayList<>();
-// for (int i = 0; i < queries.length; i++) {
-// int x = queries[i][0], m = queries[i][1];
-// queryList.add(new Query(x, m, i));
-// }
-// Collections.sort(queryList);
-// TrieNode root = new TrieNode();
-// int nextIdx = 0;
-// for (Query query : queryList) {
-// while (nextIdx < nums.length && nums[nextIdx] <= query.m) {
-// insert(root, nums[nextIdx]);
-// nextIdx++;
-// }
-// // root and query.x
-// ans[query.idx] = get(root, query.x);
-// }
-// return ans;
-// }
-
-// private int get(TrieNode root, int x) {
-// int ans = 0;
-// for (int i = 30 - 1; i >= 0; i--) {
-// if ((x & (1 << i)) != 0) {
-// if (root.left != null) {
-// root = root.left;
-// ans = ans | (1 << i);
-// } else if (root.right != null) {
-// root = root.right;
-// } else {
-// return -1;
-// }
-// } else {
-// if (root.right != null) {
-// root = root.right;
-// ans = ans | (1 << i);
-// } else if (root.left != null) {
-// root = root.left;
-// } else {
-// return -1;
-// }
-// }
-// }
-// return ans;
-// }
-
-// private void insert(TrieNode root, int val) {
-// for (int i = 30 - 1; i >= 0; i--) {
-// if ((val & (1 << i)) != 0) {
-// if (root.right == null) {
-// root.right = new TrieNode();
-// }
-// root = root.right;
-// } else {
-// if (root.left == null) {
-// root.left = new TrieNode();
-// }
-// root = root.left;
-// }
-// }
-// }
-
-// }

@@ -11,82 +11,93 @@
  * "None".
  */
 
-public class LongestWordWithAllPrefixes {
-    class TrieNode {
-        TrieNode[] links;
-        boolean flag;
+class LongestWordWithAllPrefixes {
+    private static class TrieNode {
+        private TrieNode[] links;
+        private boolean flag;
 
         public TrieNode() {
             links = new TrieNode[26];
             flag = false;
         }
 
-        boolean containsKey(char ch) {
+        private boolean containsKey(char ch) {
             return (links[ch - 'a'] != null);
         }
 
-        TrieNode get(char ch) {
+        private TrieNode get(char ch) {
             return links[ch - 'a'];
         }
 
-        void put(char ch, TrieNode node) {
+        private void put(char ch, TrieNode node) {
             links[ch - 'a'] = node;
         }
 
-        void setEnd() {
+        private void setEnd() {
             flag = true;
         }
 
-        boolean isEnd() {
+        private boolean isEnd() {
             return flag;
         }
     }
 
-    private TrieNode root;
+    private static class Trie {
+        private TrieNode root;
 
-    LongestWordWithAllPrefixes() {
-        root = new TrieNode();
-    }
-
-    public void insert(String word) {
-        TrieNode node = root;
-
-        for (int i = 0; i < word.length(); i++) {
-            char ch = word.charAt(i);
-
-            if (!node.containsKey(ch)) {
-                node.put(ch, new TrieNode());
-            }
-            node = node.get(ch);
+        public Trie() {
+            root = new TrieNode();
         }
-        node.setEnd();
-    }
 
-    public boolean chechIfPrefixExists(String word) {
-        TrieNode node = root;
-        boolean flag = true;
+        // Time -> O(n) //
+        // Space -> O(n * m) //
 
-        for (int i = 0; i < word.length(); i++) {
-            char ch = word.charAt(i);
+        private void insert(String word) {
+            TrieNode node = root;
 
-            if (node.containsKey(ch)) {
+            for (int i = 0; i < word.length(); i++) {
+                char ch = word.charAt(i);
+
+                if (!node.containsKey(ch)) {
+                    node.put(ch, new TrieNode());
+                }
                 node = node.get(ch);
+            }
+            node.setEnd();
+        }
 
-                if (!node.isEnd()) {
+        // Time -> O(n) //
+        // Space -> O(1) //
+
+        private boolean chechIfPrefixExists(String word) {
+            TrieNode node = root;
+            boolean flag = true;
+
+            for (int i = 0; i < word.length(); i++) {
+                char ch = word.charAt(i);
+
+                if (node.containsKey(ch)) {
+                    node = node.get(ch);
+
+                    if (!node.isEnd()) {
+                        return false;
+                    }
+                } else {
                     return false;
                 }
-            } else {
-                return false;
             }
+
+            return flag;
         }
-        return flag;
     }
 
-    public static void main(String[] args) {
-        String[] words = { "n", "ni", "nin", "ninj", "ninja", "ninga" };
+    // Time -> O(n * m) //
+    // Space -> O(n * m) //
+
+    private static String completeString(String[] words) {
         int n = words.length;
 
-        LongestWordWithAllPrefixes trie = new LongestWordWithAllPrefixes();
+        Trie trie = new Trie();
 
         for (int i = 0; i < n; i++) {
             trie.insert(words[i]);
@@ -104,10 +115,12 @@ public class LongestWordWithAllPrefixes {
             }
         }
 
-        if (longest == "") {
-            System.out.println("None");
-        } else {
-            System.out.println(longest);
-        }
+        return longest == "" ? "None" : longest;
+    }
+
+    public static void main(String[] args) {
+        String[] words = { "n", "ni", "nin", "ninj", "ninja", "ninga" };
+
+        System.out.println(completeString(words));
     }
 }

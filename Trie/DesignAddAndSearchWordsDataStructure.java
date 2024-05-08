@@ -11,33 +11,36 @@
  * can be matched with any letter.
  */
 
+// Time -> O(m) //
+// Space -> O(n * m) //
+
 class WordDictionary {
-    class TrieNode {
-        TrieNode[] links;
-        boolean flag;
+    private static class TrieNode {
+        private TrieNode[] links;
+        private boolean flag;
 
         public TrieNode() {
             links = new TrieNode[26];
             flag = false;
         }
 
-        boolean containsKey(char ch) {
+        public boolean containsKey(char ch) {
             return (links[ch - 'a'] != null);
         }
 
-        TrieNode get(char ch) {
+        public TrieNode get(char ch) {
             return links[ch - 'a'];
         }
 
-        void put(char ch, TrieNode node) {
+        public void put(char ch, TrieNode node) {
             links[ch - 'a'] = node;
         }
 
-        void setEnd() {
+        public void setEnd() {
             flag = true;
         }
 
-        boolean isEnd() {
+        public boolean isEnd() {
             return flag;
         }
     }
@@ -86,7 +89,7 @@ class WordDictionary {
     }
 }
 
-public class DesignAddAndSearchWordsDataStructure {
+class DesignAddAndSearchWordsDataStructure {
     public static void main(String[] args) {
         WordDictionary wordDictionary = new WordDictionary();
         wordDictionary.addWord("bad");
@@ -98,41 +101,3 @@ public class DesignAddAndSearchWordsDataStructure {
         System.out.println(wordDictionary.search("b.."));
     }
 }
-
-// class WordDictionary {
-// Map<Integer, List<String>> map = new HashMap<>();
-// public void addWord(String word) {
-// int index = word.length();
-// if (!map.containsKey(index)) {
-// List<String> list = new ArrayList<>();
-// list.add(word);
-// map.put(index, list);
-// } else {
-// map.get(index).add(word);
-// }
-// }
-
-// public boolean search(String word) {
-// int index = word.length();
-// if (!map.containsKey(index)) {
-// return false;
-// }
-
-// List<String> list = map.get(index);
-// for(String s : list) {
-// if(isSame(s, word)) { // when word has '.'
-// return true;
-// }
-// }
-// return false;
-// }
-
-// public boolean isSame(String s, String word) { // word has '.'
-// for (int i = 0; i < s.length(); i++) {
-// if (word.charAt(i) != '.' && s.charAt(i) != word.charAt(i)) {
-// return false;
-// }
-// }
-// return true;
-// }
-// }

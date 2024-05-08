@@ -4,29 +4,32 @@
  * total number of distinct substrings of this string.
  */
 
-public class NumberOfDistinctSubstringsInAString {
-    static class TrieNode {
-        TrieNode[] links;
+class NumberOfDistinctSubstringsInAString {
+    private static class TrieNode {
+        private TrieNode[] links;
 
         public TrieNode() {
             links = new TrieNode[26];
         }
 
-        boolean containsKey(char ch) {
+        private boolean containsKey(char ch) {
             return (links[ch - 'a'] != null);
         }
 
-        TrieNode get(char ch) {
+        private TrieNode get(char ch) {
             return links[ch - 'a'];
         }
 
-        void put(char ch, TrieNode node) {
+        private void put(char ch, TrieNode node) {
             links[ch - 'a'] = node;
         }
     }
 
-    public static int countDistinctSubstrings(String str) {
-        int n = str.length();
+    // Time -> O(n^2) //
+    // Space -> O(n^2) //
+
+    private static int countDistinctSubstrings(String s) {
+        int n = s.length();
 
         TrieNode root = new TrieNode();
 
@@ -36,7 +39,7 @@ public class NumberOfDistinctSubstringsInAString {
             TrieNode node = root;
 
             for (int j = i; j < n; j++) {
-                char ch = str.charAt(j);
+                char ch = s.charAt(j);
 
                 if (!node.containsKey(ch)) {
                     node.put(ch, new TrieNode());
@@ -45,14 +48,13 @@ public class NumberOfDistinctSubstringsInAString {
                 node = node.get(ch);
             }
         }
+
         return count + 1;
     }
 
     public static void main(String[] args) {
-        String str = "abab";
+        String s = "abab";
 
-        int answer = countDistinctSubstrings(str);
-
-        System.out.println(answer);
+        System.out.println(countDistinctSubstrings(s));
     }
 }

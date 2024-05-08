@@ -14,11 +14,15 @@
  * 5) erase(“WORD”): Delete this string “WORD” from the “TRIE”.
  */
 
-public class ImplementTrieII {
-    class TrieNode {
-        TrieNode[] links;
-        int countEndsWith;
-        int countPrefix;
+class ImplementTrieII {
+
+    // Time -> O(1) //
+    // Space -> O(1) //
+
+    private static class TrieNode {
+        private TrieNode[] links;
+        private int countEndsWith;
+        private int countPrefix;
 
         public TrieNode() {
             links = new TrieNode[26];
@@ -26,112 +30,137 @@ public class ImplementTrieII {
             countPrefix = 0;
         }
 
-        boolean containsKey(char ch) {
+        private boolean containsKey(char ch) {
             return (links[ch - 'a'] != null);
         }
 
-        TrieNode get(char ch) {
+        private TrieNode get(char ch) {
             return links[ch - 'a'];
         }
 
-        void put(char ch, TrieNode node) {
+        private void put(char ch, TrieNode node) {
             links[ch - 'a'] = node;
         }
 
-        void increaseEnd() {
+        private void increaseEnd() {
             countEndsWith++;
         }
 
-        void increasePrefix() {
+        private void increasePrefix() {
             countPrefix++;
         }
 
-        void deleteEnd() {
+        private void deleteEnd() {
             countEndsWith--;
         }
 
-        void reducePrefix() {
+        private void reducePrefix() {
             countPrefix--;
         }
 
-        int getEnd() {
+        private int getEnd() {
             return countEndsWith;
         }
 
-        int getPrefix() {
+        private int getPrefix() {
             return countPrefix;
         }
     }
 
-    private TrieNode root;
+    private static class Trie {
+        private TrieNode root;
 
-    ImplementTrieII() {
-        root = new TrieNode();
-    }
-
-    public void insert(String word) {
-        TrieNode node = root;
-
-        for (int i = 0; i < word.length(); i++) {
-            char ch = word.charAt(i);
-
-            if (!node.containsKey(ch)) {
-                node.put(ch, new TrieNode());
-            }
-            node = node.get(ch);
-            node.increasePrefix();
+        public Trie() {
+            root = new TrieNode();
         }
-        node.increaseEnd();
-    }
 
-    public int countWordsEqualTo(String word) {
-        TrieNode node = root;
+        // Time -> O(n) //
+        // Space -> O(n * m) //
 
-        for (int i = 0; i < word.length(); i++) {
-            char ch = word.charAt(i);
+        private void insert(String word) {
+            int n = word.length();
 
-            if (node.containsKey(ch)) {
+            TrieNode node = root;
+
+            for (int i = 0; i < n; i++) {
+                char ch = word.charAt(i);
+
+                if (!node.containsKey(ch)) {
+                    node.put(ch, new TrieNode());
+                }
                 node = node.get(ch);
-            } else {
-                return 0;
+                node.increasePrefix();
             }
+            node.increaseEnd();
         }
-        return node.getEnd();
-    }
 
-    public int countWordsStartingWith(String word) {
-        TrieNode node = root;
+        // Time -> O(n) //
+        // Space -> O(1) //
 
-        for (int i = 0; i < word.length(); i++) {
-            char ch = word.charAt(i);
+        private int countWordsEqualTo(String word) {
+            int n = word.length();
 
-            if (node.containsKey(ch)) {
-                node = node.get(ch);
-            } else {
-                return 0;
+            TrieNode node = root;
+
+            for (int i = 0; i < n; i++) {
+                char ch = word.charAt(i);
+
+                if (node.containsKey(ch)) {
+                    node = node.get(ch);
+                } else {
+                    return 0;
+                }
             }
+
+            return node.getEnd();
         }
-        return node.getPrefix();
-    }
 
-    public void erase(String word) {
-        TrieNode node = root;
+        // Time -> O(n) //
+        // Space -> O(1) //
 
-        for (int i = 0; i < word.length(); i++) {
-            char ch = word.charAt(i);
+        private int countWordsStartingWith(String word) {
+            int n = word.length();
 
-            if (node.containsKey(ch)) {
-                node = node.get(ch);
-                node.reducePrefix();
-            } else {
-                return;
+            TrieNode node = root;
+
+            for (int i = 0; i < n; i++) {
+                char ch = word.charAt(i);
+
+                if (node.containsKey(ch)) {
+                    node = node.get(ch);
+                } else {
+                    return 0;
+                }
             }
+
+            return node.getPrefix();
         }
-        node.deleteEnd();
+
+        // Time -> O(n) //
+        // Space -> O(1) //
+
+        private void erase(String word) {
+            int n = word.length();
+
+            TrieNode node = root;
+
+            for (int i = 0; i < n; i++) {
+                char ch = word.charAt(i);
+
+                if (node.containsKey(ch)) {
+                    node = node.get(ch);
+                    node.reducePrefix();
+                } else {
+                    return;
+                }
+            }
+
+            node.deleteEnd();
+        }
     }
 
     public static void main(String[] args) {
-        ImplementTrieII trie = new ImplementTrieII();
+        Trie trie = new Trie();
 
         trie.insert("apple");
         trie.insert("apple");
