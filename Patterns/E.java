@@ -1,5 +1,5 @@
-public class E {
-    public static void pattern(int n) {
+class E {
+    private static void pattern(int n) {
         for (int i = 0; i < n; i++) {
             for (int j = n; j > i; j--) {
                 System.out.print("*");

@@ -1,5 +1,5 @@
-public class V {
-    public static void pattern(int n) {
+class V {
+    private static void pattern(int n) {
         for (int i = 0; i < 2 * n - 1; i++) {
             for (int j = 0; j < 2 * n - 1; j++) {
                 int top = i;

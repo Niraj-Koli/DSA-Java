@@ -1,5 +1,5 @@
-public class S {
-    public static void pattern(int n) {
+class S {
+    private static void pattern(int n) {
         int spaces = 0;
 
         for (int i = 0; i < n; i++) {

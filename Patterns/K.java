@@ -1,5 +1,5 @@
-public class K {
-    public static void pattern(int n) {
+class K {
+    private static void pattern(int n) {
         for (int i = 0; i < n; i++) {
             int xor = i % 2 == 0 ? 1 : 0;
             for (int j = 0; j <= i; j++) {
