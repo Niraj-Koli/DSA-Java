@@ -1,43 +1,43 @@
-public class HeapSort {
+class HeapSort {
 
     // Time -> O(n * log(n)) //
     // Space -> O(1) //
 
-    public static void heapSort(int[] arr) {
-        int n = arr.length;
-
-        for (int i = n / 2 - 1; i >= 0; i--) {
-            heapify(arr, n, i);
-        }
-
-        for (int i = n - 1; i > 0; i--) {
-            int temp = arr[0];
-            arr[0] = arr[i];
-            arr[i] = temp;
-
-            heapify(arr, i, 0);
-        }
-    }
-
-    public static void heapify(int[] arr, int n, int i) {
+    private static void heapify(int[] nums, int n, int i) {
         int largest = i;
         int leftChild = 2 * i + 1;
         int rightChild = 2 * i + 2;
 
-        if (leftChild < n && arr[leftChild] > arr[largest]) {
+        if (leftChild < n && nums[leftChild] > nums[largest]) {
             largest = leftChild;
         }
 
-        if (rightChild < n && arr[rightChild] > arr[largest]) {
+        if (rightChild < n && nums[rightChild] > nums[largest]) {
             largest = rightChild;
         }
 
         if (largest != i) {
-            int swap = arr[i];
-            arr[i] = arr[largest];
-            arr[largest] = swap;
+            int swap = nums[i];
+            nums[i] = nums[largest];
+            nums[largest] = swap;
 
-            heapify(arr, n, largest);
+            heapify(nums, n, largest);
+        }
+    }
+
+    private static void heapSort(int[] nums) {
+        int n = nums.length;
+
+        for (int i = n / 2 - 1; i >= 0; i--) {
+            heapify(nums, n, i);
+        }
+
+        for (int i = n - 1; i > 0; i--) {
+            int temp = nums[0];
+            nums[0] = nums[i];
+            nums[i] = temp;
+
+            heapify(nums, i, 0);
         }
     }
 
@@ -46,8 +46,8 @@ public class HeapSort {
 
         heapSort(nums);
 
-        for (int number : nums) {
-            System.out.print(number + " ");
+        for (int num : nums) {
+            System.out.print(num + " ");
         }
     }
 }

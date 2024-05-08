@@ -1,9 +1,9 @@
-public class InsertionSort {
+class InsertionSort {
 
     // Time -> O(n^2) //
     // Space -> O(1) //
 
-    public static void insertionSort(int[] nums) {
+    private static void insertionSort(int[] nums) {
         int n = nums.length;
 
         for (int i = 1; i < n; i++) {
@@ -23,8 +23,8 @@ public class InsertionSort {
 
         insertionSort(nums);
 
-        for (int number : nums) {
-            System.out.print(number + " ");
+        for (int num : nums) {
+            System.out.print(num + " ");
         }
     }
 }

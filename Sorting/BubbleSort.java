@@ -1,9 +1,9 @@
-public class BubbleSort {
+class BubbleSort {
 
     // Time -> O(n^2) //
     // Space -> O(1) //
 
-    public static void bubbleSort(int[] nums) {
+    private static void bubbleSort(int[] nums) {
         int n = nums.length;
 
         for (int i = 0; i < n; i++) {
@@ -22,8 +22,8 @@ public class BubbleSort {
 
         bubbleSort(nums);
 
-        for (int number : nums) {
-            System.out.print(number + " ");
+        for (int num : nums) {
+            System.out.print(num + " ");
         }
     }
 }

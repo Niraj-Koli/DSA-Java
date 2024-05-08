@@ -1,27 +1,20 @@
 import java.util.Arrays;
 
-public class RadixSort {
+class RadixSort {
 
     // Time -> O(nk) //
     // Space -> O(n + k) //
 
-    public static void radixSort(int[] arr) {
-        int max = Arrays.stream(arr).max().orElse(0);
+    private static void countingSort(int[] nums, int exp) {
+        int n = nums.length;
 
-        for (int exp = 1; max / exp > 0; exp *= 10) {
-            countingSort(arr, exp);
-        }
-    }
-
-    public static void countingSort(int[] arr, int exp) {
-        int n = arr.length;
         int[] output = new int[n];
         int[] count = new int[10];
 
         Arrays.fill(count, 0);
 
         for (int i = 0; i < n; i++) {
-            count[(arr[i] / exp) % 10]++;
+            count[(nums[i] / exp) % 10]++;
         }
 
         for (int i = 1; i < 10; i++) {
@@ -29,11 +22,19 @@ public class RadixSort {
         }
 
         for (int i = n - 1; i >= 0; i--) {
-            output[count[(arr[i] / exp) % 10] - 1] = arr[i];
-            count[(arr[i] / exp) % 10]--;
+            output[count[(nums[i] / exp) % 10] - 1] = nums[i];
+            count[(nums[i] / exp) % 10]--;
         }
 
-        System.arraycopy(output, 0, arr, 0, n);
+        System.arraycopy(output, 0, nums, 0, n);
+    }
+
+    private static void radixSort(int[] nums) {
+        int max = Arrays.stream(nums).max().orElse(0);
+
+        for (int exp = 1; max / exp > 0; exp *= 10) {
+            countingSort(nums, exp);
+        }
     }
 
     public static void main(String[] args) {
@@ -41,8 +42,8 @@ public class RadixSort {
 
         radixSort(nums);
 
-        for (int number : nums) {
-            System.out.print(number + " ");
+        for (int num : nums) {
+            System.out.print(num + " ");
         }
     }
 }

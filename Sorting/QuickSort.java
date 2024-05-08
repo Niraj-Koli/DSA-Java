@@ -1,48 +1,49 @@
-public class QuickSort {
+class QuickSort {
 
     // Time -> O(n * log(n)) //
     // Space -> O(log(n)) //
 
-    public static void swap(int[] arr, int i, int j) {
-        int temp = arr[i];
-        arr[i] = arr[j];
-        arr[j] = temp;
+    private static void swap(int[] nums, int i, int j) {
+        int temp = nums[i];
+        nums[i] = nums[j];
+        nums[j] = temp;
     }
 
-    public static void quickSort(int[] arr, int low, int high) {
-        if (low < high) {
-            int pivotIndex = partition(arr, low, high);
-
-            quickSort(arr, low, pivotIndex - 1);
-            quickSort(arr, pivotIndex + 1, high);
-        }
-    }
-
-    public static int partition(int[] arr, int low, int high) {
-        int pivot = arr[high];
+    private static int partition(int[] nums, int low, int high) {
+        int pivot = nums[high];
 
         int i = low - 1;
 
         for (int j = low; j < high; j++) {
-            if (arr[j] <= pivot) {
+            if (nums[j] <= pivot) {
                 i++;
-                swap(arr, i, j);
+                swap(nums, i, j);
             }
         }
 
-        swap(arr, i + 1, high);
+        swap(nums, i + 1, high);
+        
         return i + 1;
     }
 
+    private static void quickSort(int[] nums, int low, int high) {
+        if (low < high) {
+            int pivotIndex = partition(nums, low, high);
+
+            quickSort(nums, low, pivotIndex - 1);
+            quickSort(nums, pivotIndex + 1, high);
+        }
+    }
+
     public static void main(String[] args) {
-        int[] arr = { 10, 7, 21, 47, 73, 91, 36, 52, 2, 69 };
+        int[] nums = { 10, 7, 21, 47, 73, 91, 36, 52, 2, 69 };
 
-        int n = arr.length;
+        int n = nums.length;
 
-        quickSort(arr, 0, n - 1);
+        quickSort(nums, 0, n - 1);
 
-        for (int number : arr) {
-            System.out.print(number + " ");
+        for (int num : nums) {
+            System.out.print(num + " ");
         }
     }
 }
