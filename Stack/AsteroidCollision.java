@@ -12,8 +12,12 @@
 
 import java.util.ArrayDeque;
 
-public class AsteroidCollision {
-    public static int[] asteroidCollision(int[] asteroids) {
+class AsteroidCollision {
+
+    // Time -> O(n) //
+    // Space -> O(n) //
+
+    private static int[] asteroidCollision(int[] asteroids) {
         ArrayDeque<Integer> stack = new ArrayDeque<Integer>();
 
         for (int asteroid : asteroids) {
@@ -31,56 +35,28 @@ public class AsteroidCollision {
             }
 
             if (asteroid != 0) {
-                stack.offerLast(asteroid);
+                stack.offer(asteroid);
             }
         }
 
         int n = stack.size();
 
-        int[] result = new int[n];
+        int[] res = new int[n];
 
         for (int i = n - 1; i >= 0; i--) {
-            result[i] = stack.pollLast();
+            res[i] = stack.pollLast();
         }
 
-        return result;
+        return res;
     }
 
     public static void main(String[] args) {
         int[] asteroids = { 5, 10, -5 };
 
-        int[] answer = asteroidCollision(asteroids);
+        int[] ans = asteroidCollision(asteroids);
 
-        for (int ans : answer) {
-            System.out.print(ans + " ");
+        for (int an : ans) {
+            System.out.print(an + " ");
         }
     }
 }
-
-// class Solution {
-// public int[] asteroidCollision(int[] asteroids) {
-// int n = asteroids.length;
-// Stack<Integer> s = new Stack<>();
-// for (int i = 0; i < n; i++) {
-// if (asteroids[i] > 0 || s.isEmpty()) {
-// s.push(asteroids[i]);
-// } else {
-// while (!s.isEmpty() && s.peek() > 0 && s.peek() < Math.abs(asteroids[i])) {
-// s.pop();
-// }
-// if (!s.isEmpty() && s.peek() == Math.abs(asteroids[i])) {
-// s.pop();
-// } else {
-// if (s.isEmpty() || s.peek() < 0) {
-// s.push(asteroids[i]);
-// }
-// }
-// }
-// }
-// int[] res = new int[s.size()];
-// for (int i = s.size() - 1; i >= 0; i--) {
-// res[i] = s.pop();
-// }
-// return res;
-// }
-// }

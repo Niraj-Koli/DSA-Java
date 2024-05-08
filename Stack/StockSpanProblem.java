@@ -8,49 +8,42 @@
  */
 
 import java.util.ArrayDeque;
+import java.util.Arrays;
 
-public class StockSpanProblem {
-    public static int[] stockSpan(int[] price) {
+class StockSpanProblem {
+
+    // Time -> O(n) //
+    // Space -> O(n) //
+
+    private static int[] stockSpan(int[] price) {
         int n = price.length;
 
-        int[] result = new int[n];
+        int[] res = new int[n];
+        Arrays.fill(res, -1);
 
         ArrayDeque<Integer> stack = new ArrayDeque<Integer>();
 
-        for (int i = 0; i < n; i++) {
-            if (stack.isEmpty()) {
-                result[i] = -1;
-            } else if (!stack.isEmpty() && price[stack.peekLast()] > price[i]) {
-                result[i] = stack.peekLast();
-            } else if (!stack.isEmpty() && price[stack.peekLast()] <= price[i]) {
-                while (!stack.isEmpty() && price[stack.peekLast()] <= price[i]) {
-                    stack.poll();
-                }
-
-                if (stack.isEmpty()) {
-                    result[i] = -1;
-                } else {
-                    result[i] = stack.peekLast();
-                }
+        for (int i = n - 1; i >= 0; i--) {
+            while (!stack.isEmpty() && price[stack.peekLast()] < price[i]) {
+                res[stack.pollLast()] = i;
             }
-
-            stack.offerLast(i);
+            stack.offer(i);
         }
 
         for (int i = 0; i < n; i++) {
-            result[i] = i - result[i];
+            res[i] = i - res[i];
         }
 
-        return result;
+        return res;
     }
 
     public static void main(String[] args) {
         int[] price = { 100, 80, 60, 70, 60, 75, 85 };
 
-        int[] answer = stockSpan(price);
+        int[] ans = stockSpan(price);
 
-        for (int ans : answer) {
-            System.out.print(ans + " ");
+        for (int an : ans) {
+            System.out.print(an + " ");
         }
     }
 }

@@ -21,8 +21,12 @@
 
 import java.util.ArrayDeque;
 
-public class SimplifyPath {
-    public static String simplifyPath(String path) {
+class SimplifyPath {
+
+    // Time -> O(n) //
+    // Space -> O(n) //
+
+    private static String simplifyPath(String path) {
         ArrayDeque<String> stack = new ArrayDeque<String>();
         String[] newPath = path.split("/");
 
@@ -32,7 +36,7 @@ public class SimplifyPath {
                     stack.pollLast();
                 }
             } else if (!str.equals("") && !str.equals(".")) {
-                stack.offerLast(str);
+                stack.offer(str);
             }
         }
 
@@ -52,62 +56,6 @@ public class SimplifyPath {
     public static void main(String[] args) {
         String path = "/home//foo/";
 
-        String answer = simplifyPath(path);
-
-        System.out.println(answer);
+        System.out.println(simplifyPath(path));
     }
 }
-
-// class Solution {
-
-// private String[] extend(String[] arr) {
-// String[] newArr = new String[arr.length * 2];
-// for (int i = 0; i < arr.length; i++) {
-// newArr[i] = arr[i];
-// }
-// return newArr;
-// }
-
-// public String simplifyPath(String path) {
-
-// String[] stack = new String[10];
-// int sl = 0; // length of the stack
-// final int len = path.length();
-
-// int i = 0;
-// while (true) {
-// while (i < len && path.charAt(i) == '/')
-// i++;
-// if (i >= len)
-// break;
-
-// int j = i;
-// while (i < len && path.charAt(i) != '/')
-// i++;
-// if (i == j + 1 && path.charAt(j) == '.') {
-// // ".", do nothing
-// } else if (i == j + 2 && path.charAt(j) == '.' && path.charAt(j + 1) == '.')
-// {
-// // "..", level up
-// sl--;
-// if (sl < 0)
-// sl = 0;
-// } else {
-// if (sl >= stack.length)
-// stack = extend(stack);
-// stack[sl] = path.substring(j, i);
-// sl++;
-// }
-// }
-
-// if (sl == 0)
-// return "/";
-
-// StringBuilder sb = new StringBuilder();
-// for (i = 0; i < sl; i++) {
-// sb.append("/");
-// sb.append(stack[i]);
-// }
-// return sb.toString();
-// }
-// }

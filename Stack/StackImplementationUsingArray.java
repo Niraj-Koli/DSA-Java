@@ -4,45 +4,60 @@
  * push() and pop() to implement a stack.
  */
 
-public class StackImplementationUsingArray {
-    private int top;
-    private int[] arr;
+class StackImplementationUsingArray {
 
-    public StackImplementationUsingArray() {
-        top = -1;
-        arr = new int[1000];
-    }
+    // Time -> O(1) //
+    // Space -> O(n) //
 
-    private void push(int x) {
-        top++;
-        arr[top] = x;
-    }
+    private static class Stack {
+        private int top;
+        private int size;
+        private int[] arr;
 
-    private int pop() {
-        return arr[top--];
-    }
+        public Stack() {
+            top = -1;
+            size = 1000;
+            arr = new int[size];
+        }
 
-    private int top() {
-        return arr[top];
-    }
+        public void push(int x) {
+            arr[++top] = x;
+        }
 
-    private int size() {
-        return top + 1;
+        public int pop() {
+            return arr[top--];
+        }
+
+        public int top() {
+            return arr[top];
+        }
+
+        public int size() {
+            return top + 1;
+        }
+
+        public boolean isEmpty() {
+            return top == -1;
+        }
+
+        public boolean isFull() {
+            return top + 1 == size;
+        }
     }
 
     public static void main(String[] args) {
-        StackImplementationUsingArray stack = new StackImplementationUsingArray();
+        Stack stack = new Stack();
+
+        System.out.println(stack.isEmpty());
 
         stack.push(10);
         stack.push(7);
         stack.push(21);
 
         System.out.println(stack.top());
-
         System.out.println(stack.pop());
-
         System.out.println(stack.top());
-
         System.out.println(stack.size());
+        System.out.println(stack.isFull());
     }
 }

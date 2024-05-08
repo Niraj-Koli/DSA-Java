@@ -9,13 +9,14 @@
 
 import java.util.ArrayDeque;
 
-public class SumOfSubarraysRanges {
+class SumOfSubarraysRanges {
 
-    // Time -> O(n) //
+    // Time -> O(2 * n) //
     // Space -> O(n) //
 
     private static long subArrayRanges(int[] nums) {
         int n = nums.length;
+
         int j = 0;
         int k = 0;
 

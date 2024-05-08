@@ -5,43 +5,78 @@
  */
 
 import java.util.ArrayDeque;
+import java.util.Arrays;
 
-public class NearestSmallerToLeft {
-    public static int[] nextSmallerElementToLeft(int[] nums) {
+class NearestSmallerToLeft {
+
+    // Time -> O(n) //
+    // Space -> O(n) //
+
+    private static int[] nearestSmallerElementToLeft(int[] nums) {
         int n = nums.length;
 
-        int[] result = new int[n];
+        int[] res = new int[n];
+        Arrays.fill(res, -1);
+
+        ArrayDeque<Integer> stack = new ArrayDeque<Integer>();
+
+        for (int i = n - 1; i >= 0; i--) {
+            while (!stack.isEmpty() && nums[stack.peekLast()] > nums[i]) {
+                res[stack.pollLast()] = nums[i];
+            }
+            stack.offer(i);
+        }
+
+        return res;
+    }
+
+    // Time -> O(n) //
+    // Space -> O(n) //
+
+    private static int[] nextSmallerElementToLeft(int[] nums) {
+        int n = nums.length;
+
+        int[] res = new int[n];
 
         ArrayDeque<Integer> stack = new ArrayDeque<Integer>();
 
         for (int i = 0; i < n; i++) {
             if (stack.isEmpty()) {
-                result[i] = -1;
+                res[i] = -1;
             } else if (!stack.isEmpty() && stack.peekLast() < nums[i]) {
-                result[i] = stack.peekLast();
+                res[i] = stack.peekLast();
             } else if (!stack.isEmpty() && stack.peekLast() >= nums[i]) {
                 while (!stack.isEmpty() && stack.peekLast() >= nums[i]) {
                     stack.pollLast();
                 }
 
                 if (stack.isEmpty()) {
-                    result[i] = -1;
+                    res[i] = -1;
                 } else {
-                    result[i] = stack.peekLast();
+                    res[i] = stack.peekLast();
                 }
             }
-            stack.offerLast(nums[i]);
+            stack.offer(nums[i]);
         }
-        return result;
+
+        return res;
     }
 
     public static void main(String[] args) {
         int[] nums = { 1, 3, 2, 4 };
 
-        int[] answer = nextSmallerElementToLeft(nums);
+        int[] ans = nextSmallerElementToLeft(nums);
 
-        for (int ans : answer) {
-            System.out.print(ans + " ");
+        for (int an : ans) {
+            System.out.print(an + " ");
+        }
+
+        System.out.println();
+
+        int[] output = nearestSmallerElementToLeft(nums);
+
+        for (int out : output) {
+            System.out.print(out + " ");
         }
     }
 }

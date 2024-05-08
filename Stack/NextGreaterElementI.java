@@ -16,7 +16,7 @@
 import java.util.ArrayDeque;
 import java.util.HashMap;
 
-public class NextGreaterElementI {
+class NextGreaterElementI {
 
     // Time -> O(n + m) //
     // Space -> O(n) //

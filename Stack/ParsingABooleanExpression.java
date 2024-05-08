@@ -20,7 +20,7 @@
 import java.util.ArrayDeque;
 import java.util.HashSet;
 
-public class ParsingABooleanExpression {
+class ParsingABooleanExpression {
 
     // Time -> O(n) //
     // Space -> O(n) //
@@ -28,7 +28,7 @@ public class ParsingABooleanExpression {
     private static boolean parseBoolExpr(String expression) {
         int n = expression.length();
 
-        ArrayDeque<Character> deque = new ArrayDeque<>();
+        ArrayDeque<Character> deque = new ArrayDeque<Character>();
 
         for (int i = 0; i < n; i++) {
             char ch = expression.charAt(i);

@@ -10,31 +10,24 @@
  */
 
 import java.util.ArrayDeque;
-import java.util.HashMap;
 
-public class ValidParentheses {
-    public static boolean isValid(String s) {
-        int n = s.length();
+class ValidParentheses {
 
+    // Time -> O(n) //
+    // Space -> O(n) //
+
+    private static boolean isValid(String s) {
         ArrayDeque<Character> stack = new ArrayDeque<Character>();
 
-        HashMap<Character, Character> map = new HashMap<Character, Character>();
-
-        map.put(')', '(');
-        map.put(']', '[');
-        map.put('}', '{');
-
-        for (int i = 0; i < n; i++) {
-            char c = s.charAt(i);
-
-            if (map.containsKey(c)) {
-                if (!stack.isEmpty() && map.get(c).equals(stack.peekLast())) {
-                    stack.pollLast();
-                } else {
-                    return false;
-                }
-            } else {
-                stack.offerLast(c);
+        for (char ch : s.toCharArray()) {
+            if (ch == '(') {
+                stack.offer(')');
+            } else if (ch == '[') {
+                stack.offer(']');
+            } else if (ch == '{') {
+                stack.offer('}');
+            } else if (stack.isEmpty() || stack.pollLast() != ch) {
+                return false;
             }
         }
 
@@ -44,45 +37,6 @@ public class ValidParentheses {
     public static void main(String[] args) {
         String s = "()[]{}";
 
-        boolean answer = isValid(s);
-
-        System.out.println(answer);
+        System.out.println(isValid(s));
     }
 }
-
-// class Solution {
-// public boolean isValid(String s) {
-// int p = 0, sq = 0, c = 0;
-// for (char ch : s.toCharArray()) {
-// if (ch == '(')
-// p++;
-// else if (ch == ')')
-// p--;
-// else if (ch == '[')
-// sq++;
-// else if (ch == ']')
-// sq--;
-// else if (ch == '{')
-// c++;
-// else if (ch == '}')
-// c--;
-// if (p < 0 || sq < 0 || c < 0)
-// return false;
-// }
-// if (s.equals("([)]"))
-// return false;
-// if (s.equals("{[}]"))
-// return false;
-// if (s.equals("[({])}"))
-// return false;
-// if (s.equals("[([]])"))
-// return false;
-// if (s.equals("([([)]])"))
-// return false;
-// if (s.equals("[([]])"))
-// return false;
-
-// return p == 0 && sq == 0 && c == 0;
-
-// }
-// }

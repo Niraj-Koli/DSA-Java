@@ -18,15 +18,15 @@
  * the stack is empty
  */
 
-public class StackImplementationUsingLinkedList {
+class StackImplementationUsingLinkedList {
 
     // Time -> O(1) //
     // Space -> O(n) //
 
     private static class Stack {
         private class ListNode {
-            int data;
-            ListNode next;
+            private int data;
+            private ListNode next;
 
             public ListNode(int data) {
                 this.data = data;

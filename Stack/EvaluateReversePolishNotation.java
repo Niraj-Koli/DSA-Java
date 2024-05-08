@@ -19,27 +19,31 @@
 
 import java.util.ArrayDeque;
 
-public class EvaluateReversePolishNotation {
-    public static int evalRPN(String[] tokens) {
+class EvaluateReversePolishNotation {
+
+    // Time -> O(n) //
+    // Space -> O(n) //
+
+    private static int evalRPN(String[] tokens) {
         ArrayDeque<Integer> stack = new ArrayDeque<Integer>();
 
         for (String token : tokens) {
             if (token.equals("+")) {
-                stack.offerLast(stack.pollLast() + stack.pollLast());
+                stack.offer(stack.pollLast() + stack.pollLast());
             } else if (token.equals("-")) {
                 int b = stack.pollLast();
                 int a = stack.pollLast();
 
-                stack.offerLast(a - b);
+                stack.offer(a - b);
             } else if (token.equals("*")) {
-                stack.offerLast(stack.pollLast() * stack.pollLast());
+                stack.offer(stack.pollLast() * stack.pollLast());
             } else if (token.equals("/")) {
                 int b = stack.pollLast();
                 int a = stack.pollLast();
 
-                stack.offerLast(a / b);
+                stack.offer(a / b);
             } else {
-                stack.offerLast(Integer.valueOf(token));
+                stack.offer(Integer.valueOf(token));
             }
         }
 
@@ -49,48 +53,6 @@ public class EvaluateReversePolishNotation {
     public static void main(String[] args) {
         String[] tokens = { "10", "6", "9", "3", "+", "-11", "*", "/", "*", "17", "+", "5", "+" };
 
-        int answer = evalRPN(tokens);
-
-        System.out.println(answer);
+        System.out.println(evalRPN(tokens));
     }
 }
-
-// class Solution {
-// static int i = 0;
-
-// public int evalRPN(String[] tokens) {
-// i = tokens.length - 1;
-// return calculate(tokens);
-// }
-
-// public int calculate(String[] tokens) {
-// String token = tokens[i];
-// i--;
-
-// switch (token) {
-// case "+": {
-// int p1 = calculate(tokens);
-// int p2 = calculate(tokens);
-// return p1 + p2;
-// }
-// case "-": {
-// int p1 = calculate(tokens);
-// int p2 = calculate(tokens);
-// return p2 - p1;
-// }
-// case "*": {
-// int p1 = calculate(tokens);
-// int p2 = calculate(tokens);
-// return p1 * p2;
-// }
-// case "/": {
-// int p1 = calculate(tokens);
-// int p2 = calculate(tokens);
-// return p2 / p1;
-// }
-// default: {
-// return Integer.valueOf(token);
-// }
-// }
-// }
-// }

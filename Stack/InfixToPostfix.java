@@ -1,6 +1,6 @@
 import java.util.ArrayDeque;
 
-public class InfixToPostfix {
+class InfixToPostfix {
     private static int precedence(char ch) {
         switch (ch) {
             case '+':

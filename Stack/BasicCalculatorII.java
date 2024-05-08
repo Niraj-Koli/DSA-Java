@@ -13,8 +13,12 @@
 
 import java.util.ArrayDeque;
 
-public class BasicCalculatorII {
-    public static int calculate(String s) {
+class BasicCalculatorII {
+
+    // Time -> O(n) //
+    // Space -> O(n) //
+
+    private static int calculate(String s) {
         int n = s.length();
 
         ArrayDeque<Integer> stack = new ArrayDeque<Integer>();
@@ -57,48 +61,6 @@ public class BasicCalculatorII {
     public static void main(String[] args) {
         String s = "3+2*2";
 
-        int ans = calculate(s);
-
-        System.out.println(ans);
+        System.out.println(calculate(s));
     }
 }
-
-// class Solution {
-// public int calculate(String s) {
-// if (s.length() == 299999)
-// return 2;
-// if (s.length() == 209079)
-// return 199;
-// int sum = 0, len = s.length(), first = 0, last = 0;
-
-// char[] c = s.toCharArray();
-// char op = '+';
-
-// for (int i = 0; i < len; i++) {
-// if (Character.isDigit(c[i])) {
-// first = first * 10 + (c[i] - '0'); // Accumulate digits to form multi-digit
-// numbers
-// }
-
-// if (!Character.isDigit(c[i]) && c[i] != ' ' || i == len - 1) {
-// if (op == '+') {
-// sum += last;
-// last = first;
-// } else if (op == '-') {
-// sum += last;
-// last = -first;
-// } else if (op == '*') {
-// last = last * first;
-// } else if (op == '/') {
-// last = last / first;
-// }
-// op = c[i];
-// first = 0;
-// }
-// }
-
-// sum += last;
-// return sum;
-
-// }
-// }

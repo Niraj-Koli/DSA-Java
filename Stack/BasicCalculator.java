@@ -8,8 +8,12 @@
 
 import java.util.ArrayDeque;
 
-public class BasicCalculator {
-    public static int calculate(String s) {
+class BasicCalculator {
+
+    // Time -> O(n) //
+    // Space -> O(n) //
+
+    private static int calculate(String s) {
         int n = s.length();
 
         ArrayDeque<Integer> stack = new ArrayDeque<Integer>();
@@ -20,6 +24,7 @@ public class BasicCalculator {
 
         for (int i = 0; i < n; i++) {
             char c = s.charAt(i);
+
             if (Character.isDigit(c)) {
                 number = number * 10 + (c - '0');
             } else if (c == '+') {
@@ -31,15 +36,15 @@ public class BasicCalculator {
                 number = 0;
                 sign = -1;
             } else if (c == '(') {
-                stack.push(res);
-                stack.push(sign);
+                stack.offer(res);
+                stack.offer(sign);
                 sign = 1;
                 res = 0;
             } else if (c == ')') {
                 res += sign * number;
                 number = 0;
-                res *= stack.pop();
-                res += stack.pop();
+                res *= stack.pollLast();
+                res += stack.pollLast();
 
             }
         }
@@ -54,47 +59,6 @@ public class BasicCalculator {
     public static void main(String[] args) {
         String s = "(1+(4+5+2)-3)+(6+8)";
 
-        int ans = calculate(s);
-
-        System.out.println(ans);
+        System.out.println(calculate(s));
     }
 }
-
-// class Solution {
-// private int INDEX;
-
-// public int calculate(String s) {
-// INDEX = 0;
-// return calc(s.toCharArray());
-// }
-
-// private int calc(char[] sarray) {
-// int sum = 0;
-// int nextSign = 1;
-// while (INDEX < sarray.length) {
-// switch (sarray[INDEX]) {
-// case ' ' -> {
-// }
-// case '+' -> nextSign = 1;
-// case '-' -> nextSign = -1;
-// case '(' -> {
-// INDEX++;
-// sum += (nextSign * calc(sarray));
-// }
-// case ')' -> {
-// return sum;
-// }
-// default -> {
-// int number = sarray[INDEX] - '0';
-// while (INDEX + 1 < sarray.length && sarray[INDEX + 1] >= '0') {
-// INDEX++;
-// number = number * 10 + (sarray[INDEX] - '0');
-// }
-// sum += (nextSign * number);
-// }
-// }
-// INDEX++;
-// }
-// return sum;
-// }
-// }

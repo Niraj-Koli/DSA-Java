@@ -5,7 +5,7 @@
 
 import java.util.ArrayDeque;
 
-public class RemoveKDigits {
+class RemoveKDigits {
 
     // Time -> O(n) //
     // Space -> O(n) //
@@ -33,6 +33,7 @@ public class RemoveKDigits {
         }
 
         StringBuilder res = new StringBuilder();
+        
         while (!stack.isEmpty()) {
             res.append(stack.pollFirst());
         }

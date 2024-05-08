@@ -10,7 +10,7 @@
 import java.util.ArrayDeque;
 import java.util.PriorityQueue;
 
-public class SlidingWindowMaximum {
+class SlidingWindowMaximum {
 
     // Time -> O(n) //
     // Space -> O(k) //
@@ -48,7 +48,7 @@ public class SlidingWindowMaximum {
     private static int[] maxSlidingWindowPQ(int[] nums, int k) {
         int n = nums.length;
 
-        PriorityQueue<Integer> maxHeap = new PriorityQueue<Integer>((a, b) -> b - a);
+        PriorityQueue<Integer> maxHeap = new PriorityQueue<Integer>((a, b) -> Integer.compare(b, a));
 
         int[] res = new int[n + 1 - k];
 
@@ -78,9 +78,9 @@ public class SlidingWindowMaximum {
 
         System.out.println();
 
-        int[] outcome = maxSlidingWindowDQ(nums, k);
+        int[] output = maxSlidingWindowDQ(nums, k);
 
-        for (int out : outcome) {
+        for (int out : output) {
             System.out.print(out + " ");
         }
     }

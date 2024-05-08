@@ -12,7 +12,7 @@
 import java.util.ArrayDeque;
 import java.util.Arrays;
 
-public class NextGreaterElementII {
+class NextGreaterElementII {
 
     // Time -> O(n) //
     // Space -> O(n) //

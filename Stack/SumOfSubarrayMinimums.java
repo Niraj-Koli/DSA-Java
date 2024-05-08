@@ -7,9 +7,9 @@
 import java.util.ArrayDeque;
 import java.util.Arrays;
 
-public class SumOfSubarrayMinimums {
+class SumOfSubarrayMinimums {
 
-    // Time -> O(n) //
+    // Time -> O(3 * n) //
     // Space -> O(n) //
 
     private static int sumSubarrayMins(int[] nums) {

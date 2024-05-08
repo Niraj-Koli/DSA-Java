@@ -14,75 +14,51 @@
 
 import java.util.ArrayDeque;
 
-public class NumberOfVisiblePeopleInAQueue {
-    public static int[] canSeePersonsCount(int[] heights) {
-        int len = heights.length;
+class NumberOfVisiblePeopleInAQueue {
 
-        int[] result = new int[len];
+    // Time -> O(n) //
+    // Space -> O(n) //
+
+    private static int[] canSeePersonsCount(int[] heights) {
+        int n = heights.length;
+
+        int[] res = new int[n];
 
         ArrayDeque<Integer> stack = new ArrayDeque<Integer>();
 
-        for (int i = len - 1; i >= 0; i--) {
+        for (int i = n - 1; i >= 0; i--) {
             int count = 0;
 
             if (stack.isEmpty()) {
-                result[i] = count;
+                res[i] = count;
             } else if (!stack.isEmpty() && stack.peekLast() > heights[i]) {
-                result[i] = count + 1;
+                res[i] = count + 1;
             } else if (!stack.isEmpty() && stack.peekLast() < heights[i]) {
                 while (!stack.isEmpty() && stack.peekLast() < heights[i]) {
-                    count++;
                     stack.pollLast();
+                    count++;
                 }
 
                 if (stack.isEmpty()) {
-                    result[i] = count;
+                    res[i] = count;
                 } else {
-                    result[i] = count + 1;
+                    res[i] = count + 1;
                 }
             }
 
-            stack.offerLast(heights[i]);
+            stack.offer(heights[i]);
         }
 
-        return result;
+        return res;
     }
 
     public static void main(String[] args) {
         int[] heights = { 10, 6, 8, 5, 11, 9 };
 
-        int[] answer = canSeePersonsCount(heights);
+        int[] ans = canSeePersonsCount(heights);
 
-        for (int ans : answer) {
-            System.out.print(ans + " ");
+        for (int an : ans) {
+            System.out.print(an + " ");
         }
     }
 }
-
-// class Solution {
-// public int[] canSeePersonsCount(int[] heights) {
-// int len = heights.length;
-
-// int[] answer = new int[len];
-
-// for (int i = 0; i < len - 1; i++) {
-// int count = 0;
-// int max = 0;
-
-// for (int j = i + 1; j < len; j++) {
-// if (max < heights[j]) {
-// max = Math.max(max, heights[j]);
-// count++;
-// }
-
-// if (heights[i] < heights[j]) {
-// break;
-// }
-// }
-
-// answer[i] = count;
-// }
-
-// return answer;
-// }
-// }

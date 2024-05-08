@@ -20,93 +20,54 @@
 
 import java.util.ArrayDeque;
 
-public class StackImplementationUsingQueues {
-    ArrayDeque<Integer> queue;
+class StackImplementationUsingQueues {
 
-    public StackImplementationUsingQueues() {
-        queue = new ArrayDeque<Integer>();
-    }
+    // Time -> O(n) //
+    // Space -> O(n) //
 
-    private void push(int x) {
-        queue.offer(x);
+    private static class MyStack {
+        private ArrayDeque<Integer> queue;
 
-        for (int i = 0; i < queue.size() - 1; i++) {
-            queue.offer(queue.poll());
+        public MyStack() {
+            queue = new ArrayDeque<Integer>();
+        }
+
+        public void push(int x) {
+            queue.offer(x);
+
+            for (int i = 0; i < queue.size() - 1; i++) {
+                queue.offer(queue.poll());
+            }
+        }
+
+        public int pop() {
+            return queue.poll();
+        }
+
+        public int top() {
+            return queue.peek();
+        }
+
+        public int size() {
+            return queue.size();
+        }
+
+        public boolean empty() {
+            return queue.isEmpty();
         }
     }
 
-    private int pop() {
-        return queue.poll();
-    }
-
-    private int top() {
-        return queue.peek();
-    }
-
-    private int size() {
-        return queue.size();
-    }
-
-    private boolean empty() {
-        return queue.isEmpty();
-    }
-
     public static void main(String[] args) {
-        StackImplementationUsingQueues stack = new StackImplementationUsingQueues();
+        MyStack stack = new MyStack();
 
         stack.push(10);
         stack.push(7);
         stack.push(21);
 
         System.out.println(stack.size());
-
         System.out.println(stack.empty());
-
         System.out.println(stack.top());
-
         System.out.println(stack.pop());
-
         System.out.println(stack.top());
     }
 }
-
-// class MyStack {
-// Queue<Integer> queue = new ArrayDeque<>();
-// Queue<Integer> bufferQueue = new ArrayDeque<>();
-
-// public MyStack() {
-// }
-
-// public void push(int x) {
-// queue.offer(x);
-// }
-
-// public int pop() {
-// moveToBuffer();
-// int val = queue.poll();
-// moveToQueue();
-// return val;
-// }
-
-// public int top() {
-// moveToBuffer();
-// int val = queue.peek();
-// return val;
-// }
-
-// public boolean empty() {
-// return queue.isEmpty() && bufferQueue.isEmpty();
-// }
-
-// private void moveToBuffer() {
-// while (queue.size() > 1) {
-// bufferQueue.offer(queue.poll());
-// }
-// }
-
-// private void moveToQueue() {
-// while (!bufferQueue.isEmpty()) {
-// queue.offer(bufferQueue.poll());
-// }
-// }
-// }
