@@ -7,7 +7,7 @@
 
 import java.util.Arrays;
 
-public class LongestCommonPrefix {
+class LongestCommonPrefix {
 
     // Time -> O((n * log(n)) + m) //
     // Space -> O(1) //

@@ -1,8 +1,11 @@
 import java.util.ArrayList;
-import java.util.List;
 
-public class GenerateSubstrings {
-    public static void subString(String s) {
+class GenerateSubstrings {
+
+    // Time -> O(n^3) //
+    // Space -> O(1) //
+
+    private static void subString(String s) {
         int n = s.length();
 
         for (int i = 0; i < n; i++) {
@@ -15,18 +18,21 @@ public class GenerateSubstrings {
         }
     }
 
-    public static List<String> generateSubstrings(String s) {
+    // Time -> O(n^2) //
+    // Space -> O(n^2) //
+
+    private static ArrayList<String> generateSubstrings(String s) {
         int n = s.length();
 
-        List<String> result = new ArrayList<String>();
+        ArrayList<String> res = new ArrayList<String>();
 
         for (int i = 0; i < n; i++) {
             for (int j = i + 1; j <= n; j++) {
-                result.add(s.substring(i, j));
+                res.add(s.substring(i, j));
             }
         }
 
-        return result;
+        return res;
     }
 
     public static void main(String[] args) {
@@ -34,8 +40,6 @@ public class GenerateSubstrings {
 
         subString(s);
 
-        List<String> answer = generateSubstrings(s);
-
-        System.out.println(answer);
+        System.out.println(generateSubstrings(s));
     }
 }

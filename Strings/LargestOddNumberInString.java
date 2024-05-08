@@ -6,7 +6,7 @@
  * A substring is a contiguous sequence of characters within a string.
  */
 
-public class LargestOddNumberInString {
+class LargestOddNumberInString {
 
     // Time -> O(n) //
     // Space -> O(1) //

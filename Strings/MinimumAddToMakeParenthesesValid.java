@@ -13,7 +13,7 @@
  * Return the minimum number of moves required to make s valid.
  */
 
-public class MinimumAddToMakeParenthesesValid {
+class MinimumAddToMakeParenthesesValid {
 
     // Time -> O(n) //
     // Space -> O(1) //

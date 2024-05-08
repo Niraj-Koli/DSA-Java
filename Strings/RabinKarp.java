@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class RabinKarp {
+class RabinKarp {
 
     // Time -> O(n + m) //
     // Space -> O(max(n, m)) //

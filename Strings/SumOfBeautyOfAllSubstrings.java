@@ -6,7 +6,7 @@
  * Given a string s, return the sum of beauty of all of its substrings.
  */
 
-public class SumOfBeautyOfAllSubstrings {
+class SumOfBeautyOfAllSubstrings {
 
     // Time -> O(n^2) //
     // Space -> O(1) //

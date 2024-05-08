@@ -3,7 +3,7 @@
  * occurrence of needle in haystack, or -1 if needle is not part of haystack.
  */
 
-public class FindTheIndexOfTheFirstOccurrenceInAString {
+class FindTheIndexOfTheFirstOccurrenceInAString {
 
     // Time -> O(n * m) //
     // Space -> O(1) //

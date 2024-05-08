@@ -8,7 +8,7 @@
  * For example, if s = "abcde", then it will be "bcdea" after one shift.
  */
 
-public class RotateString {
+class RotateString {
 
     // Time -> O(n) //
     // Space -> O(1) //

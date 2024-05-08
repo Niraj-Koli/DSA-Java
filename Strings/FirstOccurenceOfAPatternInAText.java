@@ -8,7 +8,7 @@
  * Return -1 if such an index doesn’t exist.
  */
 
-public class FirstOccurenceOfAPatternInAText {
+class FirstOccurenceOfAPatternInAText {
 
     // Time -> O(n * m) //
     // Space -> O(1) //

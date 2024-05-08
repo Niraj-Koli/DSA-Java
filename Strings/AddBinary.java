@@ -1,7 +1,11 @@
 /* Given two binary strings a and b, return their sum as a binary string. */
 
-public class AddBinary {
-    public static String addBinary(String a, String b) {
+class AddBinary {
+
+    // Time -> O(n + m) //
+    // Space -> O(1) //
+
+    private static String addBinary(String a, String b) {
         int n = a.length();
         int m = b.length();
 
@@ -24,19 +28,17 @@ public class AddBinary {
                 j--;
             }
 
-            res.insert(0, sum % 2);
+            res.append(sum % 2);
             carry = sum / 2;
         }
 
-        return res.toString();
+        return res.reverse().toString();
     }
 
     public static void main(String[] args) {
         String a = "1010";
         String b = "1011";
 
-        String ans = addBinary(a, b);
-
-        System.out.println(ans);
+        System.out.println(addBinary(a, b));
     }
 }

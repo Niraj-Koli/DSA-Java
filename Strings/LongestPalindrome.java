@@ -9,8 +9,12 @@
 import java.util.HashMap;
 import java.util.Map;
 
-public class LongestPalindrome {
-    public static int longestPalindrome(String s) {
+class LongestPalindrome {
+
+    // Time -> O(n + size) //
+    // Space -> O(n) //
+
+    private static int longestPalindrome(String s) {
         int n = s.length();
 
         HashMap<Character, Integer> map = new HashMap<Character, Integer>();
@@ -22,53 +26,29 @@ public class LongestPalindrome {
         }
 
         boolean isOneOddPresent = false;
-        int longest = 0;
+        int res = 0;
 
         for (Map.Entry<Character, Integer> entry : map.entrySet()) {
             int value = entry.getValue();
 
             if (value % 2 == 0) {
-                longest += value;
+                res += value;
             } else {
-                longest += value - 1;
+                res += value - 1;
                 isOneOddPresent = true;
             }
         }
 
         if (isOneOddPresent) {
-            longest++;
+            res++;
         }
 
-        return longest;
+        return res;
     }
 
     public static void main(String[] args) {
         String s = "abccccdd";
 
-        int ans = longestPalindrome(s);
-
-        System.out.println(ans);
+        System.out.println(longestPalindrome(s));
     }
 }
-
-// class Solution {
-// public int longestPalindrome(String s) {
-// int[] freq = new int[58];
-// for (char c : s.toCharArray()) {
-// freq[c - 'A']++;
-// }
-// int res = 0;
-// boolean key = false;
-// for (int i = 0; i < 58; i++) {
-// int val = freq[i];
-// if (val % 2 != 0) {
-// key = true;
-// }
-// res += val / 2 * 2;
-// }
-// if (key) {
-// res++;
-// }
-// return res;
-// }
-// }

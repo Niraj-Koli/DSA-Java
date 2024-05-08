@@ -6,7 +6,7 @@
  * string "" if no such prefix exists.
  */
 
-public class LongestHappyPrefix {
+class LongestHappyPrefix {
 
     // Time -> O(n) //
     // Space -> O(1) //

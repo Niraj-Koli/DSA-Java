@@ -13,7 +13,7 @@
  * For example, the saying and conversion for digit string "3322251":
  */
 
-public class CountAndSay {
+class CountAndSay {
 
     // Time -> O(n^2) //
     // Space -> O(n) //

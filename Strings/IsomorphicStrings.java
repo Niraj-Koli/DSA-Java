@@ -9,10 +9,10 @@
  * character, but a character may map to itself.
  */
 
-public class IsomorphicStrings {
+class IsomorphicStrings {
 
     // Time -> O(n) //
-    // Space -> O(1) //
+    // Space -> O(n) //
 
     private static boolean isIsomorphic(String s, String t) {
         int n = s.length();

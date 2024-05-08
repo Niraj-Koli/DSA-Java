@@ -1,6 +1,6 @@
 /* Given a string str, return the longest palindromic substring in str. */
 
-public class LongestPalindromicSubstring {
+class LongestPalindromicSubstring {
 
     // Time -> O(n^2) //
     // Space -> O(1) //

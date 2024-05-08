@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class ZAlgorithm {
+class ZAlgorithm {
 
     // Time -> O(n + m) //
     // Space -> O(n + m)) //
@@ -35,7 +35,7 @@ public class ZAlgorithm {
                 }
             }
         }
-        
+
         return zArray;
     }
 

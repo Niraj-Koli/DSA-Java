@@ -26,7 +26,7 @@
  * the string after the digits.
  */
 
-public class ImplementAtoi {
+class ImplementAtoi {
 
     // Time -> O(n) //
     // Space -> O(1) //

@@ -7,7 +7,7 @@
  * transformation.
  */
 
-public class ShortestPalindrome {
+class ShortestPalindrome {
 
     // Time -> O(n^2) //
     // Space -> O(1) //

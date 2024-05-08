@@ -11,7 +11,7 @@
  * words. Do not include any extra spaces.
  */
 
-public class ReverseWordsInAString {
+class ReverseWordsInAString {
 
     // Time -> O(n) //
     // Space -> O(n) //

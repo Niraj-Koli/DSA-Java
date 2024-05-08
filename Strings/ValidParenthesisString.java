@@ -11,10 +11,10 @@
  * parenthesis '(' or an empty string "".
  */
 
-public class ValidParenthesisString {
+class ValidParenthesisString {
 
-    // Time -> O(n)
-    // Space -> O(1)
+    // Time -> O(n) //
+    // Space -> O(1) //
 
     private static boolean checkValidString(String s) {
         int n = s.length();

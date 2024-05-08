@@ -18,7 +18,7 @@
  * Given a VPS represented as string s, return the nesting depth of s.
  */
 
-public class MaximumNestingDepthOfTheParentheses {
+class MaximumNestingDepthOfTheParentheses {
 
     // Time -> O(n) //
     // Space -> O(1) //

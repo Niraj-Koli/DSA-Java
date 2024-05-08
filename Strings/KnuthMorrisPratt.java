@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class KnuthMorrisPratt {
+class KnuthMorrisPratt {
 
     // Time -> O(n + m) //
     // Space -> O(m)) //

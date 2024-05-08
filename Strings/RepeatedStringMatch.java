@@ -7,7 +7,7 @@
  * repeated 2 times is "abcabc".
  */
 
-public class RepeatedStringMatch {
+class RepeatedStringMatch {
 
     // Time -> O(n * m) //
     // Space -> O(1) //

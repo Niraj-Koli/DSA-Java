@@ -28,8 +28,12 @@
 
 import java.util.HashMap;
 
-public class RomanToInteger {
-    public static int romanToInt(String str) {
+class RomanToInteger {
+
+    // Time -> O(n) //
+    // Space -> O(1) //
+
+    private static int romanToInt(String str) {
         int n = str.length();
 
         HashMap<Character, Integer> map = new HashMap<Character, Integer>();
@@ -41,54 +45,23 @@ public class RomanToInteger {
         map.put('D', 500);
         map.put('M', 1000);
 
-        int result = 0;
+        int res = 0;
 
         for (int i = 0; i < n; i++) {
+            int value = map.get(str.charAt(i));
+
             if (i < n - 1 && map.get(str.charAt(i)) < map.get(str.charAt(i + 1))) {
-                result -= map.get(str.charAt(i));
+                res -= value;
             } else {
-                result += map.get(str.charAt(i));
+                res += value;
             }
         }
-        return result;
+        return res;
     }
 
     public static void main(String[] args) {
         String s = "MCMXCIV";
 
-        int answer = romanToInt(s);
-
-        System.out.println(answer);
-    }
-}
-
-class Solution {
-    public int romanToInt(String s) {
-
-        int res = 0;
-
-        Map<Character, Integer> map = new HashMap<>();
-        map.put('I', 1);
-        map.put('V', 5);
-        map.put('X', 10);
-        map.put('L', 50);
-        map.put('C', 100);
-        map.put('D', 500);
-        map.put('M', 1000);
-
-        s = s.replace("IV", "IIII");
-        s = s.replace("IX", "VIIII");
-        s = s.replace("XL", "XXXX");
-        s = s.replace("XC", "LXXXX");
-        s = s.replace("CD", "CCCC");
-        s = s.replace("CM", "DCCCC");
-
-        for (int i = 0; i < s.length(); i++) {
-
-            res = res + (map.get(s.charAt(i)));
-        }
-
-        return res;
-
+        System.out.println(romanToInt(s));
     }
 }

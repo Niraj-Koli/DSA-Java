@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.PriorityQueue;
 
-public class SortCharactersByFrequency {
+class SortCharactersByFrequency {
 
     // Time -> O(n * log(n)) //
     // Space -> O(n) //
@@ -18,15 +18,15 @@ public class SortCharactersByFrequency {
     private static String frequencySort(String s) {
         HashMap<Character, Integer> map = new HashMap<Character, Integer>();
 
-        for (char c : s.toCharArray()) {
-            map.put(c, map.getOrDefault(c, 0) + 1);
+        for (char ch : s.toCharArray()) {
+            map.put(ch, map.getOrDefault(ch, 0) + 1);
         }
 
         PriorityQueue<Map.Entry<Character, Integer>> pq = new PriorityQueue<Map.Entry<Character, Integer>>(
-                (a, b) -> b.getValue() - a.getValue());
+                (a, b) -> Integer.compare(b.getValue(), a.getValue()));
 
         for (Map.Entry<Character, Integer> entry : map.entrySet()) {
-            pq.add(entry);
+            pq.offer(entry);
         }
 
         StringBuilder res = new StringBuilder();

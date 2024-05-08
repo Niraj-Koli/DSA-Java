@@ -15,7 +15,7 @@
  * in the primitive decomposition of s.
  */
 
-public class RemoveOutermostParentheses {
+class RemoveOutermostParentheses {
 
     // Time -> O(n) //
     // Space -> O(n) //
@@ -26,9 +26,7 @@ public class RemoveOutermostParentheses {
         int opened = 0;
 
         for (char ch : s.toCharArray()) {
-            if (ch == '(' && opened++ > 0) {
-                res.append(ch);
-            } else if (ch == ')' && opened-- > 1) {
+            if (ch == '(' && opened++ > 0 || ch == ')' && opened-- > 1) {
                 res.append(ch);
             }
         }
