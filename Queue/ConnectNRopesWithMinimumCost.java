@@ -6,7 +6,7 @@
 
 import java.util.PriorityQueue;
 
-public class ConnectNRopesWithMinimumCost {
+class ConnectNRopesWithMinimumCost {
 
     // Time -> O(n * log(n)) //
     // Space -> O(n) //

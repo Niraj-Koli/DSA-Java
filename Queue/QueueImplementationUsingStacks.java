@@ -20,14 +20,14 @@
 
 import java.util.ArrayDeque;
 
-public class QueueImplementationUsingStacks {
+class QueueImplementationUsingStacks {
 
     // Time -> O(1) //
     // Space -> O(n) //
 
     private static class MyQueue {
-        ArrayDeque<Integer> input;
-        ArrayDeque<Integer> output;
+        private ArrayDeque<Integer> input;
+        private ArrayDeque<Integer> output;
 
         public MyQueue() {
             input = new ArrayDeque<Integer>();

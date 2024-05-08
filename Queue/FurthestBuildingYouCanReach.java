@@ -17,8 +17,12 @@
 
 import java.util.PriorityQueue;
 
-public class FurthestBuildingYouCanReach {
-    public static int furthestBuilding(int[] heights, int bricks, int ladders) {
+class FurthestBuildingYouCanReach {
+
+    // Time -> O(n * log(ladders)) //
+    // Space -> O(ladders) //
+
+    private static int furthestBuilding(int[] heights, int bricks, int ladders) {
         int n = heights.length;
 
         PriorityQueue<Integer> minHeap = new PriorityQueue<Integer>();
@@ -47,51 +51,6 @@ public class FurthestBuildingYouCanReach {
         int bricks = 10;
         int ladders = 2;
 
-        int ans = furthestBuilding(heights, bricks, ladders);
-
-        System.out.println(ans);
+        System.out.println(furthestBuilding(heights, bricks, ladders));
     }
 }
-
-// class Solution {
-// public int furthestBuilding(int[] heights, int bricks, int ladders) {
-// int n = heights.length;
-// int[] gapArray = new int[n];
-// gapArray[0] = 0;
-// for (int i = n - 1; i >= 1; i--) {
-// int diff = heights[i] - heights[i - 1];
-// gapArray[i] = diff <= 0 ? 0 : diff;
-// }
-
-// int l = 0;
-// int r = n - 1;
-// int max_index = 0;
-// while (l <= r) {
-// int m = (l + r) / 2;
-// int[] rangeArray = Arrays.copyOfRange(gapArray, 0, m + 1);
-
-// if (rangeArray.length <= ladders) {
-// max_index = Math.max(max_index, m);
-// l = m + 1;
-// } else {
-
-// elements
-// Arrays.sort(rangeArray);
-// int sum = 0;
-
-// for (int i = 0; i < rangeArray.length - ladders; i++) {
-// sum += rangeArray[i];
-// }
-
-// if (sum <= bricks) {
-// max_index = Math.max(max_index, m);
-// l = m + 1;
-// } else {
-// r = m - 1;
-// }
-// }
-// }
-
-// return max_index;
-// }
-// }

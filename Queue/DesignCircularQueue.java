@@ -29,6 +29,9 @@
 
 import java.util.Arrays;
 
+// Time -> O(1) //
+// Space -> O(k) //
+
 class MyCircularQueue {
     private int[] queue;
     private int front;
@@ -88,8 +91,7 @@ class MyCircularQueue {
     }
 }
 
-public class DesignCircularQueue {
-
+class DesignCircularQueue {
     public static void main(String[] args) {
         MyCircularQueue myCircularQueue = new MyCircularQueue(3);
         System.out.println(myCircularQueue.enQueue(1));
@@ -103,60 +105,3 @@ public class DesignCircularQueue {
         System.out.println(myCircularQueue.Rear());
     }
 }
-
-// class MyCircularQueue {
-// private final int k;
-// private final int[] array;
-// private int front;
-// private int back;
-// private int size;
-
-// public MyCircularQueue(int k) {
-// this.k = k;
-// this.array = new int[k];
-// this.front = 0;
-// this.back = k - 1;
-// this.size = 0;
-// }
-
-// public boolean enQueue(int value) {
-// if (isFull()) {
-// return false;
-// }
-// back = (back + 1) % k;
-// array[back] = value;
-// size++;
-// return true;
-// }
-
-// public boolean deQueue() {
-// if (isEmpty()) {
-// return false;
-// }
-// front = (front + 1) % k;
-// size--;
-// return true;
-// }
-
-// public int Front() {
-// if (isEmpty()) {
-// return -1;
-// }
-// return array[front];
-// }
-
-// public int Rear() {
-// if (isEmpty()) {
-// return -1;
-// }
-// return array[back];
-// }
-
-// public boolean isEmpty() {
-// return size == 0;
-// }
-
-// public boolean isFull() {
-// return size == array.length;
-// }
-// }

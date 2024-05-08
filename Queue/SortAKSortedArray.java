@@ -4,14 +4,17 @@
  */
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.PriorityQueue;
 
-public class SortAKSortedArray {
-    public static List<Integer> nearlySorted(int[] nums, int k) {
+class SortAKSortedArray {
+
+    // Time -> O(n * log(k)) //
+    // Space -> O(n) //
+
+    private static ArrayList<Integer> nearlySorted(int[] nums, int k) {
         int n = nums.length;
 
-        List<Integer> result = new ArrayList<Integer>();
+        ArrayList<Integer> res = new ArrayList<Integer>();
 
         PriorityQueue<Integer> minHeap = new PriorityQueue<Integer>();
 
@@ -19,23 +22,21 @@ public class SortAKSortedArray {
             minHeap.offer(nums[i]);
 
             if (minHeap.size() > k) {
-                result.add(minHeap.poll());
+                res.add(minHeap.poll());
             }
         }
 
-        while (minHeap.size() > 0) {
-            result.add(minHeap.poll());
+        while (!minHeap.isEmpty()) {
+            res.add(minHeap.poll());
         }
 
-        return result;
+        return res;
     }
 
     public static void main(String[] args) {
         int[] nums = { 6, 5, 3, 2, 8, 10, 9 };
         int k = 3;
 
-        List<Integer> answer = nearlySorted(nums, k);
-
-        System.out.println(answer);
+        System.out.println(nearlySorted(nums, k));
     }
 }

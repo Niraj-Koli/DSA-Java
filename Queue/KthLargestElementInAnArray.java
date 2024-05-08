@@ -10,7 +10,7 @@
 
 import java.util.PriorityQueue;
 
-public class KthLargestElementInAnArray {
+class KthLargestElementInAnArray {
 
     // Time -> O(n) && θ(n^2) //
     // Space -> O(log(k)) && θ(n) //
@@ -23,7 +23,7 @@ public class KthLargestElementInAnArray {
 
     private static int partition(int[] nums, int left, int right) {
         int pivot = nums[right];
-        
+
         int i = left - 1;
 
         for (int j = left; j < right; j++) {

@@ -8,14 +8,18 @@
 
 import java.util.PriorityQueue;
 
-public class MinimumCostOfRopes {
-    public static long minCost(long[] nums) {
+class MinimumCostOfRopes {
+
+    // Time -> O(n * log(k)) //
+    // Space -> O(k) //
+
+    private static long minCost(long[] nums) {
         long cost = 0;
 
         PriorityQueue<Long> minHeap = new PriorityQueue<Long>();
 
-        for (long number : nums) {
-            minHeap.offer(number);
+        for (long num : nums) {
+            minHeap.offer(num);
         }
 
         while (minHeap.size() > 1) {
@@ -33,8 +37,6 @@ public class MinimumCostOfRopes {
     public static void main(String[] args) {
         long[] nums = { 4, 3, 2, 6 };
 
-        long answer = minCost(nums);
-
-        System.out.println(answer);
+        System.out.println(minCost(nums));
     }
 }

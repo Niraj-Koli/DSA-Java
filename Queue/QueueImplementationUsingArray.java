@@ -6,7 +6,7 @@
  * poped element)
  */
 
-public class QueueImplementationUsingArray {
+class QueueImplementationUsingArray {
 
     // Time -> O(1) //
     // Space -> O(n) //

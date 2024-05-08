@@ -7,12 +7,12 @@
 
 import java.util.PriorityQueue;
 
-public class MergeKSortedLists {
+class MergeKSortedLists {
     private static class ListNode {
-        int val;
-        ListNode next;
+        private int val;
+        private ListNode next;
 
-        ListNode(int val) {
+        public ListNode(int val) {
             this.val = val;
             this.next = null;
         }
@@ -86,7 +86,7 @@ public class MergeKSortedLists {
         ListNode dummy = new ListNode(0);
         ListNode tail = dummy;
 
-        PriorityQueue<ListNode> minHeap = new PriorityQueue<ListNode>((a, b) -> a.val - b.val);
+        PriorityQueue<ListNode> minHeap = new PriorityQueue<ListNode>((a, b) -> Integer.compare(a.val, b.val));
 
         for (ListNode list : lists) {
             if (list != null) {

@@ -51,7 +51,7 @@ class MedianFinder {
     }
 }
 
-public class FindMedianFromDataStream {
+class FindMedianFromDataStream {
     public static void main(String[] args) {
         MedianFinder medianFinder = new MedianFinder();
         medianFinder.addNum(-1);

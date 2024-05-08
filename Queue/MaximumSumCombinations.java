@@ -10,7 +10,7 @@
 
 import java.util.PriorityQueue;
 
-public class MaximumSumCombinations {
+class MaximumSumCombinations {
 
     // Time -> O(n^2 * (k *log(n))) //
     // Space -> O(n^2) //
@@ -18,7 +18,7 @@ public class MaximumSumCombinations {
     private static int[] maxCombinations(int[] nums1, int[] nums2, int k) {
         int n = nums1.length;
 
-        PriorityQueue<Integer> pq = new PriorityQueue<Integer>((a, b) -> b - a);
+        PriorityQueue<Integer> pq = new PriorityQueue<Integer>((a, b) -> Integer.compare(b, a));
 
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
@@ -30,8 +30,7 @@ public class MaximumSumCombinations {
         int index = 0;
 
         while (index < k) {
-            res[index] = pq.poll();
-            index++;
+            res[index++] = pq.poll();
         }
 
         return res;

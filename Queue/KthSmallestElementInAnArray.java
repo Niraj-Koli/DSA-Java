@@ -6,7 +6,7 @@
 
 import java.util.PriorityQueue;
 
-public class KthSmallestElementInAnArray {
+class KthSmallestElementInAnArray {
 
     // Time -> O(n) && θ(n^2) //
     // Space -> O(log(k)) && θ(n) //
@@ -19,7 +19,7 @@ public class KthSmallestElementInAnArray {
 
     private static int partition(int[] nums, int left, int right) {
         int pivot = nums[right];
-        
+
         int i = left - 1;
 
         for (int j = left; j < right; j++) {
@@ -55,7 +55,7 @@ public class KthSmallestElementInAnArray {
     private static int findKthSmallest(int[] nums, int k) {
         int n = nums.length;
 
-        PriorityQueue<Integer> maxHeap = new PriorityQueue<Integer>((a, b) -> b - a);
+        PriorityQueue<Integer> maxHeap = new PriorityQueue<Integer>((a, b) -> Integer.compare(b, a));
 
         for (int i = 0; i < n; i++) {
             maxHeap.offer(nums[i]);
@@ -64,6 +64,7 @@ public class KthSmallestElementInAnArray {
                 maxHeap.poll();
             }
         }
+
         return maxHeap.peek();
     }
 

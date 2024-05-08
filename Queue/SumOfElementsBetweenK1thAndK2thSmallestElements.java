@@ -4,12 +4,15 @@
  * the array. It may be assumed that (1 <= k1 < k2 <= n).
  */
 
-import java.util.Comparator;
 import java.util.PriorityQueue;
 
-public class SumOfElementsBetweenK1thAndK2thSmallestElements {
-    public static long KSmallestElement(long[] nums, long k) {
-        PriorityQueue<Long> maxHeap = new PriorityQueue<Long>(Comparator.reverseOrder());
+class SumOfElementsBetweenK1thAndK2thSmallestElements {
+
+    // Time -> O(n * log(max(k1, k2))) //
+    // Space -> O(max(k1, k2)) //
+
+    private static long KSmallestElement(long[] nums, long k) {
+        PriorityQueue<Long> maxHeap = new PriorityQueue<Long>((a, b) -> Long.compare(b, a));
 
         for (long number : nums) {
             maxHeap.offer(number);
@@ -22,7 +25,7 @@ public class SumOfElementsBetweenK1thAndK2thSmallestElements {
         return maxHeap.peek();
     }
 
-    public static long sumBetweenTwoKth(long[] nums, long k1, long k2) {
+    private static long sumBetweenTwoKth(long[] nums, long k1, long k2) {
         int n = nums.length;
 
         long first = KSmallestElement(nums, k1);
@@ -44,8 +47,6 @@ public class SumOfElementsBetweenK1thAndK2thSmallestElements {
         long k1 = 3;
         long k2 = 6;
 
-        long answer = sumBetweenTwoKth(nums, k1, k2);
-
-        System.out.println(answer);
+        System.out.println(sumBetweenTwoKth(nums, k1, k2));
     }
 }

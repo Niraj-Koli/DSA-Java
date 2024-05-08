@@ -6,10 +6,10 @@
 import java.util.HashMap;
 import java.util.PriorityQueue;
 
-public class TopKFrequentElements {
+class TopKFrequentElements {
 
-    // Time -> O(n * log(k)) //
-    // Space -> O(k) //
+    // Time -> O((n * log(k)) + n) //
+    // Space -> O(n + k) //
 
     private static int[] topKFrequent(int[] nums, int k) {
         HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
@@ -18,7 +18,7 @@ public class TopKFrequentElements {
             map.put(num, map.getOrDefault(num, 0) + 1);
         }
 
-        PriorityQueue<Integer> minHeap = new PriorityQueue<Integer>((a, b) -> map.get(a) - map.get(b));
+        PriorityQueue<Integer> minHeap = new PriorityQueue<Integer>((a, b) -> Integer.compare(map.get(a), map.get(b)));
 
         for (int key : map.keySet()) {
             minHeap.offer(key);
@@ -28,14 +28,14 @@ public class TopKFrequentElements {
             }
         }
 
-        int[] result = new int[k];
+        int[] res = new int[k];
         int i = k - 1;
 
         while (!minHeap.isEmpty()) {
-            result[i--] = minHeap.poll();
+            res[i--] = minHeap.poll();
         }
 
-        return result;
+        return res;
     }
 
     public static void main(String[] args) {

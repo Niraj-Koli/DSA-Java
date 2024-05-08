@@ -10,7 +10,7 @@
  * complexity is O(1).
  */
 
-public class QueueImplementationUsingLinkedList {
+class QueueImplementationUsingLinkedList {
 
     // Time -> O(1) //
     // Space -> O(n) //

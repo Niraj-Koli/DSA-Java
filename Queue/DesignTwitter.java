@@ -138,7 +138,7 @@ class Twitter {
     }
 }
 
-public class DesignTwitter {
+class DesignTwitter {
     public static void main(String[] args) {
         Twitter twitter = new Twitter();
         twitter.postTweet(1, 5);

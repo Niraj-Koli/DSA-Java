@@ -11,12 +11,15 @@
 
 import java.util.PriorityQueue;
 
-public class KClosestPointsToOrigin {
-    public static int compare(int[] a, int[] b) {
+class KClosestPointsToOrigin {
+    private static int compare(int[] a, int[] b) {
         return ((a[0] * a[0]) + (a[1] * a[1])) - ((b[0] * b[0]) - (b[1] * b[1]));
     }
 
-    public static int[][] kClosest(int[][] points, int k) {
+    // Time -> O(n * log(k)) //
+    // Space -> O(k) //
+
+    private static int[][] kClosest(int[][] points, int k) {
         int n = points.length;
 
         PriorityQueue<int[]> maxHeap = new PriorityQueue<int[]>((a, b) -> compare(b, a));
@@ -29,66 +32,27 @@ public class KClosestPointsToOrigin {
             }
         }
 
-        int[][] result = new int[k][2];
+        int[][] res = new int[k][2];
         int index = 0;
 
-        while (maxHeap.size() > 0) {
-            result[index++] = maxHeap.poll();
+        while (!maxHeap.isEmpty()) {
+            res[index++] = maxHeap.poll();
         }
 
-        return result;
+        return res;
     }
 
     public static void main(String[] args) {
         int[][] points = { { 3, 3 }, { 5, -1 }, { -2, 4 } };
         int k = 2;
 
-        int[][] answer = kClosest(points, k);
+        int[][] ans = kClosest(points, k);
 
-        for (int[] a1 : answer) {
-            for (int a2 : a1) {
-                System.out.print(a2 + " ");
+        for (int[] row : ans) {
+            for (int col : row) {
+                System.out.print(col + " ");
             }
             System.out.println();
         }
     }
 }
-
-// class Solution {
-// public int[][] kClosest(int[][] points, int k) {
-// int lo = 0, hi = points.length - 1;
-// while (lo < k) {
-// int pivot = partition(points, lo, hi);
-// if (pivot == k)
-// break;
-// else if (pivot < k) {
-// lo = pivot;
-// } else {
-// hi = pivot - 1;
-// }
-// }
-// return Arrays.copyOfRange(points, 0, k);
-// }
-
-// public int partition(int[][] points, int lo, int hi) {
-// int[] point = points[(hi - lo) / 2 + lo];
-// while (lo <= hi) {
-// while (lo <= hi && dif(points[lo]) < dif(point))
-// lo++;
-// while (lo <= hi && dif(point) < dif(points[hi]))
-// hi--;
-// if (lo <= hi) {
-// int[] temp = points[lo];
-// points[lo] = points[hi];
-// points[hi] = temp;
-// lo++;
-// hi--;
-// }
-// }
-// return lo;
-// }
-
-// public int dif(int[] point) {
-// return point[0] * point[0] + point[1] * point[1];
-// }
-// }
