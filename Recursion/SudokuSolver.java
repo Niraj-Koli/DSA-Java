@@ -10,8 +10,12 @@
  * The '.' character indicates empty cells.
  */
 
-public class SudokuSolver {
-    public static boolean isValid(char[][] board, int row, int col, char ch) {
+class SudokuSolver {
+
+    // Time -> O(9^(n^2)) //
+    // Space -> O(1) //
+
+    private static boolean isValid(char[][] board, int row, int col, char ch) {
         for (int i = 0; i < 9; i++) {
             if (board[i][col] == ch) {
                 return false;
@@ -25,10 +29,11 @@ public class SudokuSolver {
                 return false;
             }
         }
+
         return true;
     }
 
-    public static boolean solveSudoku(char[][] board) {
+    private static boolean solveSudoku(char[][] board) {
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
                 if (board[i][j] == '.') {
@@ -47,6 +52,7 @@ public class SudokuSolver {
                 }
             }
         }
+
         return true;
     }
 
@@ -72,63 +78,3 @@ public class SudokuSolver {
         }
     }
 }
-
-// class Solution {
-// public void solveSudoku(char[][] board) {
-// helper(board);
-// return;
-// }
-
-// public boolean helper(char[][] board) {
-// int row = 0;
-// int col = 0;
-// boolean isBoxUnfilled = false;
-// for (int i = 0; i < 9; i++) {
-// for (int j = 0; j < 9; j++) {
-// if (board[i][j] == '.') {
-// row = i;
-// col = j;
-// isBoxUnfilled = true;
-// break;
-// }
-// }
-// if (isBoxUnfilled) {
-// break;
-// }
-// }
-// if (!isBoxUnfilled) {
-// return true;
-// }
-// for (int num = 1; num <= 9; num++) {
-// if (isSafe(board, row, col, num)) {
-// board[row][col] = (char) (num + '0');
-// if (helper(board)) {
-// return true;
-// } else {
-// board[row][col] = '.';
-// }
-// }
-// }
-// return false;
-// }
-
-// public boolean isSafe(char[][] board, int row, int col, int num) {
-// for (int i = 0; i < 9; i++) {
-// if (board[row][i] == (char) (num + '0'))
-// return false;
-// }
-// for (int i = 0; i < 9; i++) {
-// if (board[i][col] == (char) (num + '0'))
-// return false;
-// }
-// int rowStart = row - row % 3;
-// int colStart = col - col % 3;
-// for (int i = rowStart; i < rowStart + 3; i++) {
-// for (int j = colStart; j < colStart + 3; j++) {
-// if (board[i][j] == (char) (num + '0'))
-// return false;
-// }
-// }
-// return true;
-// }
-// }

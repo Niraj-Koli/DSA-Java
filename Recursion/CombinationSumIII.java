@@ -10,29 +10,32 @@
  */
 
 import java.util.ArrayList;
-import java.util.List;
 
-public class CombinationSumIII {
-    public static void solve(int k, int n, List<List<Integer>> res, ArrayList<Integer> combination, int sum,
-            int start) {
+class CombinationSumIII {
+
+    // Time -> O(2^n) //
+    // Space -> O(n) //
+
+    private static void solve(int k, int n, int start, int sum, ArrayList<Integer> combination,
+            ArrayList<ArrayList<Integer>> res) {
         if (n == sum && k == combination.size()) {
-            res.add(new ArrayList<>(combination));
+            res.add(new ArrayList<Integer>(combination));
             return;
         }
 
         for (int i = start; i <= 9; i++) {
             if (combination.size() < k && !combination.contains(i)) {
                 combination.add(i);
-                solve(k, n, res, combination, sum + i, i + 1);
+                solve(k, n, i + 1, sum + i, combination, res);
                 combination.remove(combination.size() - 1);
             }
         }
     }
 
-    public static List<List<Integer>> combinationSum3(int k, int n) {
-        List<List<Integer>> res = new ArrayList<List<Integer>>();
+    private static ArrayList<ArrayList<Integer>> combinationSum3(int k, int n) {
+        ArrayList<ArrayList<Integer>> res = new ArrayList<ArrayList<Integer>>();
 
-        solve(k, n, res, new ArrayList<Integer>(), 0, 1);
+        solve(k, n, 1, 0, new ArrayList<Integer>(), res);
 
         return res;
     }
@@ -41,32 +44,6 @@ public class CombinationSumIII {
         int k = 3;
         int n = 9;
 
-        List<List<Integer>> ans = combinationSum3(k, n);
-
-        System.out.println(ans);
+        System.out.println(combinationSum3(k, n));
     }
 }
-
-// class Solution {
-// public List<List<Integer>> combinationSum3(int k, int n) {
-// List<List<Integer>> ans = new ArrayList<>();
-// dfs(k, n, 1, new ArrayList<>(), ans);
-// return ans;
-// }
-
-// private void dfs(int k, int n, int s, List<Integer> path, List<List<Integer>>
-// ans) {
-// if (k == 0 && n == 0) {
-// ans.add(new ArrayList<>(path));
-// return;
-// }
-// if (k == 0 || n < 0)
-// return;
-
-// for (int i = s; i <= 9; ++i) {
-// path.add(i);
-// dfs(k - 1, n - i, i + 1, path, ans);
-// path.remove(path.size() - 1);
-// }
-// }
-// }

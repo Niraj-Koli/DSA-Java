@@ -9,7 +9,7 @@
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class BinaryStringsWithNoConsecutive1s {
+class BinaryStringsWithNoConsecutive1s {
 
     // Time -> O(2^n) //
     // Space -> O(n) //

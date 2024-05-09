@@ -1,13 +1,16 @@
 import java.util.Arrays;
 
-public class ReverseAArray {
-    public static void swap(int[] nums, int a, int b) {
+class ReverseAArray {
+    private static void swap(int[] nums, int a, int b) {
         int temp = nums[a];
         nums[a] = nums[b];
         nums[b] = temp;
     }
 
-    public static void reverse(int[] nums, int i) {
+    // Time -> O(n) //
+    // Space -> O(n) //
+
+    private static void reverse(int[] nums, int i) {
         int n = nums.length;
 
         if (i >= n / 2) {

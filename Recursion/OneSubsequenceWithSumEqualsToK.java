@@ -1,8 +1,11 @@
 import java.util.ArrayList;
-import java.util.List;
 
-public class OneSubsequenceWithSumEqualsToK {
-    public static boolean subsequenceSum(int[] nums, int k, int index, List<Integer> subsequence, int sum) {
+class OneSubsequenceWithSumEqualsToK {
+
+    // Time -> O(2^n) //
+    // Space -> O(n) //
+
+    private static boolean subsequenceSum(int[] nums, int k, int index, ArrayList<Integer> subsequence, int sum) {
         if (index == nums.length) {
             if (sum == k) {
                 System.out.println(subsequence);

@@ -4,76 +4,48 @@
  */
 
 import java.util.ArrayList;
-import java.util.List;
 
-public class Permutations {
-    public static void swap(int[] nums, int i, int j) {
+class Permutations {
+    private static void swap(int[] nums, int i, int j) {
         int t = nums[i];
         nums[i] = nums[j];
         nums[j] = t;
     }
 
-    public static void solve(int[] nums, int index, List<List<Integer>> result) {
+    // Time -> O(n! * n) //
+    // Space -> O(n!) //
+
+    private static void solve(int[] nums, int index, ArrayList<ArrayList<Integer>> res) {
         int n = nums.length;
 
         if (index == n) {
-            List<Integer> ds = new ArrayList<Integer>();
+            ArrayList<Integer> ds = new ArrayList<Integer>();
 
             for (int i = 0; i < n; i++) {
                 ds.add(nums[i]);
             }
-            result.add(new ArrayList<>(ds));
+            res.add(new ArrayList<>(ds));
             return;
         }
 
         for (int i = index; i < n; i++) {
             swap(nums, i, index);
-            solve(nums, index + 1, result);
+            solve(nums, index + 1, res);
             swap(nums, i, index);
         }
     }
 
-    public static List<List<Integer>> permute(int[] nums) {
-        List<List<Integer>> result = new ArrayList<List<Integer>>();
+    private static ArrayList<ArrayList<Integer>> permute(int[] nums) {
+        ArrayList<ArrayList<Integer>> res = new ArrayList<ArrayList<Integer>>();
 
-        solve(nums, 0, result);
+        solve(nums, 0, res);
 
-        return result;
+        return res;
     }
 
     public static void main(String[] args) {
         int[] nums = { 1, 2, 3 };
 
-        List<List<Integer>> answer = permute(nums);
-
-        System.out.println(answer);
+        System.out.println(permute(nums));
     }
 }
-
-// class Solution {
-// public List<List<Integer>> permute(int[] nums) {
-// List<Integer> currSubset = new ArrayList<>();
-// List<List<Integer>> result = new ArrayList<>();
-// boolean[] visited = new boolean[nums.length];
-// backtrack(nums, currSubset, result, visited);
-// return result;
-// }
-
-// public void backtrack(int[] nums, List<Integer> currSubset,
-// List<List<Integer>> result, boolean[] visited) {
-// if (currSubset.size() == nums.length) {
-// result.add(new ArrayList<>(currSubset));
-// return;
-// }
-
-// for (int i = 0; i < nums.length; i++) {
-// if (visited[i])
-// continue;
-// currSubset.add(nums[i]);
-// visited[i] = true;
-// backtrack(nums, currSubset, result, visited);
-// currSubset.remove(currSubset.size() - 1);
-// visited[i] = false;
-// }
-// }
-// }

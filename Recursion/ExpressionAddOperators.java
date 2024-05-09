@@ -10,7 +10,7 @@
 
 import java.util.ArrayList;
 
-public class ExpressionAddOperators {
+class ExpressionAddOperators {
 
     // Time -> O(3^n) //
     // Space -> O(n) //

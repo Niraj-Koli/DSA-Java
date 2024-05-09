@@ -9,8 +9,12 @@
  * of a table of n rows.
  */
 
-public class KthSymbolInGrammar {
-    public static int kthGrammar(int n, int k) {
+class KthSymbolInGrammar {
+
+    // Time -> O(log(n)) //
+    // Space -> O(log(n)) //
+
+    private static int kthGrammar(int n, int k) {
         if (n == 1 && k == 1) {
             return 0;
         }
@@ -28,39 +32,6 @@ public class KthSymbolInGrammar {
         int n = 2;
         int k = 1;
 
-        int answer = kthGrammar(n, k);
-
-        System.out.println(answer);
+        System.out.println(kthGrammar(n, k));
     }
 }
-
-// class Solution {
-// public int kthGrammar(int n, int k) {
-// return solve(n, k);
-// }
-
-// public int solve(int n, int k) {
-// if (n == 1)
-// return 0;
-// if (n == 2) {
-// if (k == 1) {
-// return 0;
-// } else {
-// return 1;
-// }
-// }
-// int x = solve(n - 1, (k + 1) / 2);
-// if (x == 0) {
-// if (k % 2 != 0) {
-// return 0;
-// } else {
-// return 1;
-// }
-// } else {
-// if (k % 2 != 0) {
-// return 1;
-// } else
-// return 0;
-// }
-// }
-// }

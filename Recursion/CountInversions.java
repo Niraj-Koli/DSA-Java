@@ -12,8 +12,12 @@
 
 import java.util.ArrayList;
 
-public class CountInversions {
-    public static int merge(int[] arr, int low, int mid, int high) {
+class CountInversions {
+
+    // Time -> O(n * log(n)) //
+    // Space -> O(n) //
+
+    private static int merge(int[] arr, int low, int mid, int high) {
         ArrayList<Integer> temp = new ArrayList<Integer>();
 
         int left = low;
@@ -49,7 +53,7 @@ public class CountInversions {
         return count;
     }
 
-    public static int mergeSort(int[] arr, int low, int high) {
+    private static int mergeSort(int[] arr, int low, int high) {
         int count = 0;
 
         if (low >= high) {
@@ -66,7 +70,7 @@ public class CountInversions {
         return count;
     }
 
-    public static int numberOfInversions(int[] arr, int n) {
+    private static int numberOfInversions(int[] arr, int n) {
         return mergeSort(arr, 0, n - 1);
     }
 
@@ -74,8 +78,6 @@ public class CountInversions {
         int[] arr = { 2, 4, 1, 3, 5 };
         int n = 5;
 
-        int answer = numberOfInversions(arr, n);
-
-        System.out.println(answer);
+        System.out.println(numberOfInversions(arr, n));
     }
 }

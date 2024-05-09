@@ -2,7 +2,7 @@
 
 import java.util.ArrayDeque;
 
-public class SortAStack {
+class SortAStack {
 
     // Time -> O(n^2) //
     // Space -> O(n) //

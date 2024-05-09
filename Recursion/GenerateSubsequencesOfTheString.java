@@ -2,7 +2,7 @@
 
 import java.util.ArrayList;
 
-public class GenerateSubsequencesOfTheString {
+class GenerateSubsequencesOfTheString {
 
     // Time -> O(2^n) //
     // Space -> O(n) //

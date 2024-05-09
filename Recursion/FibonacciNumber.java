@@ -1,4 +1,4 @@
-public class FibonacciNumber {
+class FibonacciNumber {
 
     // Time -> O(2^n) //
     // Space -> O(n) //

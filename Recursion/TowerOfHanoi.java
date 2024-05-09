@@ -19,10 +19,14 @@
    
 */
 
-public class TowerOfHanoi {
-    public static int count = 0;
+class TowerOfHanoi {
 
-    public static void towerOfHanoi(int n, char source, char destination, char auxiliary) {
+    // Time -> O(2^n) //
+    // Space -> O(n) //
+
+    private static int count = 0;
+
+    private static void towerOfHanoi(int n, char source, char destination, char auxiliary) {
         count++;
 
         if (n == 1) {

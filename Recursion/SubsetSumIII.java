@@ -4,7 +4,7 @@
  * false.
  */
 
-public class SubsetSumIII {
+class SubsetSumIII {
 
     // Time -> O(2^n) //
     // Space -> O(n) //

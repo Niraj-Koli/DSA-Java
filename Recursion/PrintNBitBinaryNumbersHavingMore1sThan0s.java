@@ -4,14 +4,17 @@
  */
 
 import java.util.ArrayList;
-import java.util.List;
 
-public class PrintNBitBinaryNumbersHavingMore1sThan0s {
-    public static List<String> result = new ArrayList<String>();
+class PrintNBitBinaryNumbersHavingMore1sThan0s {
 
-    public static void generatePrefixes(int ones, int zeros, int n, String output) {
+    // Time -> O(2^n) //
+    // Space -> O(2^n) //
+
+    private static ArrayList<String> res = new ArrayList<String>();
+
+    private static void generatePrefixes(int ones, int zeros, int n, String output) {
         if (n == 0) {
-            result.add(output);
+            res.add(output);
             return;
         }
 
@@ -24,7 +27,7 @@ public class PrintNBitBinaryNumbersHavingMore1sThan0s {
         return;
     }
 
-    public static List<String> NBitBinary(int n) {
+    private static ArrayList<String> NBitBinary(int n) {
         String output = "";
 
         int ones = 0;
@@ -32,14 +35,12 @@ public class PrintNBitBinaryNumbersHavingMore1sThan0s {
 
         generatePrefixes(ones, zeros, n, output);
 
-        return result;
+        return res;
     }
 
     public static void main(String[] args) {
         int n = 2;
 
-        List<String> answer = NBitBinary(n);
-
-        System.out.println(answer);
+        System.out.println(NBitBinary(n));
     }
 }

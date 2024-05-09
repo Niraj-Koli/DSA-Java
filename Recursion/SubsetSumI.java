@@ -1,44 +1,37 @@
 /* Given a list arr of N integers, return sums of all subsets in it. */
 
-import java.util.List;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class SubsetSumI {
-    public static void solve(ArrayList<Integer> arr, int n, int index, int sum, List<Integer> sumSubset) {
-        if (index == n) {
-            sumSubset.add(sum);
+class SubsetSumI {
+
+    // Time -> O(2^n) //
+    // Space -> O(n) //
+
+    private static void solve(int[] nums, int index, int sum, ArrayList<Integer> res) {
+        if (index == nums.length) {
+            res.add(sum);
             return;
         }
 
-        solve(arr, n, index + 1, sum + arr.get(index), sumSubset);
+        solve(nums, index + 1, sum + nums[index], res);
 
-        solve(arr, n, index + 1, sum, sumSubset);
+        solve(nums, index + 1, sum, res);
     }
 
-    public static List<Integer> subsetSums(ArrayList<Integer> arr, int n) {
-        List<Integer> sumSubset = new ArrayList<Integer>();
+    private static ArrayList<Integer> subsetSums(int[] nums) {
+        ArrayList<Integer> res = new ArrayList<Integer>();
 
-        solve(arr, n, 0, 0, sumSubset);
+        solve(nums, 0, 0, res);
 
-        Collections.sort(sumSubset);
+        Collections.sort(res);
 
-        return sumSubset;
+        return res;
     }
 
     public static void main(String[] args) {
-        int[] nums = { 5, 2, 1 };
+        int[] nums = { 5, 2, 7 };
 
-        ArrayList<Integer> arr = new ArrayList<>();
-
-        for (int number : nums) {
-            arr.add(number);
-        }
-
-        int n = 3;
-
-        List<Integer> answer = subsetSums(arr, n);
-
-        System.out.println(answer);
+        System.out.println(subsetSums(nums));
     }
 }

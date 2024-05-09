@@ -7,10 +7,13 @@
  */
 
 import java.util.ArrayList;
-import java.util.List;
 
-public class PalindromePartitioning {
-    public static boolean isPalindrome(String s, int start, int end) {
+class PalindromePartitioning {
+
+    // Time -> O(2^n) //
+    // Space -> O(n) //
+
+    private static boolean isPalindrome(String s, int start, int end) {
         while (start <= end) {
             if (s.charAt(start++) != s.charAt(end--)) {
                 return false;
@@ -19,86 +22,32 @@ public class PalindromePartitioning {
         return true;
     }
 
-    public static void solve(String s, int index, List<String> path, List<List<String>> result) {
-        int n = s.length();
-
-        if (index == n) {
-            result.add(new ArrayList<>(path));
+    private static void solve(String s, int index, ArrayList<String> path, ArrayList<ArrayList<String>> res) {
+        if (index == s.length()) {
+            res.add(new ArrayList<String>(path));
             return;
         }
 
-        for (int i = index; i < n; i++) {
+        for (int i = index; i < s.length(); i++) {
             if (isPalindrome(s, index, i)) {
                 path.add(s.substring(index, i + 1));
-                solve(s, i + 1, path, result);
+                solve(s, i + 1, path, res);
                 path.remove(path.size() - 1);
             }
         }
     }
 
-    public static List<List<String>> partition(String s) {
-        List<List<String>> result = new ArrayList<List<String>>();
+    private static ArrayList<ArrayList<String>> partition(String s) {
+        ArrayList<ArrayList<String>> res = new ArrayList<ArrayList<String>>();
 
-        solve(s, 0, new ArrayList<String>(), result);
+        solve(s, 0, new ArrayList<String>(), res);
 
-        return result;
+        return res;
     }
 
     public static void main(String[] args) {
         String s = "aab";
 
-        List<List<String>> answer = partition(s);
-
-        System.out.println(answer);
+        System.out.println(partition(s));
     }
 }
-
-// class Solution {
-// int n;
-// boolean[][] is_palindrome;
-// String[][] substrings;
-
-// List<List<String>> ans;
-
-// void FindSubstrings(int ind, ArrayList<String> list) {
-// if (ind == n) {
-// ans.add(new ArrayList<String>(list));
-// return;
-// }
-
-// for (int i = ind + 1; i <= n; i++) {
-// if (!is_palindrome[ind][i])
-// continue;
-// list.add(substrings[ind][i]);
-// FindSubstrings(i, list);
-// list.remove(list.size() - 1);
-// }
-// }
-
-// public List<List<String>> partition(String s) {
-// n = s.length();
-// is_palindrome = new boolean[n + 1][n + 1];
-// substrings = new String[n + 1][n + 1];
-// for (int i = 0; i < n; i++)
-// for (int j = i + 1; j <= n; j++) {
-// substrings[i][j] = s.substring(i, j);
-// is_palindrome[i][j] = IsPalindrome(substrings[i][j]);
-// }
-
-// ans = new ArrayList<List<String>>();
-// FindSubstrings(0, new ArrayList<String>());
-// return ans;
-// }
-
-// boolean IsPalindrome(String s) {
-// int lower = 0;
-// int higher = s.length() - 1;
-// while (lower < higher) {
-// if (s.charAt(lower) != s.charAt(higher))
-// return false;
-// lower++;
-// higher--;
-// }
-// return true;
-// }
-// }

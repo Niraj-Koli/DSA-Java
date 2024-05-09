@@ -20,23 +20,26 @@
  */
 
 import java.util.ArrayList;
-import java.util.List;
 
-public class JosephusProblem {
-    public static int josephusProblem(List<Integer> soldiers, int k, int index) {
-        int len = soldiers.size();
+class JosephusProblem {
 
-        if (len == 1) {
+    // Time -> O(n^2) //
+    // Space -> O(n) //
+
+    private static int josephusProblem(ArrayList<Integer> soldiers, int k, int index) {
+        int n = soldiers.size();
+
+        if (n == 1) {
             return soldiers.get(0);
         }
 
-        index = (index + (k - 1)) % len;
+        index = (index + (k - 1)) % n;
         soldiers.remove(index);
 
         return josephusProblem(soldiers, k, index);
     }
 
-    public static int findTheWinner(int n, int k) {
+    private static int findTheWinner(int n, int k) {
         int index = 0;
 
         ArrayList<Integer> soldiers = new ArrayList<>();
@@ -52,32 +55,6 @@ public class JosephusProblem {
         int n = 5;
         int k = 2;
 
-        int answer = findTheWinner(n, k);
-
-        System.out.println(answer);
+        System.out.println(findTheWinner(n, k));
     }
-
 }
-
-// class Solution {
-// public int findTheWinner(int n, int k) {
-// int ans = 0;
-
-// for (int i = 2; i <= n; i++) {
-// ans = (ans + k) % i;
-// }
-// return ans + 1;
-// }
-// }
-
-// class Solution {
-// int f(int n, int k) {
-// if (n == 1)
-// return 0;
-// return (f(n - 1, k) + k) % n;
-// }
-
-// public int findTheWinner(int n, int k) {
-// return f(n, k) + 1;
-// }
-// }

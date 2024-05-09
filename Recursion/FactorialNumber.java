@@ -1,5 +1,9 @@
-public class FactorialNumber {
-    public static int factorial(int number) {
+class FactorialNumber {
+
+    // Time -> O(n) //
+    // Space -> O(n) //
+
+    private static int factorial(int number) {
         if (number == 1) {
             return 1;
         }
@@ -8,10 +12,8 @@ public class FactorialNumber {
     }
 
     public static void main(String[] args) {
-        int n = 10;
+        int n = 5;
 
-        int answer = factorial(n);
-
-        System.out.println(answer);
+        System.out.println(factorial(n));
     }
 }

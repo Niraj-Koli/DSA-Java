@@ -10,75 +10,48 @@
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
-public class CombinationSumII {
-    public static void findCombinations(int[] arr, int target, int index, List<Integer> ds,
-            List<List<Integer>> result) {
+class CombinationSumII {
+
+    // Time -> O(2^n) //
+    // Space -> O(n) //
+
+    private static void solve(int[] nums, int target, int index, ArrayList<Integer> ds,
+            ArrayList<ArrayList<Integer>> res) {
         if (target == 0) {
-            result.add(new ArrayList<Integer>(ds));
+            res.add(new ArrayList<Integer>(ds));
             return;
         }
 
-        for (int i = index; i < arr.length; i++) {
-            if (i > index && arr[i] == arr[i - 1]) {
+        for (int i = index; i < nums.length; i++) {
+            if (i > index && nums[i] == nums[i - 1]) {
                 continue;
             }
 
-            if (arr[i] > target) {
+            if (nums[i] > target) {
                 break;
             }
 
-            ds.add(arr[i]);
-            findCombinations(arr, target - arr[i], i + 1, ds, result);
+            ds.add(nums[i]);
+            solve(nums, target - nums[i], i + 1, ds, res);
             ds.remove(ds.size() - 1);
         }
     }
 
-    public static List<List<Integer>> combinationSum2(int[] candidates, int target) {
-        List<List<Integer>> result = new ArrayList<List<Integer>>();
+    private static ArrayList<ArrayList<Integer>> combinationSum2(int[] candidates, int target) {
+        ArrayList<ArrayList<Integer>> res = new ArrayList<ArrayList<Integer>>();
 
         Arrays.sort(candidates);
 
-        findCombinations(candidates, target, 0, new ArrayList<>(), result);
+        solve(candidates, target, 0, new ArrayList<Integer>(), res);
 
-        return result;
+        return res;
     }
 
     public static void main(String[] args) {
         int[] candidates = { 10, 1, 2, 7, 6, 1, 5 };
         int target = 8;
 
-        List<List<Integer>> answer = combinationSum2(candidates, target);
-
-        System.out.println(answer);
+        System.out.println(combinationSum2(candidates, target));
     }
 }
-
-// class Solution {
-// public static void sol(int index, int sum, int target, List<Integer> tmp,
-// List<List<Integer>> res,
-// int n, int[] arr) {
-// if (target == sum) {
-// res.add(new ArrayList<>(tmp));
-// return;
-// }
-// if (index >= n || target < sum) {
-// return;
-// }
-// tmp.add(arr[index]);
-// sol(index + 1, sum + arr[index], target, tmp, res, n, arr);
-// tmp.remove(tmp.size() - 1);
-// while (index + 1 < n && arr[index] == arr[index + 1]) {
-// index++;
-// }
-// sol(index + 1, sum, target, tmp, res, n, arr);
-// }
-
-// public List<List<Integer>> combinationSum2(int[] arr, int target) {
-// List<List<Integer>> res = new ArrayList<>();
-// Arrays.sort(arr);
-// sol(0, 0, target, new ArrayList<>(), res, arr.length, arr);
-// return res;
-// }
-// }

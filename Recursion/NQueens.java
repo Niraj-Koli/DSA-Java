@@ -11,27 +11,31 @@
  */
 
 import java.util.ArrayList;
-import java.util.List;
 
-public class NQueens {
-    public static List<String> construct(char[][] board) {
+class NQueens {
+
+    // Time -> O(n!) //
+    // Space -> O(n) //
+
+    private static ArrayList<String> construct(char[][] board) {
         int n = board.length;
 
-        List<String> res = new ArrayList<String>();
+        ArrayList<String> res = new ArrayList<String>();
 
         for (int i = 0; i < n; i++) {
             String s = new String(board[i]);
             res.add(s);
         }
+        
         return res;
     }
 
-    public static void solve(int col, char[][] board, int[] leftRow, int[] lowerDiagonal, int[] upperDiagonal,
-            List<List<String>> result) {
+    private static void solve(int col, char[][] board, int[] leftRow, int[] lowerDiagonal, int[] upperDiagonal,
+            ArrayList<ArrayList<String>> res) {
         int n = board.length;
 
         if (col == n) {
-            result.add(construct(board));
+            res.add(construct(board));
             return;
         }
 
@@ -42,7 +46,7 @@ public class NQueens {
                 lowerDiagonal[row + col] = 1;
                 upperDiagonal[n - 1 + col - row] = 1;
 
-                solve(col + 1, board, leftRow, lowerDiagonal, upperDiagonal, result);
+                solve(col + 1, board, leftRow, lowerDiagonal, upperDiagonal, res);
 
                 board[row][col] = '.';
                 leftRow[row] = 0;
@@ -52,7 +56,7 @@ public class NQueens {
         }
     }
 
-    public static List<List<String>> solveNQueens(int n) {
+    private static ArrayList<ArrayList<String>> solveNQueens(int n) {
         char[][] board = new char[n][n];
 
         for (int i = 0; i < n; i++) {
@@ -61,89 +65,20 @@ public class NQueens {
             }
         }
 
-        List<List<String>> result = new ArrayList<List<String>>();
+        ArrayList<ArrayList<String>> res = new ArrayList<ArrayList<String>>();
 
         int[] leftRow = new int[n];
         int[] upperDiagonal = new int[2 * n - 1];
         int[] lowerDiagonal = new int[2 * n - 1];
 
-        solve(0, board, leftRow, lowerDiagonal, upperDiagonal, result);
+        solve(0, board, leftRow, lowerDiagonal, upperDiagonal, res);
 
-        return result;
+        return res;
     }
 
     public static void main(String[] args) {
         int n = 4;
 
-        List<List<String>> answer = solveNQueens(n);
-
-        System.out.println(answer);
+        System.out.println(solveNQueens(n));
     }
 }
-
-// class Solution {
-// int m_size;
-
-// public List<List<String>> solveNQueens(int n) {
-// List<List<String>> result = new ArrayList<>();
-
-// this.m_size = n;
-// char[][] matrix = new char[n][n];
-// for (int i = 0; i < n; i++) {
-// for (int j = 0; j < n; j++) {
-// matrix[i][j] = '.';
-// }
-// }
-// backtracking(matrix, 0, 0, 0, result);
-// return result;
-// }
-
-// private void backtracking(char[][] matrix,
-// int line,
-// int col,
-// int curr_n,
-// List<List<String>> result) {
-// if (curr_n == m_size) {
-// List<String> temp = new ArrayList<>(m_size);
-// for (int i = 0; i < m_size; i++) {
-// String str = "";
-// for (int j = 0; j < m_size; j++) {
-// str += String.valueOf(matrix[i][j]);
-// }
-// temp.add(str);
-// }
-// result.add(temp);
-// return;
-// }
-// for (int i = line; i < m_size; i++) {
-// for (int j = col; j < m_size; j++) {
-// if (isSafeZone(matrix, i, j)) {
-// matrix[i][j] = 'Q';
-// backtracking(matrix, i, j, curr_n + 1, result);
-// matrix[i][j] = '.';
-// }
-// }
-// col = 0;
-// }
-// }
-
-// private boolean isSafeZone(char[][] matrix, int line, int col) {
-// for (int i = 0; i <= line; i++) {
-// if (matrix[i][col] == 'Q')
-// return false;
-// }
-// for (int j = 0; j <= col; j++) {
-// if (matrix[line][j] == 'Q')
-// return false;
-// }
-// for (int i = line - 1, j = col - 1; i >= 0 && j >= 0; i--, j--) {
-// if (matrix[i][j] == 'Q')
-// return false;
-// }
-// for (int i = line - 1, j = col + 1; i >= 0 && j < m_size; i--, j++) {
-// if (matrix[i][j] == 'Q')
-// return false;
-// }
-// return true;
-// }
-// }

@@ -12,7 +12,7 @@
  * leading zeros.
  */
 
-public class CountGoodNumbers {
+class CountGoodNumbers {
 
     // Time -> O(log(n)) //
     // Space -> O(log(n)) //

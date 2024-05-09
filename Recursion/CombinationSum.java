@@ -13,65 +13,42 @@
  */
 
 import java.util.ArrayList;
-import java.util.List;
 
-public class CombinationSum {
-    public static void findCombinations(int[] arr, int target, int index, List<Integer> ds,
-            List<List<Integer>> result) {
-        if (index == arr.length) {
+class CombinationSum {
+
+    // Time -> O(2^n) //
+    // Space -> O(n) //
+
+    private static void solve(int[] nums, int target, int index, ArrayList<Integer> ds,
+            ArrayList<ArrayList<Integer>> res) {
+        if (index == nums.length) {
             if (target == 0) {
-                result.add(new ArrayList<>(ds));
+                res.add(new ArrayList<Integer>(ds));
             }
             return;
         }
 
-        if (arr[index] <= target) {
-            ds.add(arr[index]);
-            findCombinations(arr, target - arr[index], index, ds, result);
+        if (nums[index] <= target) {
+            ds.add(nums[index]);
+            solve(nums, target - nums[index], index, ds, res);
             ds.remove(ds.size() - 1);
         }
-        findCombinations(arr, target, index + 1, ds, result);
+
+        solve(nums, target, index + 1, ds, res);
     }
 
-    public static List<List<Integer>> combinationSum(int[] candidates, int target) {
-        List<List<Integer>> result = new ArrayList<List<Integer>>();
+    private static ArrayList<ArrayList<Integer>> combinationSum(int[] candidates, int target) {
+        ArrayList<ArrayList<Integer>> res = new ArrayList<ArrayList<Integer>>();
 
-        findCombinations(candidates, target, 0, new ArrayList<Integer>(), result);
+        solve(candidates, target, 0, new ArrayList<Integer>(), res);
 
-        return result;
+        return res;
     }
 
     public static void main(String[] args) {
         int[] candidates = { 2, 3, 6, 7 };
         int target = 7;
 
-        List<List<Integer>> answer = combinationSum(candidates, target);
-
-        System.out.println(answer);
+        System.out.println(combinationSum(candidates, target));
     }
 }
-
-// class Solution {
-// private List<List<Integer>> combinations = new ArrayList<>();
-
-// public List<List<Integer>> combinationSum(int[] candidates, int target) {
-// makeCombs(new ArrayList<>(), candidates, 0, target, 0);
-// System.gc();
-// return combinations;
-// }
-
-// private void makeCombs(List<Integer> comb, int[] nums, int sum, int target,
-// int idx) {
-// if (sum == target) {
-// combinations.add(new ArrayList<>(comb));
-// } else {
-// for (int i = idx; i < nums.length; i++) {
-// if (sum + nums[i] <= target) {
-// comb.add(nums[i]);
-// makeCombs(comb, nums, sum + nums[i], target, i);
-// comb.remove(comb.size() - 1);
-// }
-// }
-// }
-// }
-// }

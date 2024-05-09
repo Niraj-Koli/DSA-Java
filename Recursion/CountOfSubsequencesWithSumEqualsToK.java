@@ -1,8 +1,11 @@
 import java.util.ArrayList;
-import java.util.List;
 
-public class CountOfSubsequencesWithSumEqualsToK {
-    public static int subsequenceSum(int[] nums, int k, int index, List<Integer> subsequence, int sum) {
+class CountOfSubsequencesWithSumEqualsToK {
+
+    // Time -> O(2^n) //
+    // Space -> O(n) //
+
+    private static int subsequenceSum(int[] nums, int k, int index, ArrayList<Integer> subsequence, int sum) {
         if (sum > k) {
             return 0;
         }
@@ -26,8 +29,6 @@ public class CountOfSubsequencesWithSumEqualsToK {
         int[] nums = { 1, 2, 1 };
         int k = 2;
 
-        int answer = subsequenceSum(nums, k, 0, new ArrayList<Integer>(), 0);
-
-        System.out.println(answer);
+        System.out.println(subsequenceSum(nums, k, 0, new ArrayList<Integer>(), 0));
     }
 }

@@ -6,10 +6,13 @@
  */
 
 import java.util.ArrayList;
-import java.util.List;
 
-public class Combinations {
-    public static void solve(int n, int k, int index, List<Integer> ds, List<List<Integer>> res) {
+class Combinations {
+
+    // Time -> O(2^n) //
+    // Space -> O(n) //
+
+    private static void solve(int n, int k, int index, ArrayList<Integer> ds, ArrayList<ArrayList<Integer>> res) {
         if (ds.size() >= k) {
             res.add(new ArrayList<Integer>(ds));
             return;
@@ -22,10 +25,10 @@ public class Combinations {
         }
     }
 
-    public static List<List<Integer>> combine(int n, int k) {
-        List<List<Integer>> res = new ArrayList<List<Integer>>();
+    private static ArrayList<ArrayList<Integer>> combine(int n, int k) {
+        ArrayList<ArrayList<Integer>> res = new ArrayList<ArrayList<Integer>>();
 
-        solve(n, k, 0, new ArrayList<>(), res);
+        solve(n, k, 0, new ArrayList<Integer>(), res);
 
         return res;
     }
@@ -34,37 +37,6 @@ public class Combinations {
         int n = 4;
         int k = 2;
 
-        List<List<Integer>> ans = combine(n, k);
-
-        System.out.println(ans);
+        System.out.println(combine(n, k));
     }
 }
-
-// class Solution {
-// List<List<Integer>> result = new ArrayList<>();
-// int n;
-// int k;
-
-// public List<List<Integer>> combine(int n, int k) {
-// this.n = n;
-// this.k = k;
-// backtrack(1, new HashSet<>());
-
-// return result;
-// }
-
-// private void backtrack(int current, Set<Integer> temp) {
-// if (temp.size() == k) {
-// result.add(new ArrayList<>(temp));
-// return;
-// }
-
-// for (int i = current; i <= n; i++) {
-// if (!temp.contains(i)) {
-// temp.add(i);
-// backtrack(i, temp);
-// temp.remove(i);
-// }
-// }
-// }
-// }

@@ -7,7 +7,7 @@
  * letter cell may not be used more than once.
  */
 
-public class WordSearch {
+class WordSearch {
 
     // Time -> O(n * m * 4^n) //
     // Space -> O(n) //

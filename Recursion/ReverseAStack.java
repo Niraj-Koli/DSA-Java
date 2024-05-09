@@ -2,32 +2,38 @@
 
 import java.util.ArrayDeque;
 
-public class ReverseAStack {
-    public static void reverse(ArrayDeque<Integer> stack) {
-        if (!stack.isEmpty()) {
-            int value = stack.pollLast();
-            reverse(stack);
+class ReverseAStack {
+
+    // Time -> O(n^2) //
+    // Space -> O(n) //
+
+    private static void insertAtBottom(ArrayDeque<Integer> stack, int value) {
+        if (stack.isEmpty()) {
+            stack.offer(value);
+        } else {
+            int val = stack.pollLast();
+
             insertAtBottom(stack, value);
+            stack.offer(val);
         }
     }
 
-    public static void insertAtBottom(ArrayDeque<Integer> stack, int value) {
-        if (stack.isEmpty()) {
-            stack.offerLast(value);
-        } else {
-            int val = stack.pollLast();
+    private static void reverse(ArrayDeque<Integer> stack) {
+        if (!stack.isEmpty()) {
+            int value = stack.pollLast();
+
+            reverse(stack);
             insertAtBottom(stack, value);
-            stack.offerLast(val);
         }
     }
 
     public static void main(String[] args) {
         ArrayDeque<Integer> stack = new ArrayDeque<Integer>();
 
-        stack.offerLast(1);
-        stack.offerLast(2);
-        stack.offerLast(3);
-        stack.offerLast(4);
+        stack.offer(1);
+        stack.offer(2);
+        stack.offer(3);
+        stack.offer(4);
 
         System.out.println(stack);
 

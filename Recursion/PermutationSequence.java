@@ -14,13 +14,16 @@
  */
 
 import java.util.ArrayList;
-import java.util.List;
 
-public class PermutationSequence {
-    public static String getPermutation(int n, int k) {
+class PermutationSequence {
+
+    // Time -> O(n^2) //
+    // Space -> O(n) //
+
+    private static String getPermutation(int n, int k) {
         int fact = 1;
 
-        List<Integer> numbers = new ArrayList<Integer>();
+        ArrayList<Integer> numbers = new ArrayList<Integer>();
 
         for (int i = 1; i < n; i++) {
             fact = fact * i;
@@ -29,12 +32,12 @@ public class PermutationSequence {
 
         numbers.add(n);
 
-        String result = "";
+        String res = "";
 
         k = k - 1;
 
         while (true) {
-            result += numbers.get(k / fact);
+            res += numbers.get(k / fact);
 
             numbers.remove(k / fact);
 
@@ -45,52 +48,14 @@ public class PermutationSequence {
             k = k % fact;
             fact = fact / numbers.size();
         }
-        return result;
+
+        return res;
     }
 
     public static void main(String[] args) {
         int n = 4;
         int k = 9;
 
-        String answer = getPermutation(n, k);
-
-        System.out.println(answer);
+        System.out.println(getPermutation(n, k));
     }
 }
-
-// class Solution {
-// public String getPermutation(int n, int k) {
-
-// if (k <= 0) {
-// return "";
-// }
-// int[] count = new int[] { 0 };
-// String[] result = new String[] { "" };
-// StringBuilder sb = new StringBuilder();
-// boolean[] visited = new boolean[n + 1]; // check the number has been used or
-// not
-// findKthPermutation(n, k, count, result, sb, visited, 0);
-// return result[0];
-// }
-
-// private void findKthPermutation(int n, int k, int[] count, String[] result,
-// StringBuilder sb, boolean[] visited,
-// int index) {
-// if (index == n) {
-// count[0]++;
-// if (count[0] == k) {
-// result[0] = sb.toString();
-// }
-// return;
-// }
-// for (int i = 1; i <= n; i++) {
-// if (!visited[i]) {
-// visited[i] = true;
-// sb.append(i);
-// findKthPermutation(n, k, count, result, sb, visited, index + 1);
-// visited[i] = false;
-// sb.deleteCharAt(sb.length() - 1);
-// }
-// }
-// }
-// }

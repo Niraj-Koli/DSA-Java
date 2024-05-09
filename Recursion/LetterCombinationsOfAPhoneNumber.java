@@ -9,11 +9,14 @@
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
-public class LetterCombinationsOfAPhoneNumber {
-    public static void solve(String digits, HashMap<Character, String> map, int index, StringBuilder str,
-            List<String> res) {
+class LetterCombinationsOfAPhoneNumber {
+
+    // Time -> O(2^n) //
+    // Space -> O(n) //
+
+    private static void solve(String digits, HashMap<Character, String> map, int index, StringBuilder str,
+            ArrayList<String> res) {
         if (str.length() >= digits.length()) {
             if (!str.isEmpty()) {
                 res.add(str.toString());
@@ -28,7 +31,7 @@ public class LetterCombinationsOfAPhoneNumber {
         }
     }
 
-    public static List<String> letterCombinations(String digits) {
+    private static ArrayList<String> letterCombinations(String digits) {
         HashMap<Character, String> map = new HashMap<Character, String>();
 
         map.put('2', "abc");
@@ -40,7 +43,7 @@ public class LetterCombinationsOfAPhoneNumber {
         map.put('8', "tuv");
         map.put('9', "wxyz");
 
-        List<String> res = new ArrayList<String>();
+        ArrayList<String> res = new ArrayList<String>();
 
         solve(digits, map, 0, new StringBuilder(), res);
 
@@ -50,44 +53,6 @@ public class LetterCombinationsOfAPhoneNumber {
     public static void main(String[] args) {
         String digits = "23";
 
-        List<String> ans = letterCombinations(digits);
-
-        System.out.println(ans);
+        System.out.println(letterCombinations(digits));
     }
 }
-
-// class Solution {
-// public List<String> letterCombinations(String digits) {
-// if (digits.length() == 0)
-// return new ArrayList<>();
-// Map<String, List<String>> map = new HashMap<>();
-// map.put("2", new ArrayList<>(Arrays.asList("a", "b", "c")));
-// map.put("3", new ArrayList<>(Arrays.asList("d", "e", "f")));
-// map.put("4", new ArrayList<>(Arrays.asList("g", "h", "i")));
-// map.put("5", new ArrayList<>(Arrays.asList("j", "k", "l")));
-// map.put("6", new ArrayList<>(Arrays.asList("m", "n", "o")));
-// map.put("7", new ArrayList<>(Arrays.asList("p", "q", "r", "s")));
-// map.put("8", new ArrayList<>(Arrays.asList("t", "u", "v")));
-// map.put("9", new ArrayList<>(Arrays.asList("w", "x", "y", "z")));
-// if (digits.length() == 1) {
-// return map.get(digits);
-// }
-// List<String> res = new ArrayList<>();
-// for (char ch : digits.toCharArray()) {
-// List<String> temp = map.get(String.valueOf(ch));
-// if (res.isEmpty())
-// res = temp;
-// else {
-// List<String> temp2 = new ArrayList<>();
-// for (int i = 0; i < res.size(); i++) {
-// for (int j = 0; j < temp.size(); j++) {
-// temp2.add(res.get(i) + temp.get(j));
-// }
-// }
-// res = temp2;
-// }
-// }
-// return res;
-
-// }
-// }

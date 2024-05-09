@@ -5,17 +5,21 @@
  * can move are 'U'(up), 'D'(down), 'L' (left), 'R' (right). Value 0 at a cell
  * in the matrix represents that it is blocked and rat cannot move to it while
  * value 1 at a cell in the matrix represents that rat can be travel through it.
- * Note: In a path, no cell can be visited more than one time. If the source
+ * Note: In a path, no cell can be vis more than one time. If the source
  * cell is 0, the rat cannot move to any other cell.
  */
 
 import java.util.ArrayList;
-import java.util.List;
 
-public class RatInAMaze {
-    public static void solve(int[][] maze, int n, int i, int j, String move, int[][] visited, List<String> result) {
+class RatInAMaze {
+
+    // Time -> O(4^(n * m)) //
+    // Space -> O(n * m) //
+
+    private static void solve(int[][] maze, int n, int i, int j, String move, int[][] vis,
+            ArrayList<String> res) {
         if ((i == n - 1) && (j == n - 1)) {
-            result.add(move);
+            res.add(move);
             return;
         }
 
@@ -28,27 +32,27 @@ public class RatInAMaze {
             int nexti = i + di[k];
             int nextj = j + dj[k];
 
-            boolean condition = nexti >= 0 && nexti < n && nextj >= 0 && nextj < n && visited[nexti][nextj] == 0
+            boolean condition = nexti >= 0 && nexti < n && nextj >= 0 && nextj < n && vis[nexti][nextj] == 0
                     && maze[nexti][nextj] == 1;
 
             if (condition) {
-                visited[i][j] = 1;
-                solve(maze, n, nexti, nextj, move + direction[k], visited, result);
-                visited[i][j] = 0;
+                vis[i][j] = 1;
+                solve(maze, n, nexti, nextj, move + direction[k], vis, res);
+                vis[i][j] = 0;
             }
         }
     }
 
-    public static List<String> findPath(int[][] maze, int n) {
-        int[][] visited = new int[n][n];
+    private static ArrayList<String> findPath(int[][] maze, int n) {
+        int[][] vis = new int[n][n];
 
-        List<String> result = new ArrayList<String>();
+        ArrayList<String> res = new ArrayList<String>();
 
         if (maze[0][0] == 1) {
-            solve(maze, n, 0, 0, "", visited, result);
+            solve(maze, n, 0, 0, "", vis, res);
         }
 
-        return result;
+        return res;
     }
 
     public static void main(String[] args) {
@@ -60,8 +64,6 @@ public class RatInAMaze {
                 { 0, 1, 1, 1 }
         };
 
-        List<String> answer = findPath(maze, n);
-
-        System.out.println(answer);
+        System.out.println(findPath(maze, n));
     }
 }

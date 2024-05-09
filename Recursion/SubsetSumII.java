@@ -9,11 +9,14 @@
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
-public class SubsetSumII {
-    public static void findSubsets(int[] nums, int index, List<Integer> ds, List<List<Integer>> result) {
-        result.add(new ArrayList<>(ds));
+class SubsetSumII {
+
+    // Time -> O(2^n) //
+    // Space -> O(n) //
+
+    private static void solve(int[] nums, int index, ArrayList<Integer> ds, ArrayList<ArrayList<Integer>> res) {
+        res.add(new ArrayList<Integer>(ds));
 
         for (int i = index; i < nums.length; i++) {
             if (i != index && nums[i] == nums[i - 1]) {
@@ -21,26 +24,24 @@ public class SubsetSumII {
             }
 
             ds.add(nums[i]);
-            findSubsets(nums, i + 1, ds, result);
+            solve(nums, i + 1, ds, res);
             ds.remove(ds.size() - 1);
         }
     }
 
-    public static List<List<Integer>> subsetsWithDup(int[] nums) {
+    private static ArrayList<ArrayList<Integer>> subsetsWithDup(int[] nums) {
         Arrays.sort(nums);
 
-        List<List<Integer>> result = new ArrayList<List<Integer>>();
+        ArrayList<ArrayList<Integer>> res = new ArrayList<ArrayList<Integer>>();
 
-        findSubsets(nums, 0, new ArrayList<Integer>(), result);
+        solve(nums, 0, new ArrayList<Integer>(), res);
 
-        return result;
+        return res;
     }
 
     public static void main(String[] args) {
         int[] nums = { 1, 2, 2 };
 
-        List<List<Integer>> answer = subsetsWithDup(nums);
-
-        System.out.println(answer);
+        System.out.println(subsetsWithDup(nums));
     }
 }
