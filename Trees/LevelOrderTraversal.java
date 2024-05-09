@@ -7,43 +7,37 @@
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
-import java.util.List;
 
-class TreeNode {
-    int val;
-    TreeNode left;
-    TreeNode right;
+class LevelOrderTraversal {
+    private static class TreeNode {
+        private int data;
+        private TreeNode left;
+        private TreeNode right;
 
-    TreeNode() {
+        public TreeNode(int data) {
+            this.data = data;
+            this.left = null;
+            this.right = null;
+        }
     }
 
-    TreeNode(int val) {
-        this.val = val;
-    }
+    // Time -> O(n) //
+    // Space -> O(n) //
 
-    TreeNode(int val, TreeNode left, TreeNode right) {
-        this.val = val;
-        this.left = left;
-        this.right = right;
-    }
-}
-
-public class LevelOrderTraversal {
-    public static List<List<Integer>> levelOrderIterative(TreeNode root) {
-        List<List<Integer>> result = new ArrayList<List<Integer>>();
-
-        ArrayDeque<TreeNode> queue = new ArrayDeque<TreeNode>();
+    private static ArrayList<ArrayList<Integer>> levelOrderIterative(TreeNode root) {
+        ArrayList<ArrayList<Integer>> res = new ArrayList<ArrayList<Integer>>();
 
         if (root == null) {
-            return result;
+            return res;
         }
 
+        ArrayDeque<TreeNode> queue = new ArrayDeque<TreeNode>();
         queue.offer(root);
 
         while (!queue.isEmpty()) {
             int size = queue.size();
 
-            List<Integer> subList = new ArrayList<Integer>();
+            ArrayList<Integer> subList = new ArrayList<Integer>();
 
             for (int i = 0; i < size; i++) {
                 TreeNode node = queue.poll();
@@ -56,14 +50,18 @@ public class LevelOrderTraversal {
                     queue.offer(node.right);
                 }
 
-                subList.add(node.val);
+                subList.add(node.data);
             }
-            result.add(subList);
+            res.add(subList);
         }
-        return result;
+
+        return res;
     }
 
-    public static void levelOrderRecursive(TreeNode node, int level, List<List<Integer>> res) {
+    // Time -> O(n) //
+    // Space -> O(n) //
+
+    private static void levelOrderRecursive(TreeNode node, int level, ArrayList<ArrayList<Integer>> res) {
         if (node == null) {
             return;
         }
@@ -72,18 +70,18 @@ public class LevelOrderTraversal {
             res.add(new ArrayList<>());
         }
 
-        res.get(level).add(node.val);
+        res.get(level).add(node.data);
 
         levelOrderRecursive(node.left, level + 1, res);
         levelOrderRecursive(node.right, level + 1, res);
     }
 
-    public static List<List<Integer>> levelOrder(TreeNode root) {
-        List<List<Integer>> result = new ArrayList<>();
+    private static ArrayList<ArrayList<Integer>> levelOrder(TreeNode root) {
+        ArrayList<ArrayList<Integer>> res = new ArrayList<>();
 
-        levelOrderRecursive(root, 0, result);
+        levelOrderRecursive(root, 0, res);
 
-        return result;
+        return res;
     }
 
     public static void main(String[] args) {
@@ -93,8 +91,7 @@ public class LevelOrderTraversal {
         root.right.left = new TreeNode(15);
         root.right.right = new TreeNode(7);
 
-        List<List<Integer>> answer = levelOrder(root);
-
-        System.out.println(answer);
+        System.out.println(levelOrder(root));
+        System.out.println(levelOrderIterative(root));
     }
 }

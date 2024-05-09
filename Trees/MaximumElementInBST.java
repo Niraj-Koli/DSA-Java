@@ -1,7 +1,7 @@
-public class MaximumElementInBST {
+class MaximumElementInBST {
     static class TreeNode {
         private int data;
-        public TreeNode left;
+        private TreeNode left;
         private TreeNode right;
 
         public TreeNode(int data) {

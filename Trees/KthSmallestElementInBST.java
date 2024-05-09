@@ -3,27 +3,23 @@
  * smallest value (1-indexed) of all the values of the nodes in the tree.
  */
 
-class TreeNode {
-    int val;
-    TreeNode left;
-    TreeNode right;
+class KthSmallestElementInBST {
+    private static class TreeNode {
+        private int data;
+        private TreeNode left;
+        private TreeNode right;
 
-    TreeNode() {
+        public TreeNode(int data) {
+            this.data = data;
+            this.left = null;
+            this.right = null;
+        }
     }
 
-    TreeNode(int val) {
-        this.val = val;
-    }
+    // Time -> O(n) //
+    // Space -> O(h) //
 
-    TreeNode(int val, TreeNode left, TreeNode right) {
-        this.val = val;
-        this.left = left;
-        this.right = right;
-    }
-}
-
-public class KthSmallestElementInBST {
-    public static void traverse(TreeNode root, int k, int[] helper) {
+    private static void traverse(TreeNode root, int k, int[] helper) {
         if (root == null) {
             return;
         }
@@ -33,13 +29,13 @@ public class KthSmallestElementInBST {
         helper[0]++;
 
         if (helper[0] == k) {
-            helper[1] = root.val;
+            helper[1] = root.data;
             return;
         }
         traverse(root.right, k, helper);
     }
 
-    public static int kthSmallest(TreeNode root, int k) {
+    private static int kthSmallest(TreeNode root, int k) {
         int[] helper = new int[2];
 
         traverse(root, k, helper);
@@ -57,51 +53,6 @@ public class KthSmallestElementInBST {
 
         int k = 3;
 
-        int answer = kthSmallest(root, k);
-
-        System.out.println(answer);
+        System.out.println(kthSmallest(root, k));
     }
 }
-
-// public class Solution {
-// public int kthSmallest(TreeNode root, int k) {
-// if (root == null || k <= 0) {
-// return -1;
-// }
-
-// int count = 0;
-// TreeNode current = root;
-// int result = -1;
-
-// while (current != null) {
-// if (current.left == null) {
-// count++;
-// if (count == k) {
-// result = current.val;
-// break;
-// }
-// current = current.right;
-// } else {
-// TreeNode predecessor = current.left;
-// while (predecessor.right != null && predecessor.right != current) {
-// predecessor = predecessor.right;
-// }
-
-// if (predecessor.right == null) {
-// predecessor.right = current;
-// current = current.left;
-// } else {
-// predecessor.right = null;
-// count++;
-// if (count == k) {
-// result = current.val;
-// break;
-// }
-// current = current.right;
-// }
-// }
-// }
-// System.gc();
-// return result;
-// }
-// }

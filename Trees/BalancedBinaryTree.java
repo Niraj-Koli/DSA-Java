@@ -4,31 +4,23 @@
  * .
  */
 
-class TreeNode {
-    int val;
-    TreeNode left;
-    TreeNode right;
+class BalancedBinaryTree {
+    static class TreeNode {
+        public int data;
+        private TreeNode left;
+        private TreeNode right;
 
-    TreeNode() {
+        public TreeNode(int data) {
+            this.data = data;
+            this.left = null;
+            this.right = null;
+        }
     }
 
-    TreeNode(int val) {
-        this.val = val;
-    }
+    // Time -> O(n) //
+    // Space -> O(h) //
 
-    TreeNode(int val, TreeNode left, TreeNode right) {
-        this.val = val;
-        this.left = left;
-        this.right = right;
-    }
-}
-
-public class BalancedBinaryTree {
-    public static boolean isBalanced(TreeNode root) {
-        return dfsDepth(root) != -1;
-    }
-
-    public static int dfsDepth(TreeNode root) {
+    private static int dfsDepth(TreeNode root) {
         if (root == null) {
             return 0;
         }
@@ -50,6 +42,10 @@ public class BalancedBinaryTree {
         return (1 + (Math.max(leftDepth, rightDepth)));
     }
 
+    private static boolean isBalanced(TreeNode root) {
+        return dfsDepth(root) != -1;
+    }
+
     public static void main(String[] args) {
         TreeNode root = new TreeNode(3);
         root.left = new TreeNode(9);
@@ -57,31 +53,6 @@ public class BalancedBinaryTree {
         root.right.left = new TreeNode(15);
         root.right.right = new TreeNode(7);
 
-        boolean answer = isBalanced(root);
-
-        System.out.println(answer);
+        System.out.println(isBalanced(root));
     }
 }
-
-// class Solution {
-// static boolean balance = true;
-
-// public boolean isBalanced(TreeNode root) {
-// balance = true;
-// dfs(root);
-// System.gc();
-// return balance;
-// }
-
-// public int dfs(TreeNode curr) {
-// if (curr == null || !balance) {
-// return -1;
-// }
-// int left = dfs(curr.left) + 1;
-// int right = dfs(curr.right) + 1;
-// if (Math.abs(right - left) > 1) {
-// balance = false;
-// }
-// return Math.max(left, right);
-// }
-// }

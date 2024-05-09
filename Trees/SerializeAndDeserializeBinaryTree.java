@@ -17,60 +17,60 @@
 import java.util.LinkedList;
 import java.util.Queue;
 
-class TreeNode {
-    int val;
-    TreeNode left;
-    TreeNode right;
+class SerializeAndDeserializeBinaryTree {
+    private static class TreeNode {
+        private int data;
+        private TreeNode left;
+        private TreeNode right;
 
-    TreeNode() {
+        public TreeNode(int data) {
+            this.data = data;
+            this.left = null;
+            this.right = null;
+        }
     }
 
-    TreeNode(int val) {
-        this.val = val;
-    }
+    // Time -> O(n) //
+    // Space -> O(n) //
 
-    TreeNode(int val, TreeNode left, TreeNode right) {
-        this.val = val;
-        this.left = left;
-        this.right = right;
-    }
-}
-
-public class SerializeAndDeserializeBinaryTree {
-    public static String serialize(TreeNode root) {
+    private static String serialize(TreeNode root) {
         if (root == null) {
             return "";
         }
 
-        Queue<TreeNode> queue = new LinkedList<>();
-        StringBuilder result = new StringBuilder();
+        Queue<TreeNode> queue = new LinkedList<TreeNode>();
+        StringBuilder res = new StringBuilder();
 
-        queue.add(root);
+        queue.offer(root);
 
         while (!queue.isEmpty()) {
             TreeNode node = queue.poll();
             if (node == null) {
-                result.append("n ");
+                res.append("n ");
                 continue;
             }
 
-            result.append(node.val + " ");
-            queue.add(node.left);
-            queue.add(node.right);
+            res.append(node.data + " ");
+
+            queue.offer(node.left);
+            queue.offer(node.right);
         }
-        return result.toString();
+        return res.toString();
     }
 
-    public static TreeNode deserialize(String data) {
+    // Time -> O(n) //
+    // Space -> O(n) //
+
+    private static TreeNode deserialize(String data) {
         if (data == "") {
             return null;
         }
 
-        Queue<TreeNode> queue = new LinkedList<>();
+        Queue<TreeNode> queue = new LinkedList<TreeNode>();
         String[] values = data.split(" ");
 
         TreeNode root = new TreeNode(Integer.parseInt(values[0]));
-        queue.add(root);
+        queue.offer(root);
 
         for (int i = 1; i < values.length; i++) {
             TreeNode parent = queue.poll();
@@ -78,22 +78,22 @@ public class SerializeAndDeserializeBinaryTree {
             if (!values[i].equals("n")) {
                 TreeNode left = new TreeNode(Integer.parseInt(values[i]));
                 parent.left = left;
-                queue.add(left);
+                queue.offer(left);
             }
-            
+
             if (!values[++i].equals("n")) {
                 TreeNode right = new TreeNode(Integer.parseInt(values[i]));
                 parent.right = right;
-                queue.add(right);
+                queue.offer(right);
             }
         }
         return root;
     }
 
-    public static void inOrder(TreeNode root) {
+    private static void inOrder(TreeNode root) {
         if (root != null) {
             inOrder(root.left);
-            System.out.print(root.val + " ");
+            System.out.print(root.data + " ");
             inOrder(root.right);
         }
     }
@@ -114,62 +114,3 @@ public class SerializeAndDeserializeBinaryTree {
         inOrder(answer);
     }
 }
-
-// public class Codec {
-
-// public String serialize(TreeNode root) {
-// StringBuilder sb = new StringBuilder();
-
-// s(root, sb);
-
-// return sb.toString();
-// }
-
-// private void s(TreeNode rt, StringBuilder sb) {
-// if (rt == null) {
-// sb.append("#");
-// return;
-// }
-
-// sb.append(rt.val).append(".");
-// s(rt.left, sb);
-// s(rt.right, sb);
-// }
-
-// public TreeNode deserialize(String data) {
-// AtomicInteger idx = new AtomicInteger(0);
-
-// TreeNode ans = d(data, idx);
-
-// return ans;
-// }
-
-// private TreeNode d(String dt, AtomicInteger idx) {
-// if (idx.get() >= dt.length()
-// || dt.charAt(idx.get()) == '#') {
-// idx.getAndIncrement();
-// return null;
-// }
-
-// TreeNode cur = new TreeNode(number(dt, idx));
-
-// idx.getAndIncrement();
-
-// cur.left = d(dt, idx);
-// cur.right = d(dt, idx);
-
-// return cur;
-// }
-
-// private int number(String dt, AtomicInteger idx) {
-// StringBuilder sb = new StringBuilder();
-
-// while (idx.get() < dt.length()
-// && dt.charAt(idx.get()) != '.'
-// && dt.charAt(idx.get()) != '#') {
-// sb.append(dt.charAt(idx.getAndIncrement()));
-// }
-
-// return Integer.valueOf(sb.toString());
-// }
-// }

@@ -1,4 +1,4 @@
-public class MinimumElementInBST {
+class MinimumElementInBST {
     static class TreeNode {
         private int data;
         private TreeNode left;

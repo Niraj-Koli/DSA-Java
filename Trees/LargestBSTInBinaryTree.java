@@ -4,53 +4,51 @@
  * Note: Here Size is equal to the number of nodes in the subtree.
  */
 
-class TreeNode {
-    int val;
-    TreeNode left;
-    TreeNode right;
+class LargestBSTInBinaryTree {
+    private static class TreeNode {
+        private int data;
+        private TreeNode left;
+        private TreeNode right;
 
-    TreeNode() {
+        public TreeNode(int data) {
+            this.data = data;
+            this.left = null;
+            this.right = null;
+        }
     }
 
-    TreeNode(int val) {
-        this.val = val;
+    private static class Node {
+        private int maxNode;
+        private int minNode;
+        private int maxSize;
+
+        Node(int minNode, int maxNode, int maxSize) {
+            this.minNode = minNode;
+            this.maxNode = maxNode;
+            this.maxSize = maxSize;
+        }
     }
 
-    TreeNode(int val, TreeNode left, TreeNode right) {
-        this.val = val;
-        this.left = left;
-        this.right = right;
-    }
-}
+    // Time -> O(n) //
+    // Space -> O(h) //
 
-class NodeValue {
-    public int maxNode, minNode, maxSize;
-
-    NodeValue(int minNode, int maxNode, int maxSize) {
-        this.minNode = minNode;
-        this.maxNode = maxNode;
-        this.maxSize = maxSize;
-    }
-}
-
-public class LargestBSTInBinaryTree {
-    public static NodeValue maxSizeBSTHelper(TreeNode root) {
+    private static Node maxSizeBSTHelper(TreeNode root) {
         if (root == null) {
-            return new NodeValue(Integer.MAX_VALUE, Integer.MIN_VALUE, 0);
+            return new Node(Integer.MAX_VALUE, Integer.MIN_VALUE, 0);
         }
 
-        NodeValue left = maxSizeBSTHelper(root.left);
-        NodeValue right = maxSizeBSTHelper(root.right);
+        Node left = maxSizeBSTHelper(root.left);
+        Node right = maxSizeBSTHelper(root.right);
 
-        if (left.maxNode < root.val && root.val < right.minNode) {
-            return new NodeValue(Math.min(root.val, left.minNode), Math.max(root.val, right.maxNode),
+        if (left.maxNode < root.data && root.data < right.minNode) {
+            return new Node(Math.min(root.data, left.minNode), Math.max(root.data, right.maxNode),
                     left.maxSize + right.maxSize + 1);
         }
 
-        return new NodeValue(Integer.MIN_VALUE, Integer.MAX_VALUE, Math.max(left.maxSize, right.maxSize));
+        return new Node(Integer.MIN_VALUE, Integer.MAX_VALUE, Math.max(left.maxSize, right.maxSize));
     }
 
-    public static int maxSizeBST(TreeNode root) {
+    private static int maxSizeBST(TreeNode root) {
         return maxSizeBSTHelper(root).maxSize;
     }
 
@@ -65,8 +63,6 @@ public class LargestBSTInBinaryTree {
         root.right.right.left = new TreeNode(4);
         root.right.right.right = new TreeNode(6);
 
-        int answer = maxSizeBST(root);
-
-        System.out.println(answer);
+        System.out.println(maxSizeBST(root));
     }
 }

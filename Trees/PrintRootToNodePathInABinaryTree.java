@@ -9,17 +9,31 @@
  */
 
 import java.util.ArrayList;
-import java.util.List;
 
-public class PrintRootToNodePathInABinaryTree {
-    public static boolean getPath(TreeNode root, int x, List<Integer> res) {
+class PrintRootToNodePathInABinaryTree {
+    private static class TreeNode {
+        private int data;
+        private TreeNode left;
+        private TreeNode right;
+
+        public TreeNode(int data) {
+            this.data = data;
+            this.left = null;
+            this.right = null;
+        }
+    }
+
+    // Time -> O(n) //
+    // Space -> O(h) //
+
+    private static boolean getPath(TreeNode root, int x, ArrayList<Integer> res) {
         if (root == null) {
             return false;
         }
 
-        res.add(root.val);
+        res.add(root.data);
 
-        if (root.val == x) {
+        if (root.data == x) {
             return true;
         }
 
@@ -32,16 +46,16 @@ public class PrintRootToNodePathInABinaryTree {
         return false;
     }
 
-    public static List<Integer> pathFromRootToNode(TreeNode root, int node) {
-        List<Integer> result = new ArrayList<Integer>();
+    private static ArrayList<Integer> pathFromRootToNode(TreeNode root, int node) {
+        ArrayList<Integer> res = new ArrayList<Integer>();
 
         if (root == null) {
-            return result;
+            return res;
         }
 
-        getPath(root, node, result);
+        getPath(root, node, res);
 
-        return result;
+        return res;
     }
 
     public static void main(String[] args) {
@@ -53,8 +67,6 @@ public class PrintRootToNodePathInABinaryTree {
         root.left.right.left = new TreeNode(6);
         root.left.right.right = new TreeNode(7);
 
-        List<Integer> answer = pathFromRootToNode(root, 7);
-
-        System.out.println(answer);
+        System.out.println(pathFromRootToNode(root, 7));
     }
 }

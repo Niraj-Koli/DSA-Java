@@ -6,32 +6,28 @@
  * and the nodes have the same value.
  */
 
-class TreeNode {
-    int val;
-    TreeNode left;
-    TreeNode right;
+class SameTree {
+    private static class TreeNode {
+        private int data;
+        private TreeNode left;
+        private TreeNode right;
 
-    TreeNode() {
+        public TreeNode(int data) {
+            this.data = data;
+            this.left = null;
+            this.right = null;
+        }
     }
 
-    TreeNode(int val) {
-        this.val = val;
-    }
+    // Time -> O(n) //
+    // Space -> O(h) //
 
-    TreeNode(int val, TreeNode left, TreeNode right) {
-        this.val = val;
-        this.left = left;
-        this.right = right;
-    }
-}
-
-public class SameTree {
-    public static boolean isSameTree(TreeNode p, TreeNode q) {
+    private static boolean isSameTree(TreeNode p, TreeNode q) {
         if (p == null || q == null) {
             return (p == q);
         }
 
-        return (p.val == q.val) && isSameTree(p.left, q.left) && isSameTree(p.right, q.right);
+        return (p.data == q.data) && isSameTree(p.left, q.left) && isSameTree(p.right, q.right);
     }
 
     public static void main(String[] args) {
@@ -43,8 +39,6 @@ public class SameTree {
         q.left = new TreeNode(2);
         q.right = new TreeNode(3);
 
-        boolean answer = isSameTree(p, q);
-
-        System.out.println(answer);
+        System.out.println(isSameTree(p, q));
     }
 }

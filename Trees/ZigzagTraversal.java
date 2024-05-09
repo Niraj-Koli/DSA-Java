@@ -7,37 +7,31 @@
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 
-class TreeNode {
-    int val;
-    TreeNode left;
-    TreeNode right;
+class ZigzagTraversal {
+    private static class TreeNode {
+        private int data;
+        private TreeNode left;
+        private TreeNode right;
 
-    TreeNode() {
+        public TreeNode(int data) {
+            this.data = data;
+            this.left = null;
+            this.right = null;
+        }
     }
 
-    TreeNode(int val) {
-        this.val = val;
-    }
+    // Time -> O(n) //
+    // Space -> O(n) //
 
-    TreeNode(int val, TreeNode left, TreeNode right) {
-        this.val = val;
-        this.left = left;
-        this.right = right;
-    }
-}
-
-public class ZigzagTraversal {
-    public static List<List<Integer>> zigzagLevelOrder(TreeNode root) {
-        List<List<Integer>> result = new ArrayList<List<Integer>>();
+    private static ArrayList<ArrayList<Integer>> zigzagLevelOrder(TreeNode root) {
+        ArrayList<ArrayList<Integer>> res = new ArrayList<ArrayList<Integer>>();
 
         if (root == null) {
-            return result;
+            return res;
         }
 
         ArrayDeque<TreeNode> queue = new ArrayDeque<TreeNode>();
-
         queue.offer(root);
 
         boolean leftToRight = true;
@@ -45,7 +39,7 @@ public class ZigzagTraversal {
         while (!queue.isEmpty()) {
             int size = queue.size();
 
-            List<Integer> subList = new ArrayList<Integer>();
+            ArrayList<Integer> subList = new ArrayList<Integer>();
 
             for (int i = 0; i < size; i++) {
                 TreeNode node = queue.poll();
@@ -58,7 +52,7 @@ public class ZigzagTraversal {
                     queue.offer(node.right);
                 }
 
-                subList.add(node.val);
+                subList.add(node.data);
             }
 
             if (!leftToRight) {
@@ -67,10 +61,10 @@ public class ZigzagTraversal {
 
             leftToRight = !leftToRight;
 
-            result.add(subList);
+            res.add(subList);
         }
 
-        return result;
+        return res;
     }
 
     public static void main(String[] args) {
@@ -80,37 +74,6 @@ public class ZigzagTraversal {
         root.right.left = new TreeNode(15);
         root.right.right = new TreeNode(7);
 
-        List<List<Integer>> answer = zigzagLevelOrder(root);
-
-        System.out.println(answer);
+        System.out.println(zigzagLevelOrder(root));
     }
 }
-
-// class Solution {
-// List<List<Integer>> result = new ArrayList<>();
-
-// public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
-// if (root != null) {
-// dfs(root, 0);
-// }
-// return result;
-// }
-
-// public void dfs(TreeNode root, int level) {
-// if (root != null) {
-// if (level >= result.size()) {
-// List<Integer> list = new ArrayList<>();
-// list.add(root.val);
-// result.add(list);
-// } else {
-// if (level % 2 == 0) {
-// result.get(level).add(root.val);
-// } else {
-// result.get(level).add(0, root.val);
-// }
-// }
-// dfs(root.left, level + 1);
-// dfs(root.right, level + 1);
-// }
-// }
-// }

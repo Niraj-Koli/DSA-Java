@@ -9,34 +9,34 @@
  * If the node is found, delete the node.
  */
 
-class TreeNode {
-    int val;
-    TreeNode left;
-    TreeNode right;
+class DeleteNodeInABinarySearchTree {
+    private static class TreeNode {
+        private int data;
+        private TreeNode left;
+        private TreeNode right;
 
-    TreeNode() {
+        public TreeNode(int data) {
+            this.data = data;
+            this.left = null;
+            this.right = null;
+        }
     }
 
-    TreeNode(int val) {
-        this.val = val;
-    }
+    // Time -> O(h) //
+    // Space -> O(h) //
 
-    TreeNode(int val, TreeNode left, TreeNode right) {
-        this.val = val;
-        this.left = left;
-        this.right = right;
-    }
-}
-
-public class DeleteNodeInABinarySearchTree {
-    public static TreeNode findLastRight(TreeNode root) {
+    private static TreeNode findLastRight(TreeNode root) {
         if (root.right == null) {
             return root;
         }
+
         return findLastRight(root.right);
     }
 
-    public static TreeNode helper(TreeNode root) {
+    // Time -> O(h) //
+    // Space -> O(h) //
+
+    private static TreeNode helper(TreeNode root) {
         if (root.left == null) {
             return root.right;
         } else if (root.right == null) {
@@ -44,32 +44,37 @@ public class DeleteNodeInABinarySearchTree {
         } else {
             TreeNode rightChild = root.right;
             TreeNode lastRight = findLastRight(root.left);
+
             lastRight.right = rightChild;
+
             return root.left;
         }
     }
 
-    public static TreeNode deleteNode(TreeNode root, int key) {
+    // Time -> O(h) //
+    // Space -> O(1) //
+
+    private static TreeNode deleteNode(TreeNode root, int key) {
         if (root == null) {
             return null;
         }
 
-        if (root.val == key) {
+        if (root.data == key) {
             return helper(root);
         }
 
         TreeNode dummy = root;
 
         while (root != null) {
-            if (root.val > key) {
-                if (root.left != null && root.left.val == key) {
+            if (root.data > key) {
+                if (root.left != null && root.left.data == key) {
                     root.left = helper(root.left);
                     break;
                 } else {
                     root = root.left;
                 }
             } else {
-                if (root.right != null && root.right.val == key) {
+                if (root.right != null && root.right.data == key) {
                     root.right = helper(root.right);
                     break;
                 } else {
@@ -77,12 +82,13 @@ public class DeleteNodeInABinarySearchTree {
                 }
             }
         }
+
         return dummy;
     }
 
-    public static void preOrder(TreeNode node) {
+    private static void preOrder(TreeNode node) {
         if (node != null) {
-            System.out.print(node.val + " ");
+            System.out.print(node.data + " ");
             preOrder(node.left);
             preOrder(node.right);
         }
@@ -98,43 +104,6 @@ public class DeleteNodeInABinarySearchTree {
 
         int key = 3;
 
-        TreeNode answer = deleteNode(root, key);
-
-        preOrder(answer);
+        preOrder(deleteNode(root, key));
     }
 }
-
-// class Solution {
-// public TreeNode deleteNode(TreeNode root, int key) {
-// if (root == null) {
-// return null;
-// }
-
-// if (root.val > key) {
-// root.left = deleteNode(root.left, key);
-// } else if (root.val < key) {
-// root.right = deleteNode(root.right, key);
-// } else {
-// if (root.left == null && root.right == null) {
-// return null;
-// }
-// if (root.left == null) {
-// return root.right;
-// } else if (root.right == null) {
-// return root.left;
-// }
-// TreeNode IS = inorderSuccessor(root.right);
-// root.val = IS.val;
-// root.right = deleteNode(root.right, IS.val);
-// }
-// System.gc();
-// return root;
-// }
-
-// private TreeNode inorderSuccessor(TreeNode root) {
-// while (root.left != null) {
-// root = root.left;
-// }
-// return root;
-// }
-// }

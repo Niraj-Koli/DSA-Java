@@ -9,30 +9,24 @@
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
-class TreeNode {
-    int val;
-    TreeNode left;
-    TreeNode right;
+class AllNodesDistanceKInBinaryTree {
+    private static class TreeNode {
+        private int data;
+        private TreeNode left;
+        private TreeNode right;
 
-    TreeNode() {
+        public TreeNode(int data) {
+            this.data = data;
+            this.left = null;
+            this.right = null;
+        }
     }
 
-    TreeNode(int val) {
-        this.val = val;
-    }
+    // Time -> O(n) //
+    // Space -> O(n) //
 
-    TreeNode(int val, TreeNode left, TreeNode right) {
-        this.val = val;
-        this.left = left;
-        this.right = right;
-    }
-}
-
-public class AllNodesDistanceKInBinaryTree {
-    public static void markParents(TreeNode root, Map<TreeNode, TreeNode> parentsMap) {
+    private static void markParents(TreeNode root, HashMap<TreeNode, TreeNode> parentsMap) {
         ArrayDeque<TreeNode> queue = new ArrayDeque<TreeNode>();
         queue.offer(root);
 
@@ -51,17 +45,20 @@ public class AllNodesDistanceKInBinaryTree {
         }
     }
 
-    public static List<Integer> distanceK(TreeNode root, TreeNode target, int k) {
-        Map<TreeNode, TreeNode> parentsMap = new HashMap<TreeNode, TreeNode>();
+    // Time -> O(n) //
+    // Space -> O(n) //
+
+    private static ArrayList<Integer> distanceK(TreeNode root, TreeNode target, int k) {
+        HashMap<TreeNode, TreeNode> parentsMap = new HashMap<TreeNode, TreeNode>();
 
         markParents(root, parentsMap);
 
-        HashMap<TreeNode, Boolean> visited = new HashMap<TreeNode, Boolean>();
+        HashMap<TreeNode, Boolean> vis = new HashMap<TreeNode, Boolean>();
 
         ArrayDeque<TreeNode> queue = new ArrayDeque<TreeNode>();
         queue.offer(target);
 
-        visited.put(target, true);
+        vis.put(target, true);
 
         int distance = 0;
 
@@ -76,30 +73,30 @@ public class AllNodesDistanceKInBinaryTree {
             for (int i = 0; i < size; i++) {
                 TreeNode node = queue.poll();
 
-                if (node.left != null && visited.get(node.left) == null) {
-                    visited.put(node.left, true);
+                if (node.left != null && vis.get(node.left) == null) {
+                    vis.put(node.left, true);
                     queue.offer(node.left);
                 }
 
-                if (node.right != null && visited.get(node.right) == null) {
-                    visited.put(node.right, true);
+                if (node.right != null && vis.get(node.right) == null) {
+                    vis.put(node.right, true);
                     queue.offer(node.right);
                 }
 
-                if (parentsMap.get(node) != null && visited.get(parentsMap.get(node)) == null) {
-                    visited.put(parentsMap.get(node), true);
+                if (parentsMap.get(node) != null && vis.get(parentsMap.get(node)) == null) {
+                    vis.put(parentsMap.get(node), true);
                     queue.offer(parentsMap.get(node));
                 }
             }
         }
 
-        List<Integer> result = new ArrayList<Integer>();
+        ArrayList<Integer> res = new ArrayList<Integer>();
 
         while (!queue.isEmpty()) {
-            result.add(queue.poll().val);
+            res.add(queue.poll().data);
         }
 
-        return result;
+        return res;
     }
 
     public static void main(String[] args) {
@@ -112,66 +109,9 @@ public class AllNodesDistanceKInBinaryTree {
         root.left.right.right = new TreeNode(4);
         root.right.left = new TreeNode(0);
         root.right.right = new TreeNode(8);
+        
         int k = 2;
 
-        List<Integer> answer = distanceK(root, target, k);
-
-        System.out.println(answer);
+        System.out.println(distanceK(root, target, k));
     }
 }
-
-// class Solution {
-
-// public static void NodesinKdistance2(TreeNode root, List<Integer> arr, int k,
-// int n) {
-
-// if (root == null) {
-// return;
-// }
-// if (k == n) {
-// int a = root.val;
-// arr.add(a);
-// return;
-// }
-// NodesinKdistance2(root.left, arr, k, n + 1);
-// NodesinKdistance2(root.right, arr, k, n + 1);
-// return;
-// }
-
-// public static int NodesinKdistance3(TreeNode root, TreeNode target,
-// List<Integer> arr, int k) {
-
-// if (root == null) {
-// return -1;
-// }
-// if (root.val == target.val) {
-// return 0;
-// }
-// int first = NodesinKdistance3(root.left, target, arr, k);
-// int second = NodesinKdistance3(root.right, target, arr, k);
-// if (first >= 0) {
-// if (k - first - 1 == 0) {
-// arr.add(root.val);
-// return -1;
-// }
-// NodesinKdistance2(root.right, arr, k - first - 2, 0);
-// return first + 1;
-// }
-// if (second >= 0) {
-// if (k - second - 1 == 0) {
-// arr.add(root.val);
-// return -1;
-// }
-// NodesinKdistance2(root.left, arr, k - second - 2, 0);
-// return second + 1;
-// }
-// return -1;
-// }
-
-// public List<Integer> distanceK(TreeNode root, TreeNode target, int k) {
-// List<Integer> arr = new ArrayList<>();
-// NodesinKdistance2(target, arr, k, 0);
-// NodesinKdistance3(root, target, arr, k);
-// return arr;
-// }
-// }

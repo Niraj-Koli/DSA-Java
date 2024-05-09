@@ -30,75 +30,69 @@
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
-class TreeNode {
-    int val;
-    TreeNode left;
-    TreeNode right;
+class BottomViewOfBinaryTree {
+    private static class TreeNode {
+        private int data;
+        private TreeNode left;
+        private TreeNode right;
 
-    TreeNode() {
+        public TreeNode(int data) {
+            this.data = data;
+            this.left = null;
+            this.right = null;
+        }
     }
 
-    TreeNode(int val) {
-        this.val = val;
+    private static class Pair {
+        private TreeNode node;
+        private int state;
+
+        public Pair(TreeNode node, int state) {
+            this.node = node;
+            this.state = state;
+        }
     }
 
-    TreeNode(int val, TreeNode left, TreeNode right) {
-        this.val = val;
-        this.left = left;
-        this.right = right;
-    }
-}
+    // Time -> O(n * log(n)) //
+    // Space -> O(n) //
 
-class NodePair {
-    TreeNode node;
-    int state;
-
-    NodePair(TreeNode node, int state) {
-        this.node = node;
-        this.state = state;
-    }
-}
-
-public class BottomViewOfBinaryTree {
-    public static List<Integer> bottomView(TreeNode root) {
-        ArrayList<Integer> result = new ArrayList<Integer>();
+    private static ArrayList<Integer> bottomView(TreeNode root) {
+        ArrayList<Integer> res = new ArrayList<Integer>();
 
         if (root == null) {
-            return result;
+            return res;
         }
 
         TreeMap<Integer, Integer> map = new TreeMap<Integer, Integer>();
 
-        ArrayDeque<NodePair> queue = new ArrayDeque<NodePair>();
-
-        queue.offer(new NodePair(root, 0));
+        ArrayDeque<Pair> queue = new ArrayDeque<Pair>();
+        queue.offer(new Pair(root, 0));
 
         while (!queue.isEmpty()) {
-            NodePair pair = queue.poll();
+            Pair pair = queue.poll();
 
             TreeNode node = pair.node;
             int state = pair.state;
 
-            map.put(state, node.val);
+            map.put(state, node.data);
 
             if (node.left != null) {
-                queue.offer(new NodePair(node.left, state - 1));
+                queue.offer(new Pair(node.left, state - 1));
             }
 
             if (node.right != null) {
-                queue.offer(new NodePair(node.right, state + 1));
+                queue.offer(new Pair(node.right, state + 1));
             }
         }
 
         for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
-            result.add(entry.getValue());
+            res.add(entry.getValue());
         }
 
-        return result;
+        return res;
     }
 
     public static void main(String[] args) {
@@ -110,8 +104,6 @@ public class BottomViewOfBinaryTree {
         root.left.right.left = new TreeNode(6);
         root.right.right = new TreeNode(7);
 
-        List<Integer> answer = bottomView(root);
-
-        System.out.println(answer);
+        System.out.println(bottomView(root));
     }
 }

@@ -11,57 +11,53 @@
  * Both the left and right subtrees must also be binary search trees.
  */
 
-class TreeNode {
-    int val;
-    TreeNode left;
-    TreeNode right;
+class MaximumSumBSTInBinaryTree {
+    private static class TreeNode {
+        private int data;
+        private TreeNode left;
+        private TreeNode right;
 
-    TreeNode() {
+        public TreeNode(int data) {
+            this.data = data;
+            this.left = null;
+            this.right = null;
+        }
     }
 
-    TreeNode(int val) {
-        this.val = val;
+    private static class Node {
+        private int maxNode;
+        private int minNode;
+        private int maxSum;
+
+        Node(int minNode, int maxNode, int maxSum) {
+            this.minNode = minNode;
+            this.maxNode = maxNode;
+            this.maxSum = maxSum;
+        }
     }
 
-    TreeNode(int val, TreeNode left, TreeNode right) {
-        this.val = val;
-        this.left = left;
-        this.right = right;
-    }
-}
+    private static int max = 0;
 
-class NodeContainer {
-    public int maxNode, minNode, maxSum;
-
-    NodeContainer(int minNode, int maxNode, int maxSum) {
-        this.minNode = minNode;
-        this.maxNode = maxNode;
-        this.maxSum = maxSum;
-    }
-}
-
-public class MaximumSumBSTInBinaryTree {
-    public static int max = 0;
-
-    public static NodeContainer maxSumBSTHelper(TreeNode root) {
+    private static Node maxSumBSTHelper(TreeNode root) {
         if (root == null) {
-            return new NodeContainer(Integer.MAX_VALUE, Integer.MIN_VALUE, 0);
+            return new Node(Integer.MAX_VALUE, Integer.MIN_VALUE, 0);
         }
 
-        NodeContainer left = maxSumBSTHelper(root.left);
-        NodeContainer right = maxSumBSTHelper(root.right);
+        Node left = maxSumBSTHelper(root.left);
+        Node right = maxSumBSTHelper(root.right);
 
-        if (left.maxNode < root.val && root.val < right.minNode) {
-            max = Math.max(max, root.val + left.maxSum + right.maxSum);
-            return new NodeContainer(Math.min(root.val, left.minNode), Math.max(root.val, right.maxNode),
-                    left.maxSum + right.maxSum + root.val);
+        if (left.maxNode < root.data && root.data < right.minNode) {
+            max = Math.max(max, root.data + left.maxSum + right.maxSum);
+            return new Node(Math.min(root.data, left.minNode), Math.max(root.data, right.maxNode),
+                    left.maxSum + right.maxSum + root.data);
         }
 
-        return new NodeContainer(Integer.MIN_VALUE, Integer.MAX_VALUE, Math.max(left.maxSum, right.maxSum));
+        return new Node(Integer.MIN_VALUE, Integer.MAX_VALUE, Math.max(left.maxSum, right.maxSum));
     }
 
-    public static int maxSumBST(TreeNode root) {
+    private static int maxSumBST(TreeNode root) {
         maxSumBSTHelper(root);
+
         return max;
     }
 
@@ -76,78 +72,6 @@ public class MaximumSumBSTInBinaryTree {
         root.right.right.left = new TreeNode(4);
         root.right.right.right = new TreeNode(6);
 
-        int answer = maxSumBST(root);
-
-        System.out.println(answer);
+        System.out.println(maxSumBST(root));
     }
 }
-
-// class Pair {
-//     int max;
-//     int min;
-//     int sum;
-//     int pos;
-
-//     Pair(int a, int b, int c, int d) {
-//         max = a;
-//         min = b;
-//         sum = c;
-//         pos = d;
-//     }
-// }
-
-// class Solution {
-// Pair sum(TreeNode root, int[] ans) {
-// if (root.left == null && root.right == null) {
-
-// ans[0] = Math.max(ans[0], root.val);
-// return new Pair(root.val, root.val, root.val, 0);
-// }
-
-// if (root.left != null && root.right != null) {
-// Pair l = sum(root.left, ans);
-// Pair r = sum(root.right, ans);
-// if (l.pos == -1 || r.pos == -1) {
-// return new Pair(0, 0, 0, -1);
-// } else if (root.val > l.max && root.val < r.min) {
-// ans[0] = Math.max(ans[0], l.sum + r.sum + root.val);
-// return new Pair(Math.max(root.val, r.max), Math.min(root.val, l.min), l.sum +
-// r.sum + root.val, 0);
-// } else {
-// return new Pair(0, 0, 0, -1);
-// }
-// } else if (root.left != null) {
-// Pair l = sum(root.left, ans);
-// if (l.pos == -1) {
-// return new Pair(0, 0, 0, -1);
-// } else if (root.val > l.max) {
-
-// ans[0] = Math.max(ans[0], l.sum + root.val);
-// return new Pair(Math.max(root.val, l.max), Math.min(root.val, l.min), l.sum +
-// root.val, 0);
-// } else {
-// return new Pair(0, 0, 0, -1);
-// }
-
-// } else {
-// Pair r = sum(root.right, ans);
-// if (r.pos == -1) {
-// return new Pair(0, 0, 0, -1);
-// } else if (root.val < r.min) {
-
-// ans[0] = Math.max(ans[0], r.sum + root.val);
-// return new Pair(Math.max(root.val, r.max), Math.min(root.val, r.min), r.sum +
-// root.val, 0);
-// } else {
-// return new Pair(0, 0, 0, -1);
-// }
-
-// }
-// }
-
-// public int maxSumBST(TreeNode root) {
-// int[] ans = new int[1];
-// sum(root, ans);
-// return ans[0];
-// }
-// }

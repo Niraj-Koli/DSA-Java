@@ -10,27 +10,23 @@
  * Design an algorithm that runs in less than O(n) time complexity.
  */
 
-class TreeNode {
-    int val;
-    TreeNode left;
-    TreeNode right;
+class CountCompleteTreeNodes {
+    static class TreeNode {
+        public int data;
+        private TreeNode left;
+        private TreeNode right;
 
-    TreeNode() {
+        public TreeNode(int data) {
+            this.data = data;
+            this.left = null;
+            this.right = null;
+        }
     }
 
-    TreeNode(int val) {
-        this.val = val;
-    }
+    // Time -> O(log(n)) //
+    // Space -> O(1) //
 
-    TreeNode(int val, TreeNode left, TreeNode right) {
-        this.val = val;
-        this.left = left;
-        this.right = right;
-    }
-}
-
-public class CountCompleteTreeNodes {
-    public static int getHeightLeft(TreeNode root) {
+    private static int getHeightLeft(TreeNode root) {
         int height = 0;
 
         while (root.left != null) {
@@ -38,10 +34,14 @@ public class CountCompleteTreeNodes {
 
             root = root.left;
         }
+
         return height;
     }
 
-    public static int getHeightRight(TreeNode root) {
+    // Time -> O(log(n)) //
+    // Space -> O(1) //
+
+    private static int getHeightRight(TreeNode root) {
         int height = 0;
 
         while (root.right != null) {
@@ -49,10 +49,14 @@ public class CountCompleteTreeNodes {
 
             root = root.right;
         }
+
         return height;
     }
 
-    public static int countNodes(TreeNode root) {
+    // Time -> O(n) //
+    // Space -> O(n) //
+
+    private static int countNodes(TreeNode root) {
         if (root == null) {
             return 0;
         }
@@ -75,29 +79,6 @@ public class CountCompleteTreeNodes {
         root.left.right = new TreeNode(5);
         root.right.left = new TreeNode(6);
 
-        int answer = countNodes(root);
-
-        System.out.println(answer);
+        System.out.println(countNodes(root));
     }
 }
-
-// class Solution {
-// public int countNodes(TreeNode root) {
-// Queue<TreeNode> queue = new LinkedList<TreeNode>();
-// if (root == null)
-// return 0;
-// queue.offer(root);
-// int count = 0;
-// while (!queue.isEmpty()) {
-// count += queue.size();
-// for (int i = queue.size(); i > 0; i--) {
-// if (queue.peek().left != null)
-// queue.offer(queue.peek().left);
-// if (queue.peek().right != null)
-// queue.offer(queue.peek().right);
-// queue.poll();
-// }
-// }
-// return count;
-// }
-// }

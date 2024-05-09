@@ -6,7 +6,7 @@
  * positions (row + 1, col - 1) and (row + 1, col + 1) respectively. The root of
  * the tree is at (0, 0).
  * 
- * The vertical order traversal of a binary tree is a list of top-to-bottom
+ * The vertical order traversal of a binary tree is a res of top-to-bottom
  * orderings for each column index starting from the leftmost column and ending
  * on the rightmost column. There may be multiple nodes in the same row and same
  * column. In such a case, sort these nodes by their values.
@@ -16,47 +16,41 @@
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.PriorityQueue;
 import java.util.TreeMap;
 
-class TreeNode {
-    int val;
-    TreeNode left;
-    TreeNode right;
+class VerticalOrderTraversal {
+    private static class TreeNode {
+        private int data;
+        private TreeNode left;
+        private TreeNode right;
 
-    TreeNode() {
+        public TreeNode(int data) {
+            this.data = data;
+            this.left = null;
+            this.right = null;
+        }
     }
 
-    TreeNode(int val) {
-        this.val = val;
+    private static class Tuple {
+        private TreeNode node;
+        private int row;
+        private int col;
+
+        public Tuple(TreeNode node, int row, int col) {
+            this.node = node;
+            this.row = row;
+            this.col = col;
+        }
     }
 
-    TreeNode(int val, TreeNode left, TreeNode right) {
-        this.val = val;
-        this.left = left;
-        this.right = right;
-    }
-}
+    // Time -> O(n * log(n)) //
+    // Space -> O(n) //
 
-class Tuple {
-    TreeNode node;
-    int row;
-    int col;
-
-    public Tuple(TreeNode node, int row, int col) {
-        this.node = node;
-        this.row = row;
-        this.col = col;
-    }
-}
-
-public class VerticalOrderTraversal {
-    public static List<List<Integer>> verticalTraversal(TreeNode root) {
+    private static ArrayList<ArrayList<Integer>> verticalTraversal(TreeNode root) {
         TreeMap<Integer, TreeMap<Integer, PriorityQueue<Integer>>> map = new TreeMap<Integer, TreeMap<Integer, PriorityQueue<Integer>>>();
 
         ArrayDeque<Tuple> queue = new ArrayDeque<Tuple>();
-
         queue.offer(new Tuple(root, 0, 0));
 
         while (!queue.isEmpty()) {
@@ -74,7 +68,7 @@ public class VerticalOrderTraversal {
                 map.get(x).put(y, new PriorityQueue<>());
             }
 
-            map.get(x).get(y).offer(node.val);
+            map.get(x).get(y).offer(node.data);
 
             if (node.left != null) {
                 queue.offer(new Tuple(node.left, x - 1, y + 1));
@@ -85,19 +79,19 @@ public class VerticalOrderTraversal {
             }
         }
 
-        List<List<Integer>> list = new ArrayList<List<Integer>>();
+        ArrayList<ArrayList<Integer>> res = new ArrayList<ArrayList<Integer>>();
 
-        for (TreeMap<Integer, PriorityQueue<Integer>> yDepth : map.values()) {
-            list.add(new ArrayList<>());
+        for (TreeMap<Integer, PriorityQueue<Integer>> depth : map.values()) {
+            res.add(new ArrayList<>());
 
-            for (PriorityQueue<Integer> nodes : yDepth.values()) {
+            for (PriorityQueue<Integer> nodes : depth.values()) {
                 while (!nodes.isEmpty()) {
-                    list.get(list.size() - 1).add(nodes.poll());
+                    res.get(res.size() - 1).add(nodes.poll());
                 }
             }
         }
 
-        return list;
+        return res;
     }
 
     public static void main(String[] args) {
@@ -107,74 +101,6 @@ public class VerticalOrderTraversal {
         root.right.left = new TreeNode(15);
         root.right.right = new TreeNode(7);
 
-        List<List<Integer>> answer = verticalTraversal(root);
-
-        System.out.println(answer);
+        System.out.println(verticalTraversal(root));
     }
 }
-
-// class Solution {
-// public List<List<Integer>> verticalTraversal(TreeNode root) {
-// return new MyList(root);
-// }
-
-// static class MyList extends ArrayList<List<Integer>> {
-// TreeNode root;
-
-// public MyList(TreeNode treeNode) {
-// this.root = treeNode;
-// }
-
-// public int size() {
-// method();
-// return super.size();
-// }
-
-// private void method() {
-// if (root == null)
-// return;
-// HashMap<Integer, List<Info>> map = new HashMap<>();
-// int minCol = method(root, map, 0, 0);
-// int size = map.size() + minCol;
-// List<List<Integer>> list = this;
-// while (minCol < size) {
-// List<Info> infos = map.get(minCol++);
-// List<Integer> subRes = new ArrayList<>();
-// list.add(subRes);
-// infos.sort(Info::compareTo);
-// for (Info i : infos)
-// subRes.add(i.val);
-// }
-// root = null;
-// }
-
-// public int method(TreeNode node, HashMap<Integer, List<Info>> map, int row,
-// int col) {
-// if (node == null)
-// return 0;
-// if (map.containsKey(col))
-// map.get(col).add(new Info(row, node.val));
-// else {
-// ArrayList<Info> list = new ArrayList<>();
-// list.add(new Info(row, node.val));
-// map.put(col, list);
-// }
-// return Math.min(Math.min(method(node.left, map, row - 1, col - 1), col),
-// method(node.right, map, row - 1, col + 1));
-// }
-// }
-
-// static class Info implements Comparable<Info> {
-// private final int row;
-// public final int val;
-
-// public int compareTo(Info that) {
-// return this.row == that.row ? this.val - that.val : that.row - this.row;
-// }
-
-// public Info(int row, int val) {
-// this.row = row;
-// this.val = val;
-// }
-// }
-// }

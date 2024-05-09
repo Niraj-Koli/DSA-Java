@@ -5,27 +5,23 @@
  * from the root node down to the farthest leaf node.
  */
 
-class TreeNode {
-    int val;
-    TreeNode left;
-    TreeNode right;
+class MaximumDepthOfBinaryTree {
+    static class TreeNode {
+        public int data;
+        private TreeNode left;
+        private TreeNode right;
 
-    TreeNode() {
+        public TreeNode(int data) {
+            this.data = data;
+            this.left = null;
+            this.right = null;
+        }
     }
 
-    TreeNode(int val) {
-        this.val = val;
-    }
+    // Time -> O(n) //
+    // Space -> O(h) //
 
-    TreeNode(int val, TreeNode left, TreeNode right) {
-        this.val = val;
-        this.left = left;
-        this.right = right;
-    }
-}
-
-public class MaximumDepthOfBinaryTree {
-    public static int maxDepth(TreeNode root) {
+    private static int maxDepth(TreeNode root) {
         if (root == null) {
             return 0;
         }
@@ -43,30 +39,6 @@ public class MaximumDepthOfBinaryTree {
         root.right.left = new TreeNode(15);
         root.right.right = new TreeNode(7);
 
-        int answer = maxDepth(root);
-
-        System.out.println(answer);
+        System.out.println(maxDepth(root));
     }
 }
-
-// class Solution {
-// public int maxDepth(TreeNode root) {
-// if (root == null)
-// return 0;
-// Queue<TreeNode> queue = new LinkedList<>();
-// queue.offer(root);
-// int result = 0;
-// while (!queue.isEmpty()) {
-// result++;
-// int size = queue.size();
-// for (int i = 0; i < size; i++) {
-// TreeNode node = queue.poll();
-// if (node.left != null)
-// queue.offer(node.left);
-// if (node.right != null)
-// queue.offer(node.right);
-// }
-// }
-// return result;
-// }
-// }

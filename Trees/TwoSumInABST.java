@@ -6,68 +6,60 @@
 
 import java.util.ArrayDeque;
 
-class TreeNode {
-    int val;
-    TreeNode left;
-    TreeNode right;
+class TwoSumInABST {
+    private static class TreeNode {
+        private int data;
+        private TreeNode left;
+        private TreeNode right;
 
-    TreeNode() {
-    }
-
-    TreeNode(int val) {
-        this.val = val;
-    }
-
-    TreeNode(int val, TreeNode left, TreeNode right) {
-        this.val = val;
-        this.left = left;
-        this.right = right;
-    }
-}
-
-class BSTIterator {
-    private ArrayDeque<TreeNode> stack;
-    boolean reverse = true;
-
-    // reverse = true -> before (Decreasing Order)
-    // reverse = false -> next (Increasing Order)
-
-    public BSTIterator(TreeNode root, boolean isReverse) {
-        stack = new ArrayDeque<TreeNode>();
-        reverse = isReverse;
-        pushAll(root);
-    }
-
-    public boolean hasNext() {
-        return !stack.isEmpty();
-    }
-
-    public int next() {
-        TreeNode node = stack.pollLast();
-
-        if (reverse == false) {
-            pushAll(node.right);
-        } else {
-            pushAll(node.left);
+        public TreeNode(int data) {
+            this.data = data;
+            this.left = null;
+            this.right = null;
         }
-        return node.val;
     }
 
-    private void pushAll(TreeNode node) {
-        while (node != null) {
-            stack.offer(node);
+    private static class BSTIterator {
+        private ArrayDeque<TreeNode> stack;
+        private boolean reverse = true;
+
+        // reverse = true -> before (Decreasing Order)
+        // reverse = false -> next (Increasing Order)
+
+        public BSTIterator(TreeNode root, boolean isReverse) {
+            stack = new ArrayDeque<TreeNode>();
+            reverse = isReverse;
+            pushAll(root);
+        }
+
+        private int next() {
+            TreeNode node = stack.pollLast();
 
             if (reverse == false) {
-                node = node.left;
+                pushAll(node.right);
             } else {
-                node = node.right;
+                pushAll(node.left);
+            }
+            return node.data;
+        }
+
+        private void pushAll(TreeNode node) {
+            while (node != null) {
+                stack.offer(node);
+
+                if (reverse == false) {
+                    node = node.left;
+                } else {
+                    node = node.right;
+                }
             }
         }
     }
-}
 
-public class TwoSumInABST {
-    public static boolean findTarget(TreeNode root, int k) {
+    // Time -> O(n) //
+    // Space -> O(h) //
+
+    private static boolean findTarget(TreeNode root, int k) {
         if (root == null) {
             return false;
         }
@@ -101,42 +93,6 @@ public class TwoSumInABST {
 
         int k = 9;
 
-        boolean answer = findTarget(root, k);
-
-        System.out.println(answer);
+        System.out.println(findTarget(root, k));
     }
 }
-
-// class Solution {
-// public boolean findTarget(TreeNode root, int k) {
-// if (root.left == null && root.right == null)
-// return false;
-// return findTargetUtil(root, root, k);
-// }
-
-// public boolean findTargetUtil(TreeNode current, TreeNode root, int k) {
-// if (current == null) {
-// return false;
-// }
-// int remaining = k - current.val;
-// if (isPresent(root, remaining, current)) {
-// return true;
-// }
-// return findTargetUtil(current.left, root, k) || findTargetUtil(current.right,
-// root, k);
-// }
-
-// public boolean isPresent(TreeNode root, int k, TreeNode current) {
-// if (root == null) {
-// return false;
-// }
-// if (root.val == k && current != root) {
-// return true;
-// }
-// if (k < root.val) {
-// return isPresent(root.left, k, current);
-// }
-// return isPresent(root.right, k, current);
-
-// }
-// }

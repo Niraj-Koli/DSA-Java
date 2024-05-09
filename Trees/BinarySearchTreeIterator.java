@@ -18,26 +18,19 @@
 
 import java.util.ArrayDeque;
 
-class TreeNode {
-    int val;
-    TreeNode left;
-    TreeNode right;
+class BinarySearchTreeIterator {
+    private static class TreeNode {
+        private int data;
+        private TreeNode left;
+        private TreeNode right;
 
-    TreeNode() {
+        public TreeNode(int data) {
+            this.data = data;
+            this.left = null;
+            this.right = null;
+        }
     }
 
-    TreeNode(int val) {
-        this.val = val;
-    }
-
-    TreeNode(int val, TreeNode left, TreeNode right) {
-        this.val = val;
-        this.left = left;
-        this.right = right;
-    }
-}
-
-public class BinarySearchTreeIterator {
     private ArrayDeque<TreeNode> stack;
 
     public BinarySearchTreeIterator(TreeNode root) {
@@ -45,15 +38,25 @@ public class BinarySearchTreeIterator {
         pushAll(root);
     }
 
-    public boolean hasNext() {
+    // Time -> O(1) //
+    // Space -> O(1) //
+
+    private boolean hasNext() {
         return !stack.isEmpty();
     }
 
-    public int next() {
+    // Time -> O(1) //
+    // Space -> O(1) //
+
+    private int next() {
         TreeNode node = stack.pollLast();
         pushAll(node.right);
-        return node.val;
+
+        return node.data;
     }
+
+    // Time -> O(n) //
+    // Space -> O(h) //
 
     private void pushAll(TreeNode node) {
         while (node != null) {
@@ -71,44 +74,14 @@ public class BinarySearchTreeIterator {
 
         BinarySearchTreeIterator bSTIterator = new BinarySearchTreeIterator(root);
 
-        bSTIterator.next(); // return 3
-        bSTIterator.next(); // return 7
-        bSTIterator.hasNext(); // return True
-        bSTIterator.next(); // return 9
-        bSTIterator.hasNext(); // return True
-        bSTIterator.next(); // return 15
-        bSTIterator.hasNext(); // return True
-        bSTIterator.next(); // return 20
-        bSTIterator.hasNext(); // return False
+        System.out.println(bSTIterator.next());
+        System.out.println(bSTIterator.next());
+        System.out.println(bSTIterator.hasNext());
+        System.out.println(bSTIterator.next());
+        System.out.println(bSTIterator.hasNext());
+        System.out.println(bSTIterator.next());
+        System.out.println(bSTIterator.hasNext());
+        System.out.println(bSTIterator.next());
+        System.out.println(bSTIterator.hasNext());
     }
 }
-
-// class BSTIterator {
-// PriorityQueue<Integer> heap;
-
-// public BSTIterator(TreeNode root) {
-// heap = new PriorityQueue<>();
-// dfs(root);
-// }
-
-// private void dfs(TreeNode root) {
-// if (root == null) {
-// return;
-// }
-// dfs(root.left);
-// heap.offer(root.val);
-// dfs(root.right);
-// }
-
-// public int next() {
-// int smallest = heap.poll();
-// return smallest;
-// }
-
-// public boolean hasNext() {
-// if (heap.size() > 0) {
-// return true;
-// }
-// return false;
-// }
-// }

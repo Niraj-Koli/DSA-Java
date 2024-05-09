@@ -3,37 +3,34 @@
  * Successor of the given node in the BST.
  */
 
-class TreeNode {
-    int val;
-    TreeNode left;
-    TreeNode right;
+class InorderSuccessorInBST {
+    private static class TreeNode {
+        private int data;
+        private TreeNode left;
+        private TreeNode right;
 
-    TreeNode() {
+        public TreeNode(int data) {
+            this.data = data;
+            this.left = null;
+            this.right = null;
+        }
     }
 
-    TreeNode(int val) {
-        this.val = val;
-    }
+    // Time -> O(h) //
+    // Space -> O(1) //
 
-    TreeNode(int val, TreeNode left, TreeNode right) {
-        this.val = val;
-        this.left = left;
-        this.right = right;
-    }
-}
-
-public class InorderSuccessorInBST {
-    public static TreeNode inorderSuccessor(TreeNode root, TreeNode x) {
+    private static TreeNode inorderSuccessor(TreeNode root, TreeNode x) {
         TreeNode successor = null;
 
         while (root != null) {
-            if (x.val >= root.val) {
+            if (x.data >= root.data) {
                 root = root.right;
             } else {
                 successor = root;
                 root = root.left;
             }
         }
+
         return successor;
     }
 
@@ -46,8 +43,6 @@ public class InorderSuccessorInBST {
         root.left.right.left = new TreeNode(10);
         root.left.right.right = new TreeNode(14);
 
-        TreeNode answer = inorderSuccessor(root, x);
-
-        System.out.println(answer.val);
+        System.out.println(inorderSuccessor(root, x).data);
     }
 }

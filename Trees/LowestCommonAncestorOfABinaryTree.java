@@ -7,8 +7,23 @@
  * and q as descendants (where we allow a node to be a descendant of itself).”
  */
 
-public class LowestCommonAncestorOfABinaryTree {
-    public static TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+class LowestCommonAncestorOfABinaryTree {
+    private static class TreeNode {
+        private int data;
+        private TreeNode left;
+        private TreeNode right;
+
+        public TreeNode(int data) {
+            this.data = data;
+            this.left = null;
+            this.right = null;
+        }
+    }
+
+    // Time -> O(n) //
+    // Space -> O(h) //
+
+    private static TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
         if (root == null || root == p || root == q) {
             return root;
         }
@@ -36,36 +51,6 @@ public class LowestCommonAncestorOfABinaryTree {
         root.left.right.left = new TreeNode(7);
         root.left.right.right = new TreeNode(4);
 
-        TreeNode answer = lowestCommonAncestor(root, p, q);
-
-        System.out.println(answer.val);
+        System.out.println(lowestCommonAncestor(root, p, q).data);
     }
 }
-
-// class Solution {
-// boolean contains(TreeNode root, TreeNode node) {
-// if (root == null) {
-// return false;
-// }
-// if (root == node)
-// return true;
-// return contains(root.left, node) || contains(root.right, node);
-
-// }
-
-// public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
-// if (p == root || q == root)
-// return root;
-// if (p == q)
-// return p;
-// boolean pInLeft = contains(root.left, p);
-// boolean qInRight = contains(root.right, q);
-// if (pInLeft && qInRight)
-// return root;
-// if (pInLeft && !qInRight)
-// return lowestCommonAncestor(root.left, p, q);
-// if (!pInLeft && qInRight)
-// return lowestCommonAncestor(root.right, p, q);
-// return root;
-// }
-// }

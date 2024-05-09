@@ -1,40 +1,37 @@
 /*
- * You are given the root of a binary search tree (BST) and an integer val.
+ * You are given the root of a binary search tree (BST) and an integer data.
  * 
- * Find the node in the BST that the node's value equals val and return the
+ * Find the node in the BST that the node's value equals data and return the
  * subtree rooted with that node. If such a node does not exist, return null.
  */
 
-class TreeNode {
-    int val;
-    TreeNode left;
-    TreeNode right;
+class SearchInABinarySearchTree {
+    private static class TreeNode {
+        private int data;
+        private TreeNode left;
+        private TreeNode right;
 
-    TreeNode() {
-    }
-
-    TreeNode(int val) {
-        this.val = val;
-    }
-
-    TreeNode(int val, TreeNode left, TreeNode right) {
-        this.val = val;
-        this.left = left;
-        this.right = right;
-    }
-}
-
-public class SearchInABinarySearchTree {
-    public static TreeNode searchBST(TreeNode root, int val) {
-        while (root != null && root.val != val) {
-            root = val < root.val ? root.left : root.right;
+        public TreeNode(int data) {
+            this.data = data;
+            this.left = null;
+            this.right = null;
         }
+    }
+
+    // Time -> O(h) //
+    // Space -> O(1) //
+
+    private static TreeNode searchBST(TreeNode root, int data) {
+        while (root != null && root.data != data) {
+            root = data < root.data ? root.left : root.right;
+        }
+
         return root;
     }
 
-    public static void preOrder(TreeNode root) {
+    private static void preOrder(TreeNode root) {
         if (root != null) {
-            System.out.print(root.val + " ");
+            System.out.print(root.data + " ");
             preOrder(root.left);
             preOrder(root.right);
         }
@@ -47,27 +44,6 @@ public class SearchInABinarySearchTree {
         root.left.left = new TreeNode(1);
         root.left.right = new TreeNode(3);
 
-        TreeNode answer = searchBST(root, 2);
-
-        preOrder(answer);
+        preOrder(searchBST(root, 2));
     }
 }
-
-// class Solution {
-// public TreeNode searchBST(TreeNode root, int val) {
-// TreeNode node = root;
-// return recursiveBST(node, val);
-// }
-
-// public TreeNode recursiveBST(TreeNode root, int val) {
-// if (root.val == val) {
-// return root;
-// }
-// if (root.left != null && root.val >= val) {
-// return recursiveBST(root.left, val);
-// } else if (root.right != null && root.val < val) {
-// return recursiveBST(root.right, val);
-// }
-// return null;
-// }
-// }

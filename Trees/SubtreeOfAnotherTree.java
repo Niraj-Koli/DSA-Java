@@ -8,26 +8,29 @@
  * subtree of itself.
  */
 
-public class SubtreeOfAnotherTree {
+class SubtreeOfAnotherTree {
     private static class TreeNode {
-        int val;
-        TreeNode left;
-        TreeNode right;
+        private int data;
+        private TreeNode left;
+        private TreeNode right;
 
-        TreeNode(int val) {
-            this.val = val;
+        public TreeNode(int data) {
+            this.data = data;
         }
     }
 
-    public static boolean isSameTree(TreeNode p, TreeNode q) {
+    // Time -> O(n) //
+    // Space -> O(h) //
+
+    private static boolean isSameTree(TreeNode p, TreeNode q) {
         if (p == null || q == null) {
             return (p == q);
         }
 
-        return (p.val == q.val) && isSameTree(p.left, q.left) && isSameTree(p.right, q.right);
+        return (p.data == q.data) && isSameTree(p.left, q.left) && isSameTree(p.right, q.right);
     }
 
-    public static boolean isSubtree(TreeNode root, TreeNode subRoot) {
+    private static boolean isSubtree(TreeNode root, TreeNode subRoot) {
         if (root == null) {
             return false;
         }
@@ -50,32 +53,6 @@ public class SubtreeOfAnotherTree {
         subRoot.left = new TreeNode(1);
         subRoot.right = new TreeNode(2);
 
-        boolean ans = isSubtree(root, subRoot);
-
-        System.out.println(ans);
+        System.out.println(isSubtree(root, subRoot));
     }
 }
-
-// class Solution {
-// public boolean isSubtree(TreeNode root, TreeNode subRoot) {
-// if(root == null && subRoot == null) return true;
-// if(root == null || subRoot == null) return false;
-// if(root.val == subRoot.val){
-// if(isValid(root.left, subRoot.left) && isValid(root.right, subRoot.right))
-// return true;
-
-// }
-// return isSubtree(root.left, subRoot) || isSubtree(root.right, subRoot);
-// }
-// public boolean isValid(TreeNode root, TreeNode subRoot) {
-// if(root == null && subRoot == null) return true;
-// if(root == null || subRoot == null) return false;
-
-// if(root.val == subRoot.val){
-// if(isSubtree(root.left, subRoot.left) && isSubtree(root.right,
-// subRoot.right))
-// return true;
-// }
-// return false;
-// }
-// }

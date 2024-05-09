@@ -6,36 +6,31 @@
  */
 
 import java.util.ArrayList;
-import java.util.List;
 
-class TreeNode {
-    int val;
-    TreeNode left;
-    TreeNode right;
+class MorrisTraversal {
+    private static class TreeNode {
+        private int data;
+        private TreeNode left;
+        private TreeNode right;
 
-    TreeNode() {
+        public TreeNode(int data) {
+            this.data = data;
+            this.left = null;
+            this.right = null;
+        }
     }
 
-    TreeNode(int val) {
-        this.val = val;
-    }
+    // Time -> O(n) //
+    // Space -> O(1) //
 
-    TreeNode(int val, TreeNode left, TreeNode right) {
-        this.val = val;
-        this.left = left;
-        this.right = right;
-    }
-}
-
-public class MorrisTraversal {
-    public static List<Integer> morrisPreOrder(TreeNode root) {
-        List<Integer> preOrder = new ArrayList<Integer>();
+    private static ArrayList<Integer> morrisPreOrder(TreeNode root) {
+        ArrayList<Integer> preOrder = new ArrayList<Integer>();
 
         TreeNode curr = root;
 
         while (curr != null) {
             if (curr.left == null) {
-                preOrder.add(curr.val);
+                preOrder.add(curr.data);
                 curr = curr.right;
             } else {
                 TreeNode prev = curr.left;
@@ -46,7 +41,7 @@ public class MorrisTraversal {
 
                 if (prev.right == null) {
                     prev.right = curr;
-                    preOrder.add(curr.val);
+                    preOrder.add(curr.data);
                     curr = curr.left;
                 } else {
                     prev.right = null;
@@ -54,17 +49,21 @@ public class MorrisTraversal {
                 }
             }
         }
+
         return preOrder;
     }
 
-    public static List<Integer> morrisInOrder(TreeNode root) {
-        List<Integer> inOrder = new ArrayList<Integer>();
+    // Time -> O(n) //
+    // Space -> O(1) //
+
+    private static ArrayList<Integer> morrisInOrder(TreeNode root) {
+        ArrayList<Integer> inOrder = new ArrayList<Integer>();
 
         TreeNode curr = root;
 
         while (curr != null) {
             if (curr.left == null) {
-                inOrder.add(curr.val);
+                inOrder.add(curr.data);
                 curr = curr.right;
             } else {
                 TreeNode prev = curr.left;
@@ -78,11 +77,12 @@ public class MorrisTraversal {
                     curr = curr.left;
                 } else {
                     prev.right = null;
-                    inOrder.add(curr.val);
+                    inOrder.add(curr.data);
                     curr = curr.right;
                 }
             }
         }
+
         return inOrder;
     }
 
@@ -94,10 +94,7 @@ public class MorrisTraversal {
         root.left.right = new TreeNode(5);
         root.left.right.right = new TreeNode(6);
 
-        List<Integer> preorder = morrisPreOrder(root);
-        List<Integer> inorder = morrisInOrder(root);
-
-        System.out.println("Morris Preorder Traversal: " + preorder);
-        System.out.println("Morris Inorder Traversal: " + inorder);
+        System.out.println("Morris Preorder Traversal: " + morrisPreOrder(root));
+        System.out.println("Morris Inorder Traversal: " + morrisInOrder(root));
     }
 }

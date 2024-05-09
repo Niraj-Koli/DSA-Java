@@ -4,38 +4,30 @@
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
-import java.util.List;
 
-class TreeNode {
-    int val;
-    TreeNode left;
-    TreeNode right;
+class BoundaryTraversal {
+    private static class TreeNode {
+        private int data;
+        private TreeNode left;
+        private TreeNode right;
 
-    TreeNode() {
+        public TreeNode(int data) {
+            this.data = data;
+            this.left = null;
+            this.right = null;
+        }
     }
 
-    TreeNode(int val) {
-        this.val = val;
-    }
-
-    TreeNode(int val, TreeNode left, TreeNode right) {
-        this.val = val;
-        this.left = left;
-        this.right = right;
-    }
-}
-
-public class BoundaryTraversal {
-    public static boolean isLeaf(TreeNode node) {
+    private static boolean isLeaf(TreeNode node) {
         return (node.left == null) && (node.right == null);
     }
 
-    public static void addLeftBoundary(TreeNode root, List<Integer> res) {
+    private static void addLeftBoundary(TreeNode root, ArrayList<Integer> res) {
         TreeNode node = root.left;
 
         while (node != null) {
             if (!isLeaf(node)) {
-                res.add(node.val);
+                res.add(node.data);
             }
 
             if (node.left != null) {
@@ -46,14 +38,14 @@ public class BoundaryTraversal {
         }
     }
 
-    public static void addRightBoundary(TreeNode root, List<Integer> res) {
+    private static void addRightBoundary(TreeNode root, ArrayList<Integer> res) {
         TreeNode node = root.right;
 
         ArrayDeque<Integer> stack = new ArrayDeque<Integer>();
 
         while (node != null) {
             if (!isLeaf(node)) {
-                stack.offerLast(node.val);
+                stack.offerLast(node.data);
             }
 
             if (node.right != null) {
@@ -68,9 +60,9 @@ public class BoundaryTraversal {
         }
     }
 
-    public static void addLeaves(TreeNode root, List<Integer> res) {
+    private static void addLeaves(TreeNode root, ArrayList<Integer> res) {
         if (isLeaf(root)) {
-            res.add(root.val);
+            res.add(root.data);
             return;
         }
 
@@ -83,18 +75,21 @@ public class BoundaryTraversal {
         }
     }
 
-    public static List<Integer> printBoundary(TreeNode root) {
-        List<Integer> result = new ArrayList<Integer>();
+    // Time -> O(n) //
+    // Space -> O(n) //
+
+    private static ArrayList<Integer> printBoundary(TreeNode root) {
+        ArrayList<Integer> res = new ArrayList<Integer>();
 
         if (!isLeaf(root)) {
-            result.add(root.val);
+            res.add(root.data);
         }
 
-        addLeftBoundary(root, result);
-        addLeaves(root, result);
-        addRightBoundary(root, result);
+        addLeftBoundary(root, res);
+        addLeaves(root, res);
+        addRightBoundary(root, res);
 
-        return result;
+        return res;
     }
 
     public static void main(String[] args) {
@@ -110,8 +105,6 @@ public class BoundaryTraversal {
         root.right.right.left.left = new TreeNode(10);
         root.right.right.left.right = new TreeNode(11);
 
-        List<Integer> answer = printBoundary(root);
-
-        System.out.println(answer);
+        System.out.println(printBoundary(root));
     }
 }

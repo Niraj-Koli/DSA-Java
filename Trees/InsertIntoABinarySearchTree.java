@@ -7,56 +7,53 @@
  * the tree remains a BST after insertion. You can return any of them.
  */
 
-class TreeNode {
-    int val;
-    TreeNode left;
-    TreeNode right;
+class InsertIntoABinarySearchTree {
+    private static class TreeNode {
+        private int data;
+        private TreeNode left;
+        private TreeNode right;
 
-    TreeNode() {
+        public TreeNode(int data) {
+            this.data = data;
+            this.left = null;
+            this.right = null;
+        }
     }
 
-    TreeNode(int val) {
-        this.val = val;
-    }
+    // Time -> O(h) //
+    // Space -> O(1) //
 
-    TreeNode(int val, TreeNode left, TreeNode right) {
-        this.val = val;
-        this.left = left;
-        this.right = right;
-    }
-}
-
-public class InsertIntoABinarySearchTree {
-    public static TreeNode insertIntoBST(TreeNode root, int val) {
+    private static TreeNode insertIntoBST(TreeNode root, int data) {
         if (root == null) {
-            return new TreeNode(val);
+            return new TreeNode(data);
         }
 
         TreeNode node = root;
 
         while (true) {
-            if (node.val <= val) {
+            if (node.data <= data) {
                 if (node.right != null) {
                     node = node.right;
                 } else {
-                    node.right = new TreeNode(val);
+                    node.right = new TreeNode(data);
                     break;
                 }
             } else {
                 if (node.left != null) {
                     node = node.left;
                 } else {
-                    node.left = new TreeNode(val);
+                    node.left = new TreeNode(data);
                     break;
                 }
             }
         }
+
         return root;
     }
 
-    public static void preOrder(TreeNode root) {
+    private static void preOrder(TreeNode root) {
         if (root != null) {
-            System.out.print(root.val + " ");
+            System.out.print(root.data + " ");
             preOrder(root.left);
             preOrder(root.right);
         }
@@ -69,23 +66,8 @@ public class InsertIntoABinarySearchTree {
         root.left.left = new TreeNode(1);
         root.left.right = new TreeNode(3);
 
-        int val = 5;
+        int data = 5;
 
-        TreeNode answer = insertIntoBST(root, val);
-
-        preOrder(answer);
+        preOrder(insertIntoBST(root, data));
     }
 }
-
-// class Solution {
-// public TreeNode insertIntoBST(TreeNode root, int val) {
-// if (root == null)
-// return new TreeNode(val);
-// if (val < root.val)
-// root.left = insertIntoBST(root.left, val);
-// else
-// root.right = insertIntoBST(root.right, val);
-// System.gc();
-// return root;
-// }
-// }

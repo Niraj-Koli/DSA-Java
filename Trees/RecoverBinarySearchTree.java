@@ -4,39 +4,32 @@
  * without changing its structure.
  */
 
-class TreeNode {
-    int val;
-    TreeNode left;
-    TreeNode right;
+class RecoverBinarySearchTree {
+    private static class TreeNode {
+        private int data;
+        private TreeNode left;
+        private TreeNode right;
 
-    TreeNode() {
+        public TreeNode(int data) {
+            this.data = data;
+            this.left = null;
+            this.right = null;
+        }
     }
 
-    TreeNode(int val) {
-        this.val = val;
-    }
+    private static TreeNode first;
+    private static TreeNode prev;
+    private static TreeNode middle;
+    private static TreeNode last;
 
-    TreeNode(int val, TreeNode left, TreeNode right) {
-        this.val = val;
-        this.left = left;
-        this.right = right;
-    }
-}
-
-public class RecoverBinarySearchTree {
-    public static TreeNode first;
-    public static TreeNode prev;
-    public static TreeNode middle;
-    public static TreeNode last;
-
-    public static void inOrder(TreeNode root) {
+    private static void inOrder(TreeNode root) {
         if (root == null) {
             return;
         }
 
         inOrder(root.left);
 
-        if (prev != null && (root.val < prev.val)) {
+        if (prev != null && (root.data < prev.data)) {
             if (first == null) {
                 first = prev;
                 middle = root;
@@ -50,7 +43,10 @@ public class RecoverBinarySearchTree {
         inOrder(root.right);
     }
 
-    public static void recoverTree(TreeNode root) {
+    // Time -> O(n) //
+    // Space -> O(1) //
+
+    private static void recoverTree(TreeNode root) {
         first = middle = last = null;
 
         prev = new TreeNode(Integer.MIN_VALUE);
@@ -58,20 +54,20 @@ public class RecoverBinarySearchTree {
         inOrder(root);
 
         if (first != null && last != null) {
-            int temp = first.val;
-            first.val = last.val;
-            last.val = temp;
+            int temp = first.data;
+            first.data = last.data;
+            last.data = temp;
         } else if (first != null && middle != null) {
-            int temp = first.val;
-            first.val = middle.val;
-            middle.val = temp;
+            int temp = first.data;
+            first.data = middle.data;
+            middle.data = temp;
         }
     }
 
-    public static void printInOrder(TreeNode node) {
+    private static void printInOrder(TreeNode node) {
         if (node != null) {
             printInOrder(node.left);
-            System.out.print(node.val + " ");
+            System.out.print(node.data + " ");
             printInOrder(node.right);
         }
     }
@@ -91,29 +87,3 @@ public class RecoverBinarySearchTree {
         printInOrder(root);
     }
 }
-
-// class Solution {
-// TreeNode first;
-// TreeNode second;
-// TreeNode pre = new TreeNode(Integer.MIN_VALUE);
-
-// public void recoverTree(TreeNode root) {
-// inorder(root);
-
-// int num = first.val;
-// first.val = second.val;
-// second.val = num;
-// }
-
-// public void inorder(TreeNode root) {
-// if (root == null)
-// return;
-// inorder(root.left);
-// if (first == null && root.val < pre.val)
-// first = pre;
-// if (first != null && root.val < pre.val)
-// second = root;
-// pre = root;
-// inorder(root.right);
-// }
-// }

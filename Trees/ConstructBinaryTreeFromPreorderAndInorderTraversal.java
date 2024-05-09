@@ -5,37 +5,32 @@
  */
 
 import java.util.HashMap;
-import java.util.Map;
 
-class TreeNode {
-    int val;
-    TreeNode left;
-    TreeNode right;
+class ConstructBinaryTreeFromPreorderAndInorderTraversal {
+    private static class TreeNode {
+        private int data;
+        private TreeNode left;
+        private TreeNode right;
 
-    TreeNode() {
+        public TreeNode(int data) {
+            this.data = data;
+            this.left = null;
+            this.right = null;
+        }
     }
 
-    TreeNode(int val) {
-        this.val = val;
-    }
+    // Time -> O(n) //
+    // Space -> O(n) //
 
-    TreeNode(int val, TreeNode left, TreeNode right) {
-        this.val = val;
-        this.left = left;
-        this.right = right;
-    }
-}
-
-public class ConstructBinaryTreeFromPreorderAndInorderTraversal {
-    public static TreeNode constructTree(int[] preorder, int preStart, int preEnd, int[] inorder, int inStart,
-            int inEnd, Map<Integer, Integer> map) {
+    private static TreeNode constructTree(int[] preorder, int preStart, int preEnd, int[] inorder, int inStart,
+            int inEnd, HashMap<Integer, Integer> map) {
         if (preStart > preEnd || inStart > inEnd) {
             return null;
         }
 
         TreeNode root = new TreeNode(preorder[preStart]);
 
-        int inRoot = map.get(root.val);
+        int inRoot = map.get(root.data);
 
         int numsLeft = inRoot - inStart;
 
@@ -46,11 +41,14 @@ public class ConstructBinaryTreeFromPreorderAndInorderTraversal {
         return root;
     }
 
-    public static TreeNode buildTree(int[] preorder, int[] inorder) {
+    // Time -> O(n) //
+    // Space -> O(n) //
+
+    private static TreeNode buildTree(int[] preorder, int[] inorder) {
         int n = inorder.length;
         int m = preorder.length;
 
-        Map<Integer, Integer> map = new HashMap<Integer, Integer>();
+        HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
 
         for (int i = 0; i < n; i++) {
             map.put(inorder[i], i);
@@ -61,11 +59,11 @@ public class ConstructBinaryTreeFromPreorderAndInorderTraversal {
         return root;
     }
 
-    public static void postorder(TreeNode root) {
+    private static void postorder(TreeNode root) {
         if (root != null) {
             postorder(root.left);
             postorder(root.right);
-            System.out.print(root.val + " ");
+            System.out.print(root.data + " ");
         }
     }
 
@@ -73,32 +71,6 @@ public class ConstructBinaryTreeFromPreorderAndInorderTraversal {
         int[] preorder = { 3, 9, 20, 15, 7 };
         int[] inorder = { 9, 3, 15, 20, 7 };
 
-        TreeNode answer = buildTree(preorder, inorder);
-
-        postorder(answer);
+        postorder(buildTree(preorder, inorder));
     }
 }
-
-// class Solution {
-// private int i = 0;
-// private int p = 0;
-
-// public TreeNode buildTree(int[] preorder, int[] inorder) {
-// return build(preorder, inorder, Integer.MIN_VALUE);
-// }
-
-// private TreeNode build(int[] preorder, int[] inorder, int stop) {
-// if (p >= preorder.length) {
-// return null;
-// }
-// if (inorder[i] == stop) {
-// ++i;
-// return null;
-// }
-
-// TreeNode node = new TreeNode(preorder[p++]);
-// node.left = build(preorder, inorder, node.val);
-// node.right = build(preorder, inorder, stop);
-// return node;
-// }
-// }

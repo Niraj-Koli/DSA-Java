@@ -11,27 +11,23 @@
  * You are not allowed to change the structure of the given binary tree.
  */
 
-class TreeNode {
-    int val;
-    TreeNode left;
-    TreeNode right;
+class ChildrenSumPropertyInBinaryTree {
+    private static class TreeNode {
+        private int data;
+        private TreeNode left;
+        private TreeNode right;
 
-    TreeNode() {
+        public TreeNode(int data) {
+            this.data = data;
+            this.left = null;
+            this.right = null;
+        }
     }
 
-    TreeNode(int val) {
-        this.val = val;
-    }
+    // Time -> O(n) //
+    // Space -> O(h) //
 
-    TreeNode(int val, TreeNode left, TreeNode right) {
-        this.val = val;
-        this.left = left;
-        this.right = right;
-    }
-}
-
-public class ChildrenSumPropertyInBinaryTree {
-    public static void changeTree(TreeNode root) {
+    private static void changeTree(TreeNode root) {
         if (root == null) {
             return;
         }
@@ -39,20 +35,20 @@ public class ChildrenSumPropertyInBinaryTree {
         int child = 0;
 
         if (root.left != null) {
-            child += root.left.val;
+            child += root.left.data;
         }
 
         if (root.right != null) {
-            child += root.right.val;
+            child += root.right.data;
         }
 
-        if (child >= root.val) {
-            root.val = child;
+        if (child >= root.data) {
+            root.data = child;
         } else {
             if (root.left != null) {
-                root.left.val = root.val;
+                root.left.data = root.data;
             } else if (root.right != null) {
-                root.right.val = root.val;
+                root.right.data = root.data;
             }
         }
 
@@ -62,21 +58,21 @@ public class ChildrenSumPropertyInBinaryTree {
         int total = 0;
 
         if (root.left != null) {
-            total += root.left.val;
+            total += root.left.data;
         }
 
         if (root.right != null) {
-            total += root.right.val;
+            total += root.right.data;
         }
 
         if (root.left != null || root.right != null) {
-            root.val = total;
+            root.data = total;
         }
     }
 
-    public static void printPreOrder(TreeNode root) {
+    private static void printPreOrder(TreeNode root) {
         if (root != null) {
-            System.out.print(root.val + " ");
+            System.out.print(root.data + " ");
             printPreOrder(root.left);
             printPreOrder(root.right);
         }

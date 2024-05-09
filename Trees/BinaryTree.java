@@ -1,39 +1,37 @@
-class TreeNode {
-    int val;
-    TreeNode left;
-    TreeNode right;
+class BinaryTree {
+    private static class TreeNode {
+        private int data;
+        private TreeNode left;
+        private TreeNode right;
 
-    TreeNode() {
+        public TreeNode(int data) {
+            this.data = data;
+            this.left = null;
+            this.right = null;
+        }
     }
 
-    TreeNode(int val) {
-        this.val = val;
-    }
+    // Time -> O(log(n)) //
+    // Space -> O(log(n)) //
 
-    TreeNode(int val, TreeNode left, TreeNode right) {
-        this.val = val;
-        this.left = left;
-        this.right = right;
-    }
-}
-
-public class BinaryTree {
-
-    public static TreeNode insert(TreeNode root, int val) {
+    private static TreeNode insert(TreeNode root, int value) {
         if (root == null) {
-            return new TreeNode(val);
+            return new TreeNode(value);
         }
 
-        if (val < root.val) {
-            root.left = insert(root.left, val);
+        if (value < root.data) {
+            root.left = insert(root.left, value);
         } else {
-            root.right = insert(root.right, val);
+            root.right = insert(root.right, value);
         }
 
         return root;
     }
 
-    public static TreeNode arrayToBST(int[] nums) {
+    // Time -> O(n * log(n)) //
+    // Space -> O(n) //
+
+    private static TreeNode arrayToBST(int[] nums) {
         if (nums == null || nums.length == 0) {
             return null;
         }
@@ -47,27 +45,36 @@ public class BinaryTree {
         return root;
     }
 
-    public static void printPreOrder(TreeNode node) {
+    // Time -> O(n) //
+    // Space -> O(n) //
+
+    private static void printPreOrder(TreeNode node) {
         if (node != null) {
-            System.out.print(node.val + " ");
+            System.out.print(node.data + " ");
             printPreOrder(node.left);
             printPreOrder(node.right);
         }
     }
 
-    public static void printInOrder(TreeNode node) {
+    // Time -> O(n) //
+    // Space -> O(n) //
+
+    private static void printInOrder(TreeNode node) {
         if (node != null) {
             printInOrder(node.left);
-            System.out.print(node.val + " ");
+            System.out.print(node.data + " ");
             printInOrder(node.right);
         }
     }
 
-    public static void printPostOrder(TreeNode node) {
+    // Time -> O(n) //
+    // Space -> O(n) //
+
+    private static void printPostOrder(TreeNode node) {
         if (node != null) {
             printPostOrder(node.left);
             printPostOrder(node.right);
-            System.out.print(node.val + " ");
+            System.out.print(node.data + " ");
         }
     }
 

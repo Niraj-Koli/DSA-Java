@@ -4,47 +4,42 @@
  */
 
 import java.util.ArrayList;
-import java.util.List;
 
-class TreeNode {
-    int val;
-    TreeNode left;
-    TreeNode right;
+class RightViewOfBinaryTree {
+    private static class TreeNode {
+        private int data;
+        private TreeNode left;
+        private TreeNode right;
 
-    TreeNode() {
+        public TreeNode(int data) {
+            this.data = data;
+            this.left = null;
+            this.right = null;
+        }
     }
 
-    TreeNode(int val) {
-        this.val = val;
-    }
+    // Time -> O(n) //
+    // Space -> O(n) //
 
-    TreeNode(int val, TreeNode left, TreeNode right) {
-        this.val = val;
-        this.left = left;
-        this.right = right;
-    }
-}
-
-public class RightViewOfBinaryTree {
-    public static void rightView(TreeNode root, int level, List<Integer> res) {
+    private static void rightView(TreeNode root, int level, ArrayList<Integer> res) {
         if (root == null) {
             return;
         }
 
         if (res.size() == level) {
-            res.add(root.val);
+            res.add(root.data);
         }
 
         rightView(root.right, level + 1, res);
         rightView(root.left, level + 1, res);
     }
 
-    public static List<Integer> rightSideView(TreeNode root) {
-        List<Integer> result = new ArrayList<Integer>();
+    private static ArrayList<Integer> rightSideView(TreeNode root) {
+        ArrayList<Integer> res = new ArrayList<Integer>();
 
-        rightView(root, 0, result);
+        rightView(root, 0, res);
 
-        return result;
+        return res;
     }
 
     public static void main(String[] args) {
@@ -56,37 +51,6 @@ public class RightViewOfBinaryTree {
         root.left.right.left = new TreeNode(6);
         root.right.right = new TreeNode(7);
 
-        List<Integer> answer = rightSideView(root);
-
-        System.out.println(answer);
-    }
-}
-
-class Solution {
-    public List<Integer> rightSideView(TreeNode root) {
-        List<TreeNode> prevLevel = new ArrayList<TreeNode>();
-        prevLevel.add(root);
-        List<Integer> returnList = new ArrayList<Integer>();
-        if (root != null) {
-            returnList.add(root.val);
-        }
-        while (prevLevel.size() > 0) {
-            List<TreeNode> currentLevel = new ArrayList<TreeNode>();
-            for (TreeNode node : prevLevel) {
-                if (node != null) {
-                    if (node.left != null) {
-                        currentLevel.add(node.left);
-                    }
-                    if (node.right != null) {
-                        currentLevel.add(node.right);
-                    }
-                }
-            }
-            if (currentLevel.size() > 0) {
-                returnList.add(currentLevel.get(currentLevel.size() - 1).val);
-            }
-            prevLevel = currentLevel;
-        }
-        return returnList;
+        System.out.println(rightSideView(root));
     }
 }

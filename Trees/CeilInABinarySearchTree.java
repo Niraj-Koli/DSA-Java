@@ -6,42 +6,39 @@
  * If Ceil could not be found, return -1.
  */
 
-class TreeNode {
-    int val;
-    TreeNode left;
-    TreeNode right;
+class CeilInABinarySearchTree {
+    private static class TreeNode {
+        private int data;
+        private TreeNode left;
+        private TreeNode right;
 
-    TreeNode() {
+        public TreeNode(int data) {
+            this.data = data;
+            this.left = null;
+            this.right = null;
+        }
     }
 
-    TreeNode(int val) {
-        this.val = val;
-    }
+    // Time -> O(h) //
+    // Space -> O(1) //
 
-    TreeNode(int val, TreeNode left, TreeNode right) {
-        this.val = val;
-        this.left = left;
-        this.right = right;
-    }
-}
-
-public class CeilInABinarySearchTree {
-    public static int findCeil(TreeNode root, int key) {
+    private static int findCeil(TreeNode root, int key) {
         int ceil = -1;
 
         while (root != null) {
-            if (root.val == key) {
-                ceil = root.val;
+            if (root.data == key) {
+                ceil = root.data;
                 return ceil;
             }
 
-            if (key > root.val) {
+            if (key > root.data) {
                 root = root.right;
             } else {
-                ceil = root.val;
+                ceil = root.data;
                 root = root.left;
             }
         }
+
         return ceil;
     }
 
@@ -57,8 +54,6 @@ public class CeilInABinarySearchTree {
         root.right.left = new TreeNode(11);
         root.right.right = new TreeNode(14);
 
-        int answer = findCeil(root, 8);
-
-        System.out.println(answer);
+        System.out.println(findCeil(root, 8));
     }
 }

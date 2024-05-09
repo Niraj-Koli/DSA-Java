@@ -15,50 +15,41 @@
  * left ones only(i.e. leftmost).
  */
 
-import java.util.List;
-import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.ArrayDeque;
 import java.util.HashMap;
 
-class TreeNode {
-    int val;
-    TreeNode left;
-    TreeNode right;
+class TopViewOfBinaryTree {
+    private static class TreeNode {
+        private int data;
+        private TreeNode left;
+        private TreeNode right;
 
-    TreeNode() {
+        public TreeNode(int data) {
+            this.data = data;
+            this.left = null;
+            this.right = null;
+        }
     }
 
-    TreeNode(int val) {
-        this.val = val;
+    private static class Pair {
+        private TreeNode node;
+        private int state;
+
+        public Pair(TreeNode node, int state) {
+            this.node = node;
+            this.state = state;
+        }
     }
 
-    TreeNode(int val, TreeNode left, TreeNode right) {
-        this.val = val;
-        this.left = left;
-        this.right = right;
-    }
-}
-
-class NodePair {
-    TreeNode node;
-    int state;
-
-    NodePair(TreeNode node, int state) {
-        this.node = node;
-        this.state = state;
-    }
-}
-
-public class TopViewOfBinaryTree {
-    public static int levelOrderTraversal(TreeNode root, HashMap<Integer, Integer> map) {
-        ArrayDeque<NodePair> queue = new ArrayDeque<NodePair>();
-
-        queue.offer(new NodePair(root, 0));
+    private static int levelOrderTraversal(TreeNode root, HashMap<Integer, Integer> map) {
+        ArrayDeque<Pair> queue = new ArrayDeque<Pair>();
+        queue.offer(new Pair(root, 0));
 
         int min = Integer.MAX_VALUE;
 
         while (!queue.isEmpty()) {
-            NodePair pair = queue.poll();
+            Pair pair = queue.poll();
 
             TreeNode node = pair.node;
             int state = pair.state;
@@ -66,32 +57,36 @@ public class TopViewOfBinaryTree {
             min = Math.min(min, state);
 
             if (!map.containsKey(state)) {
-                map.put(state, node.val);
+                map.put(state, node.data);
             }
 
             if (node.left != null) {
-                queue.offer(new NodePair(node.left, state - 1));
+                queue.offer(new Pair(node.left, state - 1));
             }
 
             if (node.right != null) {
-                queue.offer(new NodePair(node.right, state + 1));
+                queue.offer(new Pair(node.right, state + 1));
             }
         }
+
         return min;
     }
 
-    public static List<Integer> topView(TreeNode root) {
+    // Time -> O(n) //
+    // Space -> O(n) //
+
+    private static ArrayList<Integer> topView(TreeNode root) {
         HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
 
         int min = levelOrderTraversal(root, map);
 
-        ArrayList<Integer> result = new ArrayList<Integer>();
+        ArrayList<Integer> res = new ArrayList<Integer>();
 
         for (int i = min; map.containsKey(i); i++) {
-            result.add(map.get(i));
+            res.add(map.get(i));
         }
 
-        return result;
+        return res;
     }
 
     public static void main(String[] args) {
@@ -103,8 +98,6 @@ public class TopViewOfBinaryTree {
         root.left.right.left = new TreeNode(6);
         root.right.right = new TreeNode(7);
 
-        List<Integer> answer = topView(root);
-
-        System.out.println(answer);
+        System.out.println(topView(root));
     }
 }

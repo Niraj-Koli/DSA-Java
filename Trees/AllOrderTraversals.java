@@ -1,69 +1,64 @@
 import java.util.ArrayDeque;
 import java.util.ArrayList;
-import java.util.List;
 
-class TreeNode {
-    int val;
-    TreeNode left;
-    TreeNode right;
+class AllOrderTraversals {
+    private static class TreeNode {
+        private int data;
+        private TreeNode left;
+        private TreeNode right;
 
-    TreeNode() {
+        public TreeNode(int data) {
+            this.data = data;
+            this.left = null;
+            this.right = null;
+        }
     }
 
-    TreeNode(int val) {
-        this.val = val;
+    private static class Pair {
+        private TreeNode node;
+        private int number;
+
+        public Pair(TreeNode node, int number) {
+            this.node = node;
+            this.number = number;
+        }
     }
 
-    TreeNode(int val, TreeNode left, TreeNode right) {
-        this.val = val;
-        this.left = left;
-        this.right = right;
-    }
-}
+    // Time -> O(n) //
+    // Space -> O(n) //
 
-class Pair {
-    TreeNode node;
-    int num;
-
-    Pair(TreeNode node, int num) {
-        this.node = node;
-        this.num = num;
-    }
-}
-
-public class AllOrderTraversals {
-    public static void allOrderTraversal(TreeNode root, List<Integer> pre, List<Integer> in, List<Integer> post) {
-        ArrayDeque<Pair> stack = new ArrayDeque<Pair>();
-
-        stack.offerLast(new Pair(root, 1));
-
+    private static void allOrderTraversal(TreeNode root, ArrayList<Integer> pre, ArrayList<Integer> in,
+            ArrayList<Integer> post) {
         if (root == null) {
             return;
         }
 
+        ArrayDeque<Pair> stack = new ArrayDeque<Pair>();
+        stack.offerLast(new Pair(root, 1));
+
         while (!stack.isEmpty()) {
             Pair element = stack.pollLast();
 
-            if (element.num == 1) {
-                pre.add(element.node.val);
+            if (element.number == 1) {
+                pre.add(element.node.data);
 
-                element.num++;
+                element.number++;
                 stack.offerLast(element);
 
                 if (element.node.left != null) {
                     stack.offerLast(new Pair(element.node.left, 1));
                 }
-            } else if (element.num == 2) {
-                in.add(element.node.val);
+            } else if (element.number == 2) {
+                in.add(element.node.data);
 
-                element.num++;
+                element.number++;
                 stack.offerLast(element);
 
                 if (element.node.right != null) {
                     stack.offerLast(new Pair(element.node.right, 1));
                 }
             } else {
-                post.add(element.node.val);
+                post.add(element.node.data);
             }
         }
     }
@@ -77,9 +72,9 @@ public class AllOrderTraversals {
         root.right.left = new TreeNode(6);
         root.right.right = new TreeNode(7);
 
-        List<Integer> pre = new ArrayList<>();
-        List<Integer> in = new ArrayList<>();
-        List<Integer> post = new ArrayList<>();
+        ArrayList<Integer> pre = new ArrayList<Integer>();
+        ArrayList<Integer> in = new ArrayList<Integer>();
+        ArrayList<Integer> post = new ArrayList<Integer>();
 
         allOrderTraversal(root, pre, in, post);
 

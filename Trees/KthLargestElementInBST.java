@@ -4,27 +4,23 @@
  * Search Tree.
  */
 
-class TreeNode {
-    int val;
-    TreeNode left;
-    TreeNode right;
+class KthLargestElementInBST {
+    private static class TreeNode {
+        private int data;
+        private TreeNode left;
+        private TreeNode right;
 
-    TreeNode() {
+        public TreeNode(int data) {
+            this.data = data;
+            this.left = null;
+            this.right = null;
+        }
     }
 
-    TreeNode(int val) {
-        this.val = val;
-    }
+    // Time -> O(n) //
+    // Space -> O(h) //
 
-    TreeNode(int val, TreeNode left, TreeNode right) {
-        this.val = val;
-        this.left = left;
-        this.right = right;
-    }
-}
-
-public class KthLargestElementInBST {
-    public static void traverse(TreeNode root, int k, int[] helper) {
+    private static void traverse(TreeNode root, int k, int[] helper) {
         if (root == null) {
             return;
         }
@@ -34,13 +30,14 @@ public class KthLargestElementInBST {
         helper[0]++;
 
         if (helper[0] == k) {
-            helper[1] = root.val;
+            helper[1] = root.data;
             return;
         }
+
         traverse(root.left, k, helper);
     }
 
-    public static int kthSmallest(TreeNode root, int k) {
+    private static int kthSmallest(TreeNode root, int k) {
         int[] helper = new int[2];
 
         traverse(root, k, helper);
@@ -58,8 +55,6 @@ public class KthLargestElementInBST {
 
         int k = 3;
 
-        int answer = kthSmallest(root, k);
-
-        System.out.println(answer);
+        System.out.println(kthSmallest(root, k));
     }
 }

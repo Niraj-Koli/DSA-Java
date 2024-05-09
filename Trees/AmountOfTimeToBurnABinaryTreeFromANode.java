@@ -11,29 +11,24 @@
 
 import java.util.ArrayDeque;
 import java.util.HashMap;
-import java.util.Map;
 
-class TreeNode {
-    int val;
-    TreeNode left;
-    TreeNode right;
+class AmountOfTimeToBurnABinaryTreeFromANode {
+    private static class TreeNode {
+        private int data;
+        private TreeNode left;
+        private TreeNode right;
 
-    TreeNode() {
+        public TreeNode(int data) {
+            this.data = data;
+            this.left = null;
+            this.right = null;
+        }
     }
 
-    TreeNode(int val) {
-        this.val = val;
-    }
+    // Time -> O(n) //
+    // Space -> O(n) //
 
-    TreeNode(int val, TreeNode left, TreeNode right) {
-        this.val = val;
-        this.left = left;
-        this.right = right;
-    }
-}
-
-public class AmountOfTimeToBurnABinaryTreeFromANode {
-    public static TreeNode mapParents(TreeNode root, Map<TreeNode, TreeNode> map, int start) {
+    private static TreeNode mapParents(TreeNode root, HashMap<TreeNode, TreeNode> map, int start) {
         ArrayDeque<TreeNode> queue = new ArrayDeque<TreeNode>();
         queue.offer(root);
 
@@ -42,7 +37,7 @@ public class AmountOfTimeToBurnABinaryTreeFromANode {
         while (!queue.isEmpty()) {
             TreeNode node = queue.poll();
 
-            if (node.val == start) {
+            if (node.data == start) {
                 target = node;
             }
 
@@ -59,11 +54,15 @@ public class AmountOfTimeToBurnABinaryTreeFromANode {
         return target;
     }
 
-    public static int findMinTime(Map<TreeNode, TreeNode> map, TreeNode target) {
+    // Time -> O(n) //
+    // Space -> O(n) //
+
+    private static int findMinTime(HashMap<TreeNode, TreeNode> map, TreeNode target) {
+        HashMap<TreeNode, Boolean> visited = new HashMap<TreeNode, Boolean>();
+
         ArrayDeque<TreeNode> queue = new ArrayDeque<TreeNode>();
         queue.offer(target);
 
-        HashMap<TreeNode, Boolean> visited = new HashMap<TreeNode, Boolean>();
         visited.put(target, true);
 
         int time = 0;
@@ -98,11 +97,12 @@ public class AmountOfTimeToBurnABinaryTreeFromANode {
                 time++;
             }
         }
+
         return time;
     }
 
-    public static int amountOfTime(TreeNode root, int start) {
-        Map<TreeNode, TreeNode> map = new HashMap<TreeNode, TreeNode>();
+    private static int amountOfTime(TreeNode root, int start) {
+        HashMap<TreeNode, TreeNode> map = new HashMap<TreeNode, TreeNode>();
 
         TreeNode target = mapParents(root, map, start);
 
@@ -123,35 +123,6 @@ public class AmountOfTimeToBurnABinaryTreeFromANode {
 
         int start = 3;
 
-        int answer = amountOfTime(root, start);
-
-        System.out.println(answer);
+        System.out.println(amountOfTime(root, start));
     }
 }
-
-// class Solution {
-// private int ans;
-
-// public int amountOfTime(TreeNode root, int start) {
-// dfs(root, start);
-// return ans;
-// }
-
-// public int dfs(TreeNode root, int start) {
-// if (root == null)
-// return 0;
-
-// int leftDepth = dfs(root.left, start);
-// int rightDepth = dfs(root.right, start);
-
-// if (root.val == start) {
-// ans = Math.max(leftDepth, rightDepth);
-// return -1;
-// } else if (leftDepth >= 0 && rightDepth >= 0) {
-// return Math.max(leftDepth, rightDepth) + 1;
-// } else {
-// ans = Math.max(ans, Math.abs(leftDepth - rightDepth));
-// return Math.min(leftDepth, rightDepth) - 1;
-// }
-// }
-// }

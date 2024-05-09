@@ -15,47 +15,42 @@
  */
 
 import java.util.ArrayList;
-import java.util.List;
 
-class TreeNode {
-    int val;
-    TreeNode left;
-    TreeNode right;
+class LeftViewOfBinaryTree {
+    private static class TreeNode {
+        private int data;
+        private TreeNode left;
+        private TreeNode right;
 
-    TreeNode() {
+        public TreeNode(int data) {
+            this.data = data;
+            this.left = null;
+            this.right = null;
+        }
     }
 
-    TreeNode(int val) {
-        this.val = val;
-    }
+    // Time -> O(n) //
+    // Space -> O(n) //
 
-    TreeNode(int val, TreeNode left, TreeNode right) {
-        this.val = val;
-        this.left = left;
-        this.right = right;
-    }
-}
-
-public class LeftViewOfBinaryTree {
-    public static void leftView(TreeNode root, int level, List<Integer> res) {
+    private static void leftView(TreeNode root, int level, ArrayList<Integer> res) {
         if (root == null) {
             return;
         }
 
         if (res.size() == level) {
-            res.add(root.val);
+            res.add(root.data);
         }
 
         leftView(root.left, level + 1, res);
         leftView(root.right, level + 1, res);
     }
 
-    public static List<Integer> leftSideView(TreeNode root) {
-        List<Integer> result = new ArrayList<Integer>();
+    private static ArrayList<Integer> leftSideView(TreeNode root) {
+        ArrayList<Integer> res = new ArrayList<Integer>();
 
-        leftView(root, 0, result);
+        leftView(root, 0, res);
 
-        return result;
+        return res;
     }
 
     public static void main(String[] args) {
@@ -67,8 +62,6 @@ public class LeftViewOfBinaryTree {
         root.left.right.left = new TreeNode(6);
         root.right.right = new TreeNode(7);
 
-        List<Integer> answer = leftSideView(root);
-
-        System.out.println(answer);
+        System.out.println(leftSideView(root));
     }
 }

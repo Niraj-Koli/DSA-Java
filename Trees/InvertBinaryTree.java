@@ -2,18 +2,21 @@
 
 import java.util.ArrayDeque;
 
-public class InvertBinaryTree {
+class InvertBinaryTree {
     private static class TreeNode {
-        int val;
-        TreeNode left;
-        TreeNode right;
+        private int data;
+        private TreeNode left;
+        private TreeNode right;
 
-        TreeNode(int val) {
-            this.val = val;
+        public TreeNode(int data) {
+            this.data = data;
         }
     }
 
-    public static TreeNode invertTree(TreeNode root) {
+    // Time -> O(n) //
+    // Space -> O(n) //
+
+    private static TreeNode invertTree(TreeNode root) {
         if (root == null) {
             return null;
         }
@@ -38,12 +41,12 @@ public class InvertBinaryTree {
         return root;
     }
 
-    public static void preOrder(TreeNode root) {
+    private static void preOrder(TreeNode root) {
         if (root == null) {
             return;
         }
 
-        System.out.print(root.val + " ");
+        System.out.print(root.data + " ");
         preOrder(root.left);
         preOrder(root.right);
     }
@@ -57,23 +60,6 @@ public class InvertBinaryTree {
         root.right.left = new TreeNode(6);
         root.right.right = new TreeNode(9);
 
-        TreeNode ans = invertTree(root);
-
-        preOrder(ans);
+        preOrder(invertTree(root));
     }
 }
-
-// public class Solution {
-// public TreeNode invertTree(TreeNode root) {
-
-// if (root == null) {
-// return null;
-// }
-
-// final TreeNode left = root.left,
-// right = root.right;
-// root.left = invertTree(right);
-// root.right = invertTree(left);
-// return root;
-// }
-// }

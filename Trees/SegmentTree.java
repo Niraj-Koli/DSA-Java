@@ -1,10 +1,14 @@
-public class SegmentTree {
-    public int[] segmentTree;
+// Space -> O(n) //
 
-    SegmentTree(int[] arr) {
+class SegmentTree {
+    private int[] segmentTree;
+
+    public SegmentTree(int[] arr) {
         int n = arr.length;
         segmentTree = new int[4 * n];
     }
+
+    // Time -> O(n) //
 
     public void buildSegmentTree(int[] arr, int index, int low, int high) {
         if (low == high) {
@@ -20,6 +24,8 @@ public class SegmentTree {
         segmentTree[index] = segmentTree[2 * index + 1] + segmentTree[2 * index + 2];
         // Min Query -> Math.min() //
     }
+
+    // Time -> O(log(n)) //
 
     public void update(int index, int low, int high, int updateIndex, int value) {
         if (low == high) {
@@ -38,6 +44,8 @@ public class SegmentTree {
         segmentTree[index] = segmentTree[2 * index + 1] + segmentTree[2 * index + 2];
         // Min Query -> Math.min() //
     }
+
+    // Time -> O(log(n)) //
 
     public int query(int index, int low, int high, int queryLeft, int queryRight) {
         if (queryRight < low || high < queryLeft) {

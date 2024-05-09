@@ -14,45 +14,41 @@
 
 import java.util.ArrayDeque;
 
-class TreeNode {
-    int val;
-    TreeNode left;
-    TreeNode right;
+class MaximumWidthOfBinaryTree {
+    static class TreeNode {
+        public int data;
+        private TreeNode left;
+        private TreeNode right;
 
-    TreeNode() {
+        public TreeNode(int data) {
+            this.data = data;
+            this.left = null;
+            this.right = null;
+        }
     }
 
-    TreeNode(int val) {
-        this.val = val;
+    private static class Pair {
+        private TreeNode node;
+        private int state;
+
+        public Pair(TreeNode node, int state) {
+            this.node = node;
+            this.state = state;
+        }
     }
 
-    TreeNode(int val, TreeNode left, TreeNode right) {
-        this.val = val;
-        this.left = left;
-        this.right = right;
-    }
-}
+    // Time -> O(n) //
+    // Space -> O(n) //
 
-class NodePair {
-    TreeNode node;
-    int state;
-
-    NodePair(TreeNode node, int state) {
-        this.node = node;
-        this.state = state;
-    }
-}
-
-public class MaximumWidthOfBinaryTree {
-    public static int widthOfBinaryTree(TreeNode root) {
+    private static int widthOfBinaryTree(TreeNode root) {
         if (root == null) {
             return 0;
         }
 
-        int result = 0;
+        int res = 0;
 
-        ArrayDeque<NodePair> queue = new ArrayDeque<NodePair>();
-        queue.offer(new NodePair(root, 0));
+        ArrayDeque<Pair> queue = new ArrayDeque<Pair>();
+        queue.offer(new Pair(root, 0));
 
         while (!queue.isEmpty()) {
             int size = queue.size();
@@ -62,10 +58,9 @@ public class MaximumWidthOfBinaryTree {
             int last = 0;
 
             for (int i = 0; i < size; i++) {
-                TreeNode node = queue.peek().node;
-                int state = queue.peek().state - min;
-
-                queue.poll();
+                Pair pair = queue.poll();
+                TreeNode node = pair.node;
+                int state = pair.state - min;
 
                 if (i == 0) {
                     first = state;
@@ -76,18 +71,17 @@ public class MaximumWidthOfBinaryTree {
                 }
 
                 if (node.left != null) {
-                    queue.offer(new NodePair(node.left, state * 2 + 1));
+                    queue.offer(new Pair(node.left, state * 2 + 1));
                 }
 
                 if (node.right != null) {
-                    queue.offer(new NodePair(node.right, state * 2 + 2));
+                    queue.offer(new Pair(node.right, state * 2 + 2));
                 }
             }
-
-            result = Math.max(result, last - first + 1);
+            res = Math.max(res, last - first + 1);
         }
 
-        return result;
+        return res;
     }
 
     public static void main(String[] args) {
@@ -98,38 +92,6 @@ public class MaximumWidthOfBinaryTree {
         root.left.right = new TreeNode(3);
         root.right.right = new TreeNode(9);
 
-        int answer = widthOfBinaryTree(root);
-
-        System.out.println(answer);
+        System.out.println(widthOfBinaryTree(root));
     }
 }
-
-// class Solution {
-// int maxWidth;
-
-// public int widthOfBinaryTree(TreeNode root) {
-// if (root == null) {
-// return 0;
-// }
-// maxWidth = 1;
-// ArrayList<Integer> leftMostIndex = new ArrayList<>();
-// dfsHelper(root, 1, 0, leftMostIndex);
-// return maxWidth;
-// }
-
-// private void dfsHelper(TreeNode root, int index, int lvl, ArrayList<Integer>
-// leftMostIndex) {
-// if (root == null) {
-// return;
-// }
-
-// if (leftMostIndex.size() <= lvl) {
-// leftMostIndex.add(index);
-// } else {
-// maxWidth = Math.max(maxWidth, index - leftMostIndex.get(lvl) + 1);
-// }
-
-// dfsHelper(root.left, index * 2 - 1, lvl + 1, leftMostIndex);
-// dfsHelper(root.right, index * 2, lvl + 1, leftMostIndex);
-// }
-// }

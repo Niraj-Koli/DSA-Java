@@ -5,42 +5,39 @@
  * Note: when x is smaller than the smallest node of BST then returns -1.
  */
 
-class TreeNode {
-    int val;
-    TreeNode left;
-    TreeNode right;
+class FloorInABinarySearchTree {
+    private static class TreeNode {
+        private int data;
+        private TreeNode left;
+        private TreeNode right;
 
-    TreeNode() {
+        public TreeNode(int data) {
+            this.data = data;
+            this.left = null;
+            this.right = null;
+        }
     }
 
-    TreeNode(int val) {
-        this.val = val;
-    }
+    // Time -> O(h) //
+    // Space -> O(1) //
 
-    TreeNode(int val, TreeNode left, TreeNode right) {
-        this.val = val;
-        this.left = left;
-        this.right = right;
-    }
-}
-
-public class FloorInABinarySearchTree {
-    public static int findFloor(TreeNode root, int key) {
+    private static int findFloor(TreeNode root, int key) {
         int floor = -1;
 
         while (root != null) {
-            if (root.val == key) {
-                floor = root.val;
+            if (root.data == key) {
+                floor = root.data;
                 return floor;
             }
 
-            if (key > root.val) {
-                floor = root.val;
+            if (key > root.data) {
+                floor = root.data;
                 root = root.right;
             } else {
                 root = root.left;
             }
         }
+
         return floor;
     }
 
@@ -54,8 +51,6 @@ public class FloorInABinarySearchTree {
         root.right.left = new TreeNode(13);
         root.right.right = new TreeNode(17);
 
-        int answer = findFloor(root, 9);
-
-        System.out.println(answer);
+        System.out.println(findFloor(root, 9));
     }
 }

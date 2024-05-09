@@ -10,27 +10,23 @@
 
 import java.util.ArrayDeque;
 
-class TreeNode {
-    int val;
-    TreeNode left;
-    TreeNode right;
+class FlattenBinaryTreeToLinkedList {
+    private static class TreeNode {
+        private int data;
+        private TreeNode left;
+        private TreeNode right;
 
-    TreeNode() {
+        public TreeNode(int data) {
+            this.data = data;
+            this.left = null;
+            this.right = null;
+        }
     }
 
-    TreeNode(int val) {
-        this.val = val;
-    }
+    private static TreeNode prevs = null;
 
-    TreeNode(int val, TreeNode left, TreeNode right) {
-        this.val = val;
-        this.left = left;
-        this.right = right;
-    }
-}
-
-public class FlattenBinaryTreeToLinkedList {
-    public static TreeNode prevs = null;
+    // Time -> O(n) //
+    // Space -> O(n) //
 
     public static void dfs(TreeNode root) {
         if (root == null) {
@@ -45,19 +41,22 @@ public class FlattenBinaryTreeToLinkedList {
         prevs = root;
     }
 
+    // Time -> O(n) //
+    // Space -> O(n) //
+
     public static void bfs(TreeNode root) {
         ArrayDeque<TreeNode> stack = new ArrayDeque<TreeNode>();
-        stack.offerLast(root);
+        stack.offer(root);
 
         while (!stack.isEmpty()) {
             TreeNode node = stack.pollLast();
 
             if (node.right != null) {
-                stack.offerLast(node.right);
+                stack.offer(node.right);
             }
 
             if (node.left != null) {
-                stack.offerLast(node.left);
+                stack.offer(node.left);
             }
 
             if (!stack.isEmpty()) {
@@ -67,7 +66,10 @@ public class FlattenBinaryTreeToLinkedList {
         }
     }
 
-    public static void morris(TreeNode root) {
+    // Time -> O(n) //
+    // Space -> O(1) //
+
+    private static void morris(TreeNode root) {
         TreeNode node = root;
 
         while (node != null) {
@@ -97,7 +99,7 @@ public class FlattenBinaryTreeToLinkedList {
         morris(root);
 
         while (root != null) {
-            System.out.print(root.val + " ");
+            System.out.print(root.data + " ");
             root = root.right;
         }
     }

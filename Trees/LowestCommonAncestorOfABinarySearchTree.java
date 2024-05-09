@@ -7,44 +7,41 @@
  * and q as descendants (where we allow a node to be a descendant of itself).”
  */
 
-class TreeNode {
-    int val;
-    TreeNode left;
-    TreeNode right;
+class LowestCommonAncestorOfABinarySearchTree {
+    private static class TreeNode {
+        private int data;
+        private TreeNode left;
+        private TreeNode right;
 
-    TreeNode() {
+        public TreeNode(int data) {
+            this.data = data;
+            this.left = null;
+            this.right = null;
+        }
     }
 
-    TreeNode(int val) {
-        this.val = val;
-    }
+    // Time -> O(h) //
+    // Space -> O(h) //
 
-    TreeNode(int val, TreeNode left, TreeNode right) {
-        this.val = val;
-        this.left = left;
-        this.right = right;
-    }
-}
-
-public class LowestCommonAncestorOfABinarySearchTree {
-    public static TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+    private static TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
         if (root == null) {
             return null;
         }
 
-        if (root.val < p.val && root.val < q.val) {
+        if (root.data < p.data && root.data < q.data) {
             return lowestCommonAncestor(root.right, p, q);
         }
 
-        if (root.val > p.val && root.val > q.val) {
+        if (root.data > p.data && root.data > q.data) {
             return lowestCommonAncestor(root.left, p, q);
         }
+
         return root;
     }
 
-    public static void preOrder(TreeNode node) {
+    private static void preOrder(TreeNode node) {
         if (node != null) {
-            System.out.print(node.val + " ");
+            System.out.print(node.data + " ");
             preOrder(node.left);
             preOrder(node.right);
         }
@@ -61,28 +58,6 @@ public class LowestCommonAncestorOfABinarySearchTree {
         root.right.left = new TreeNode(7);
         root.right.right = new TreeNode(9);
 
-        TreeNode answer = lowestCommonAncestor(root, p, q);
-
-        preOrder(answer);
+        preOrder(lowestCommonAncestor(root, p, q));
     }
 }
-
-// class Solution {
-// public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
-// if (root == null || root == p || root == q) {
-// return root;
-// }
-// TreeNode left_anc = lowestCommonAncestor(root.left, p, q);
-// TreeNode right_anc = lowestCommonAncestor(root.right, p, q);
-// if (left_anc != null && right_anc != null) {
-// return root;
-// }
-// if (left_anc != null) {
-// return left_anc;
-// }
-// if (right_anc != null) {
-// return right_anc;
-// }
-// return null;
-// }
-// }

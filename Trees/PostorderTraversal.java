@@ -7,33 +7,28 @@
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
-import java.util.List;
 
-class TreeNode {
-    int val;
-    TreeNode left;
-    TreeNode right;
+class PostorderTraversal {
+    private static class TreeNode {
+        private int data;
+        private TreeNode left;
+        private TreeNode right;
 
-    TreeNode() {
+        public TreeNode(int data) {
+            this.data = data;
+            this.left = null;
+            this.right = null;
+        }
     }
 
-    TreeNode(int val) {
-        this.val = val;
-    }
+    // Time -> O(n) //
+    // Space -> O(n) //
 
-    TreeNode(int val, TreeNode left, TreeNode right) {
-        this.val = val;
-        this.left = left;
-        this.right = right;
-    }
-}
-
-public class PostorderTraversal {
-    public static List<Integer> postorderTraversalIterative(TreeNode root) {
-        List<Integer> result = new ArrayList<Integer>();
+    private static ArrayList<Integer> postorderTraversalIterative(TreeNode root) {
+        ArrayList<Integer> res = new ArrayList<Integer>();
 
         if (root == null) {
-            return result;
+            return res;
         }
 
         ArrayDeque<TreeNode> stack = new ArrayDeque<TreeNode>();
@@ -47,45 +42,49 @@ public class PostorderTraversal {
 
                 if (node == null) {
                     node = stack.pollLast();
-                    result.add(node.val);
+                    res.add(node.data);
 
                     while (!stack.isEmpty() && node == stack.peekLast().right) {
                         node = stack.pollLast();
-                        result.add(node.val);
+                        res.add(node.data);
                     }
                 } else {
                     root = node;
                 }
             }
         }
-        return result;
+
+        return res;
     }
 
-    public static void postorderTraversalRecursive(TreeNode root, List<Integer> res) {
+    // Time -> O(n) //
+    // Space -> O(n) //
+
+    private static void postorderTraversalRecursive(TreeNode root, ArrayList<Integer> res) {
         if (root == null) {
             return;
         }
 
         postorderTraversalRecursive(root.left, res);
         postorderTraversalRecursive(root.right, res);
-        res.add(root.val);
+        res.add(root.data);
     }
 
-    public static List<Integer> postorderTraversal(TreeNode root) {
-        List<Integer> result = new ArrayList<Integer>();
+    private static ArrayList<Integer> postorderTraversal(TreeNode root) {
+        ArrayList<Integer> res = new ArrayList<Integer>();
 
-        postorderTraversalRecursive(root, result);
+        postorderTraversalRecursive(root, res);
 
-        return result;
+        return res;
     }
 
     public static void main(String[] args) {
         TreeNode root = new TreeNode(1);
+        root.left = new TreeNode(4);
         root.right = new TreeNode(2);
         root.right.left = new TreeNode(3);
 
-        List<Integer> answer = postorderTraversal(root);
-
-        System.out.println(answer);
+        System.out.println(postorderTraversal(root));
+        System.out.println(postorderTraversalIterative(root));
     }
 }
