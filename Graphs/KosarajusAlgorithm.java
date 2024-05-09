@@ -1,35 +1,35 @@
-// Time -> O(V + E)
-// Space -> O(V + E) + O(V)
-
 import java.util.ArrayDeque;
 import java.util.ArrayList;
-import java.util.List;
 
-public class KosarajusAlgorithm {
-    public static void dfsSort(int node, boolean[] vis, ArrayDeque<Integer> stack, List<List<Integer>> adj) {
+class KosarajusAlgorithm {
+
+    // Time -> O(V + E) //
+    // Space -> O(V + E) //
+
+    private static void dfsSort(int node, boolean[] vis, ArrayDeque<Integer> stack, ArrayList<ArrayList<Integer>> adj) {
         vis[node] = true;
 
-        for (int adjNode : adj.get(node)) {
-            if (!vis[adjNode]) {
-                dfsSort(adjNode, vis, stack, adj);
+        for (int neighbor : adj.get(node)) {
+            if (!vis[neighbor]) {
+                dfsSort(neighbor, vis, stack, adj);
             }
         }
 
         stack.offer(node);
     }
 
-    public static void dfs(int node, boolean[] vis, List<List<Integer>> adjT, List<Integer> component) {
+    private static void dfs(int node, boolean[] vis, ArrayList<ArrayList<Integer>> adjT, ArrayList<Integer> component) {
         vis[node] = true;
         component.add(node);
 
-        for (int adjNode : adjT.get(node)) {
-            if (!vis[adjNode]) {
-                dfs(adjNode, vis, adjT, component);
+        for (int neighbor : adjT.get(node)) {
+            if (!vis[neighbor]) {
+                dfs(neighbor, vis, adjT, component);
             }
         }
     }
 
-    public static List<List<Integer>> kosaraju(int v, List<List<Integer>> adj) {
+    private static ArrayList<ArrayList<Integer>> kosaraju(int v, ArrayList<ArrayList<Integer>> adj) {
         boolean[] vis = new boolean[v];
 
         ArrayDeque<Integer> stack = new ArrayDeque<Integer>();
@@ -40,7 +40,7 @@ public class KosarajusAlgorithm {
             }
         }
 
-        List<List<Integer>> adjT = new ArrayList<List<Integer>>();
+        ArrayList<ArrayList<Integer>> adjT = new ArrayList<ArrayList<Integer>>();
 
         for (int i = 0; i < v; i++) {
             adjT.add(new ArrayList<Integer>());
@@ -49,34 +49,34 @@ public class KosarajusAlgorithm {
         for (int i = 0; i < v; i++) {
             vis[i] = false;
 
-            for (int adjNode : adj.get(i)) {
-                adjT.get(adjNode).add(i);
+            for (int neighbor : adj.get(i)) {
+                adjT.get(neighbor).add(i);
             }
         }
 
-        List<List<Integer>> sscList = new ArrayList<List<Integer>>();
+        ArrayList<ArrayList<Integer>> stronglyConnectedComponents = new ArrayList<ArrayList<Integer>>();
 
         while (!stack.isEmpty()) {
             int node = stack.pollLast();
 
             if (!vis[node]) {
-                List<Integer> sscComponent = new ArrayList<Integer>();
-                dfs(node, vis, adjT, sscComponent);
-                sscList.add(sscComponent);
+                ArrayList<Integer> component = new ArrayList<Integer>();
+                dfs(node, vis, adjT, component);
+                stronglyConnectedComponents.add(component);
             }
         }
 
-        return sscList;
+        return stronglyConnectedComponents;
     }
 
-    public static void addEdge(List<List<Integer>> adj, int vertex1, int vertex2) {
+    private static void addEdge(ArrayList<ArrayList<Integer>> adj, int vertex1, int vertex2) {
         adj.get(vertex1).add(vertex2);
     }
 
     public static void main(String[] args) {
         int v = 8;
 
-        List<List<Integer>> adjList = new ArrayList<List<Integer>>();
+        ArrayList<ArrayList<Integer>> adjList = new ArrayList<ArrayList<Integer>>();
 
         for (int i = 0; i <= v; i++) {
             adjList.add(new ArrayList<Integer>());
@@ -93,9 +93,7 @@ public class KosarajusAlgorithm {
         addEdge(adjList, 4, 7);
         addEdge(adjList, 6, 7);
 
-        List<List<Integer>> ans = kosaraju(v, adjList);
-
-        System.out.println(ans.size());
-        System.out.println(ans);
+        System.out.println(kosaraju(v, adjList).size());
+        System.out.println(kosaraju(v, adjList));
     }
 }

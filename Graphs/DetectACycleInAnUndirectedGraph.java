@@ -4,63 +4,61 @@
  * list where adj[i] contains all the nodes ith node is having edge with.
  */
 
-// Time -> O(V + 2E) 
-// Space -> O(V)
-
-import java.util.List;
-import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.ArrayDeque;
 
-public class DetectACycleInAnUndirectedGraph {
-    private static class Pair {
-        int first;
-        int second;
+class DetectACycleInAnUndirectedGraph {
 
-        Pair(int first, int second) {
-            this.first = first;
-            this.second = second;
-        }
-    }
+    // Time -> O(V + E) //
+    // Space -> O(V) //
 
-    public static boolean dfs(int node, int parent, boolean[] vis, List<List<Integer>> adj) {
+    public static boolean dfs(int node, int parent, boolean[] vis, ArrayList<ArrayList<Integer>> adj) {
         vis[node] = true;
 
-        for (int neighbors : adj.get(node)) {
-            if (!vis[neighbors]) {
-                if (dfs(neighbors, node, vis, adj)) {
+        for (int neighbor : adj.get(node)) {
+            if (!vis[neighbor]) {
+                if (dfs(neighbor, node, vis, adj)) {
                     return true;
                 }
-            } else if (vis[neighbors] && (neighbors != parent)) {
+            } else if (vis[neighbor] && (neighbor != parent)) {
                 return true;
             }
         }
+        
         return false;
     }
 
-    public static boolean bfs(int src, boolean[] vis, List<List<Integer>> adj) {
+    // Time -> O(V + E) //
+    // Space -> O(V) //
+
+    private static boolean bfs(int src, boolean[] vis, ArrayList<ArrayList<Integer>> adj) {
         vis[src] = true;
 
-        ArrayDeque<Pair> queue = new ArrayDeque<Pair>();
-        queue.offer(new Pair(src, -1));
+        ArrayDeque<int[]> queue = new ArrayDeque<int[]>();
+        queue.offer(new int[] { src, -1 });
 
         while (!queue.isEmpty()) {
-            int node = queue.peek().first;
-            int parent = queue.peek().second;
-            queue.poll();
+            int[] point = queue.poll();
+            int node = point[0];
+            int parent = point[1];
 
-            for (int neighbors : adj.get(node)) {
-                if (!vis[neighbors]) {
-                    vis[neighbors] = true;
-                    queue.offer(new Pair(neighbors, node));
-                } else if (vis[neighbors] && (parent != neighbors)) {
+            for (int neighbor : adj.get(node)) {
+                if (!vis[neighbor]) {
+                    queue.offer(new int[] { neighbor, node });
+                    vis[neighbor] = true;
+                } else if (vis[neighbor] && (parent != neighbor)) {
                     return true;
                 }
             }
         }
+
         return false;
     }
 
-    public static boolean isCycle(int v, List<List<Integer>> adj) {
+    // Time -> O(V) //
+    // Space -> O(V) //
+
+    private static boolean isCycle(int v, ArrayList<ArrayList<Integer>> adj) {
         boolean[] vis = new boolean[v];
 
         for (int i = 0; i < v; i++) {
@@ -72,10 +70,11 @@ public class DetectACycleInAnUndirectedGraph {
 
             }
         }
+
         return false;
     }
 
-    public static void addEdge(List<List<Integer>> adj, int vertex1, int vertex2) {
+    private static void addEdge(ArrayList<ArrayList<Integer>> adj, int vertex1, int vertex2) {
         adj.get(vertex1).add(vertex2);
         adj.get(vertex2).add(vertex1);
     }
@@ -83,7 +82,7 @@ public class DetectACycleInAnUndirectedGraph {
     public static void main(String[] args) {
         int v = 8;
 
-        List<List<Integer>> adjList = new ArrayList<List<Integer>>();
+        ArrayList<ArrayList<Integer>> adjList = new ArrayList<ArrayList<Integer>>();
 
         for (int i = 0; i <= v; i++) {
             adjList.add(new ArrayList<Integer>());
@@ -98,8 +97,6 @@ public class DetectACycleInAnUndirectedGraph {
         addEdge(adjList, 5, 7);
         addEdge(adjList, 6, 7);
 
-        boolean ans = isCycle(v, adjList);
-
-        System.out.println(ans);
+        System.out.println(isCycle(v, adjList));
     }
 }

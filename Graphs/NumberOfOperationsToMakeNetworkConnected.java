@@ -14,19 +14,19 @@
 
 import java.util.ArrayList;
 
-public class NumberOfOperationsToMakeNetworkConnected {
+class NumberOfOperationsToMakeNetworkConnected {
     private static class DisjointSet {
-        ArrayList<Integer> parent = new ArrayList<Integer>();
-        ArrayList<Integer> size = new ArrayList<Integer>();
+        private ArrayList<Integer> parent = new ArrayList<Integer>();
+        private ArrayList<Integer> size = new ArrayList<Integer>();
 
-        DisjointSet(int n) {
+        public DisjointSet(int n) {
             for (int i = 0; i <= n; i++) {
                 parent.add(i);
                 size.add(1);
             }
         }
 
-        public int findUltimateParent(int node) {
+        private int findUltimateParent(int node) {
             if (node == parent.get(node)) {
                 return node;
             }
@@ -38,7 +38,7 @@ public class NumberOfOperationsToMakeNetworkConnected {
             return parent.get(node);
         }
 
-        public void unionBySize(int u, int v) {
+        private void unionBySize(int u, int v) {
             int ulp_u = findUltimateParent(u);
             int ulp_v = findUltimateParent(v);
 
@@ -56,7 +56,10 @@ public class NumberOfOperationsToMakeNetworkConnected {
         }
     }
 
-    public static int makeConnected(int n, int[][] connections) {
+    // Time -> O(n + m) //
+    // Space -> O(n) //
+
+    private static int makeConnected(int n, int[][] connections) {
         int m = connections.length;
 
         DisjointSet dsu = new DisjointSet(n);
@@ -84,11 +87,7 @@ public class NumberOfOperationsToMakeNetworkConnected {
 
         int res = components - 1;
 
-        if (extraEdges >= res) {
-            return res;
-        } else {
-            return -1;
-        }
+        return extraEdges >= res ? res : -1;
     }
 
     public static void main(String[] args) {
@@ -100,53 +99,6 @@ public class NumberOfOperationsToMakeNetworkConnected {
                 { 5, 6 }, { 7, 8 }
         };
 
-        int ans = makeConnected(n, connections);
-
-        System.out.println(ans);
+        System.out.println(makeConnected(n, connections));
     }
 }
-
-// class Solution {
-// int[] parent;
-// int[] rank;
-
-// int find(int x) {
-// while (parent[x] != x) {
-// x = parent[parent[x]];
-// }
-// return x;
-// }
-
-// int makeUnion(int x, int y) {
-// int parX = find(x);
-// int parY = find(y);
-// if (parX == parY) {
-// return 0;
-// } else if (rank[parX] < rank[parY]) {
-// parent[parX] = parY;
-// } else if (rank[parX] > rank[parY]) {
-// parent[parY] = parX;
-// } else {
-// parent[parY] = parX;
-// rank[parX]++;
-// }
-// return 1;
-// }
-
-// public int makeConnected(int n, int[][] connections) {
-// int edges = connections.length;
-// if (edges < n - 1) {
-// return -1;
-// }
-// parent = new int[n];
-// rank = new int[n];
-// for (int i = 0; i < n; i++) {
-// parent[i] = i;
-// }
-// int components = n;
-// for (int[] con : connections) {
-// components -= makeUnion(con[0], con[1]);
-// }
-// return components - 1;
-// }
-// }

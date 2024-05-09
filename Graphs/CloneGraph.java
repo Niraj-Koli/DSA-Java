@@ -3,12 +3,12 @@
  * 
  * Return a deep copy (clone) of the graph.
  * 
- * Each node in the graph contains a value (int) and a list (List[Node]) of its
+ * Each node in the graph contains a value (int) and a list (ArrayList[Node]) of its
  * neighbors.
  * 
  * class Node {
  * public int val;
- * public List<Node> neighbors;
+ * public ArrayList<Node> neighbors;
  * }
  * 
  * 
@@ -30,21 +30,22 @@
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
-public class CloneGraph {
+class CloneGraph {
     private static class Node {
-        int val;
-        List<Node> neighbors;
+        private int val;
+        private ArrayList<Node> neighbors;
 
-        Node(int _val) {
-            val = _val;
-            neighbors = new ArrayList<>();
+        public Node(int val) {
+            this.val = val;
+            this.neighbors = new ArrayList<Node>();
         }
     }
 
-    public static Node cloneGraph(Node node) {
+    // Time -> O(V + E) //
+    // Space -> O(V) //
+
+    private static Node cloneGraph(Node node) {
         if (node == null)
             return null;
 
@@ -74,7 +75,10 @@ public class CloneGraph {
         return cloneNode;
     }
 
-    private static void printGraph(Node node, Map<Node, Boolean> visited) {
+    // Time -> O(V + E) //
+    // Space -> O(V) //
+
+    private static void printGraph(Node node, HashMap<Node, Boolean> visited) {
         if (node == null)
             return;
 
@@ -114,51 +118,6 @@ public class CloneGraph {
 
         Node clonedGraph = cloneGraph(node1);
 
-        printGraph(clonedGraph, new HashMap<>());
+        printGraph(clonedGraph, new HashMap<Node, Boolean>());
     }
 }
-
-// class Solution {
-// public Node cloneNode(Node node) {
-// Node n = new Node(node.val);
-// return n;
-// }
-
-// public Node cloneGraph(Node node) {
-// if (node == null) {
-// return null;
-// }
-// Queue<Node> q = new ArrayDeque<>();
-// Map<Integer, Node> nodesMap = new HashMap<>();
-// q.add(node);
-// while (!q.isEmpty()) {
-// Node n = q.remove();
-// int val = n.val;
-// if (!nodesMap.containsKey(val)) {
-// nodesMap.put(val, cloneNode(n));
-// }
-// for (Node nb : n.neighbors) {
-// if (nodesMap.containsKey(nb.val))
-// continue;
-// q.add(nb);
-// }
-// }
-
-// Set<Integer> s = new HashSet<>();
-// q = new ArrayDeque<>();
-// q.add(node);
-// s.add(node.val);
-// while (!q.isEmpty()) {
-// Node n = q.remove();
-// Node cur = nodesMap.get(n.val);
-// for (Node nb : n.neighbors) {
-// cur.neighbors.add(nodesMap.get(nb.val));
-// if (!s.contains(nb.val)) {
-// s.add(nb.val);
-// q.add(nb);
-// }
-// }
-// }
-// return nodesMap.get(node.val);
-// }
-// }

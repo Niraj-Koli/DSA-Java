@@ -14,7 +14,7 @@
 
 import java.util.PriorityQueue;
 
-public class SwimInRisingWater {
+class SwimInRisingWater {
     private static class Pair {
         private int row;
         private int col;

@@ -5,26 +5,25 @@
  * does not exist then return a list consisting of only -1.
  */
 
-// Time -> O(E log(V)) + O(N)
-// Space -> O(V)
-
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 import java.util.PriorityQueue;
 
-public class PrintShortestPathInAWeightedUndirectedGraph {
+class PrintShortestPathInAWeightedUndirectedGraph {
     private static class Pair {
-        int node;
-        int distance;
+        private int node;
+        private int distance;
 
-        Pair(int node, int distance) {
+        public Pair(int node, int distance) {
             this.node = node;
             this.distance = distance;
         }
     }
 
-    public static List<Integer> shortestPath(int n, int m, int[][] edges) {
+    // Time -> O(E log(V)) + O(N) //
+    // Space -> O(V) //
+
+    private static ArrayList<Integer> shortestPath(int n, int m, int[][] edges) {
         ArrayList<ArrayList<Pair>> adj = new ArrayList<ArrayList<Pair>>();
 
         for (int i = 0; i <= n; i++) {
@@ -36,7 +35,7 @@ public class PrintShortestPathInAWeightedUndirectedGraph {
             adj.get(edges[i][1]).add(new Pair(edges[i][0], edges[i][2]));
         }
 
-        PriorityQueue<Pair> pq = new PriorityQueue<Pair>((x, y) -> x.distance - y.distance);
+        PriorityQueue<Pair> pq = new PriorityQueue<Pair>((x, y) -> Integer.compare(x.distance, y.distance));
 
         int[] dist = new int[n + 1];
         int[] parent = new int[n + 1];
@@ -66,7 +65,7 @@ public class PrintShortestPathInAWeightedUndirectedGraph {
             }
         }
 
-        List<Integer> path = new ArrayList<Integer>();
+        ArrayList<Integer> path = new ArrayList<Integer>();
 
         if (dist[n] == 1e9) {
             return path;
@@ -99,8 +98,6 @@ public class PrintShortestPathInAWeightedUndirectedGraph {
                 { 3, 5, 1 }
         };
 
-        List<Integer> ans = shortestPath(v, e, edges);
-
-        System.out.println(ans);
+        System.out.println(shortestPath(v, e, edges));
     }
 }

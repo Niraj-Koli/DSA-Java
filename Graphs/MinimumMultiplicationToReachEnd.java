@@ -7,24 +7,25 @@
  * from start. If it is not possible to reach end, then return -1.
  */
 
-// Time -> O(100000 * N)
-// Space -> O(100000 * N)
-
 import java.util.ArrayDeque;
 
-public class MinimumMultiplicationToReachEnd {
+class MinimumMultiplicationToReachEnd {
     private static class Pair {
-        int node;
-        int steps;
+        private int node;
+        private int steps;
 
-        Pair(int node, int steps) {
+        public Pair(int node, int steps) {
             this.node = node;
             this.steps = steps;
         }
     }
 
-    public static int minimumMultiplications(int[] arr, int start, int end) {
+    // Time -> O(n * mod) //
+    // Space -> O(mod) //
+
+    private static int minimumMultiplications(int[] arr, int start, int end) {
         int n = arr.length;
+
         int mod = 100000;
 
         if (start == end) {
@@ -71,8 +72,6 @@ public class MinimumMultiplicationToReachEnd {
         int start = 3;
         int end = 30;
 
-        int ans = minimumMultiplications(arr, start, end);
-
-        System.out.println(ans);
+        System.out.println(minimumMultiplications(arr, start, end));
     }
 }

@@ -1,37 +1,43 @@
-import java.util.List;
 import java.util.ArrayList;
 
-public class Graphs {
+class Graphs {
     public static void main(String[] args) {
         int n = 4;
 
         System.out.println("Adjacency List of Lists:");
+
         GraphList graphList = new GraphList(n);
+
         graphList.addEdge(1, 2);
         graphList.addEdge(1, 3);
         graphList.addEdge(2, 4);
         graphList.addEdge(3, 4);
         graphList.printGraph();
+
         System.out.println();
 
         System.out.println("Adjacency Matrix:");
+
         GraphMatrix graphMatrix = new GraphMatrix(n);
+
         graphMatrix.addEdge(1, 2);
         graphMatrix.addEdge(1, 3);
         graphMatrix.addEdge(2, 4);
         graphMatrix.addEdge(3, 4);
         graphMatrix.printGraph();
+
         System.out.println();
     }
 }
 
 class GraphList {
+
     // Space -> O(2E)
 
-    private List<List<Integer>> adjacencyList;
+    private ArrayList<ArrayList<Integer>> adjacencyList;
 
     public GraphList(int totalVertexes) {
-        this.adjacencyList = new ArrayList<List<Integer>>();
+        this.adjacencyList = new ArrayList<ArrayList<Integer>>();
 
         for (int i = 0; i <= totalVertexes; i++) {
             adjacencyList.add(new ArrayList<>());
@@ -45,19 +51,20 @@ class GraphList {
 
     public void printGraph() {
         for (int i = 0; i < adjacencyList.size(); i++) {
-            List<Integer> neighbors = adjacencyList.get(i);
+            ArrayList<Integer> neighbors = adjacencyList.get(i);
 
             System.out.print("Vertex " + i + ": " + neighbors);
             System.out.println();
         }
     }
 
-    public List<List<Integer>> adjList() {
+    public ArrayList<ArrayList<Integer>> adjList() {
         return adjacencyList;
     }
 }
 
 class GraphMatrix {
+    
     // Space -> O(N x M)
 
     private int[][] adjacencyMatrix;

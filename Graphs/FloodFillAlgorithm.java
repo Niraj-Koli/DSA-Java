@@ -1,5 +1,5 @@
 /*
- * An image is represented by an m x n integer grid image where image[i][j]
+ * An image is represented by an m ncol n integer grid image where image[i][j]
  * represents the pixel value of the image.
  * 
  * You are also given three integers sr, sc, and color. You should perform a
@@ -14,11 +14,13 @@
  * Return the modified image after performing the flood fill.
  */
 
-// Time -> O(N x M)
-// Space -> O(N x M)
+class FloodFillAlgorithm {
 
-public class FloodFillAlgorithm {
-    public static void dfs(int[][] image, int[][] res, int row, int col, int color, int[] dx, int[] dy, int initColor) {
+    // Time -> O(n * m) //
+    // Space -> O(n * m) //
+
+    private static void dfs(int[][] image, int[][] res, int row, int col, int color, int[] dx, int[] dy,
+            int initColor) {
         int n = image.length;
         int m = image[0].length;
 
@@ -36,7 +38,7 @@ public class FloodFillAlgorithm {
         }
     }
 
-    public static int[][] floodFill(int[][] image, int sr, int sc, int color) {
+    private static int[][] floodFill(int[][] image, int sr, int sc, int color) {
         int initColor = image[sr][sc];
 
         int[][] res = image;
@@ -57,91 +59,11 @@ public class FloodFillAlgorithm {
 
         int[][] ans = floodFill(image, sr, sc, color);
 
-        for (int[] answer : ans) {
-            for (int a : answer) {
-                System.out.print(a + " ");
+        for (int[] row : ans) {
+            for (int col : row) {
+                System.out.print(col + " ");
             }
             System.out.println();
         }
     }
 }
-
-// class Solution {
-// public int[][] floodFill(int[][] image, int sr, int sc, int newColor) {
-
-// int color = image[sr][sc];
-
-// if (color != newColor) {
-// floodFillRecursive(image, sr, sc, color, newColor);
-// }
-// return image;
-// }
-
-// private void floodFillRecursive(int[][] image, int sr, int sc, int color, int
-// newColor) {
-
-// color
-// if (sr < 0 || sr >= image.length || sc < 0 || sc >= image[0].length ||
-// image[sr][sc] != color) {
-// return;
-// }
-
-// image[sr][sc] = newColor;
-// floodFillRecursive(image, sr - 1, sc, color, newColor); // Up
-// floodFillRecursive(image, sr + 1, sc, color, newColor); // Down
-// floodFillRecursive(image, sr, sc - 1, color, newColor); // Left
-// floodFillRecursive(image, sr, sc + 1, color, newColor); // Right
-// }
-// }
-
-// class Solution {
-// class Pair {
-// int row;
-// int col;
-
-// Pair(int _r, int _c) {
-// this.row = _r;
-// this.col = _c;
-// }
-// }
-
-// public int[][] floodFill(int[][] image, int sr, int sc, int color) {
-// int n = image.length;
-// int m = image[0].length;
-// int[][] flood = new int[n][m];
-// int toBePainted = image[sr][sc];
-
-// for (int i = 0; i < n; i++) {
-// for (int j = 0; j < m; j++) {
-// flood[i][j] = image[i][j];
-// }
-// }
-
-// int[][] visited = new int[n][m];
-// Queue<Pair> q = new LinkedList<>();
-// q.offer(new Pair(sr, sc));
-// visited[sr][sc] = 1;
-
-// int[] dx = { -1, +1, 0, 0 };
-// int[] dy = { 0, 0, +1, -1 };
-// while (!q.isEmpty()) {
-// Pair p = q.poll();
-// flood[p.row][p.col] = color;
-// for (int i = 0; i < 4; i++) {
-// int dRow = p.row + dx[i];
-// int dCol = p.col + dy[i];
-
-// if (dRow >= 0 && dCol >= 0 &&
-// dRow < n && dCol < m &&
-// visited[dRow][dCol] == 0 &&
-// image[dRow][dCol] == toBePainted) {
-// q.offer(new Pair(dRow, dCol));
-// visited[dRow][dCol] = 1;
-// }
-// }
-
-// }
-// return flood;
-
-// }
-// }

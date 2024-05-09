@@ -1,24 +1,20 @@
-// Time -> O(V + E) + O(E log(E)) + O(E x 4α x 2)
-// Space -> O(V) + O(V) + O(E)
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.List;
 
-public class KruskalsAlgorithm {
+class KruskalsAlgorithm {
     private static class DisjointSet {
-        ArrayList<Integer> parent = new ArrayList<Integer>();
-        ArrayList<Integer> size = new ArrayList<Integer>();
+        private ArrayList<Integer> parent = new ArrayList<Integer>();
+        private ArrayList<Integer> size = new ArrayList<Integer>();
 
-        DisjointSet(int n) {
+        public DisjointSet(int n) {
             for (int i = 0; i <= n; i++) {
                 parent.add(i);
                 size.add(1);
             }
         }
 
-        public int findUltimateParent(int node) {
+        private int findUltimateParent(int node) {
             if (node == parent.get(node)) {
                 return node;
             }
@@ -30,7 +26,7 @@ public class KruskalsAlgorithm {
             return parent.get(node);
         }
 
-        public void unionBySize(int u, int v) {
+        private void unionBySize(int u, int v) {
             int ulp_u = findUltimateParent(u);
             int ulp_v = findUltimateParent(v);
 
@@ -48,38 +44,37 @@ public class KruskalsAlgorithm {
         }
     }
 
-    private static class Edge implements Comparable<Edge> {
-        int src;
-        int dest;
-        int weight;
+    private static class Edge {
+        private int src;
+        private int dest;
+        private int weight;
 
-        Edge(int src, int dest, int weight) {
+        public Edge(int src, int dest, int weight) {
             this.src = src;
             this.dest = dest;
             this.weight = weight;
         }
-
-        public int compareTo(Edge compareEdge) {
-            return this.weight - compareEdge.weight;
-        }
     }
 
-    public static int spanningTree(int n, List<List<List<Integer>>> adj) {
+    // Time -> O(E * log(E)) //
+    // Space -> O(V + E) //
+
+    private static int spanningTree(int n, ArrayList<ArrayList<ArrayList<Integer>>> adj) {
         ArrayList<Edge> edges = new ArrayList<Edge>();
 
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < adj.get(i).size(); j++) {
                 int node = i;
-                int adjNode = adj.get(i).get(j).get(0);
-                int wt = adj.get(i).get(j).get(1);
+                int neighbor = adj.get(i).get(j).get(0);
+                int weight = adj.get(i).get(j).get(1);
 
-                edges.add(new Edge(node, adjNode, wt));
+                edges.add(new Edge(node, neighbor, weight));
             }
         }
 
         DisjointSet dsu = new DisjointSet(n);
 
-        Collections.sort(edges);
+        Collections.sort(edges, (a, b) -> Integer.compare(a.weight, b.weight));
 
         int m = edges.size();
 
@@ -99,18 +94,18 @@ public class KruskalsAlgorithm {
         return sum;
     }
 
-    private static void addEdge(List<List<List<Integer>>> adj, int u, int v, int w) {
-        adj.get(u).add(Arrays.asList(v, w));
-        adj.get(v).add(Arrays.asList(u, w));
+    private static void addEdge(ArrayList<ArrayList<ArrayList<Integer>>> adj, int u, int v, int w) {
+        adj.get(u).add(new ArrayList<>(Arrays.asList(v, w)));
+        adj.get(v).add(new ArrayList<>(Arrays.asList(u, w)));
     }
 
     public static void main(String[] args) {
         int v = 5;
 
-        List<List<List<Integer>>> adj = new ArrayList<>();
+        ArrayList<ArrayList<ArrayList<Integer>>> adj = new ArrayList<ArrayList<ArrayList<Integer>>>();
 
         for (int i = 0; i < v; i++) {
-            adj.add(new ArrayList<>());
+            adj.add(new ArrayList<ArrayList<Integer>>());
         }
 
         addEdge(adj, 0, 1, 2);
@@ -120,8 +115,6 @@ public class KruskalsAlgorithm {
         addEdge(adj, 2, 4, 2);
         addEdge(adj, 3, 4, 1);
 
-        int ans = spanningTree(v, adj);
-
-        System.out.println(ans);
+        System.out.println(spanningTree(v, adj));
     }
 }

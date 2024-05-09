@@ -15,27 +15,27 @@
  * amount of time. Since the answer may be large, return it modulo 109 + 7.
  */
 
-// Time -> O(E Log(V))
-// Space -> O(V)
-
 import java.util.ArrayList;
 import java.util.PriorityQueue;
 
-public class NumberOfWaysToArriveAtDestination {
+class NumberOfWaysToArriveAtDestination {
     private static class Pair {
-        int node;
-        long distance;
+        private int node;
+        private long distance;
 
-        Pair(int node, long distance) {
+        public Pair(int node, long distance) {
             this.node = node;
             this.distance = distance;
         }
     }
 
-    public static int countPaths(int n, int[][] roads) {
-        int mod = (int) (1e9 + 7);
+    // Time -> O(V + (E * log(V))) //
+    // Space -> O(V + E) //
 
+    private static int countPaths(int n, int[][] roads) {
         int m = roads.length;
+
+        int mod = (int) (1e9 + 7);
 
         ArrayList<ArrayList<Pair>> adj = new ArrayList<ArrayList<Pair>>();
 
@@ -44,8 +44,12 @@ public class NumberOfWaysToArriveAtDestination {
         }
 
         for (int i = 0; i < m; i++) {
-            adj.get(roads[i][0]).add(new Pair(roads[i][1], roads[i][2]));
-            adj.get(roads[i][1]).add(new Pair(roads[i][0], roads[i][2]));
+            int u = roads[i][0];
+            int v = roads[i][1];
+            int w = roads[i][2];
+
+            adj.get(u).add(new Pair(v, w));
+            adj.get(v).add(new Pair(u, w));
         }
 
         long[] dist = new long[n];
@@ -101,54 +105,6 @@ public class NumberOfWaysToArriveAtDestination {
                 { 4, 6, 2 },
         };
 
-        int ans = countPaths(n, roads);
-
-        System.out.println(ans);
+        System.out.println(countPaths(n, roads));
     }
 }
-
-// class Solution {
-// public int countPaths(int n, int[][] roads) {
-// boolean[] visited = new boolean[n];
-// long[] minCost = new long[n];
-// Arrays.fill(minCost, 0);
-// long[] dist = new long[n];
-// Arrays.fill(dist, Long.MAX_VALUE);
-// int[][] adj = new int[n][n];
-// for (int i = 0; i < n; i++) {
-// Arrays.fill(adj[i], -1);
-// }
-// for (int i = 0; i < roads.length; i++) {
-// adj[roads[i][0]][roads[i][1]] = roads[i][2];
-// adj[roads[i][1]][roads[i][0]] = roads[i][2];
-// }
-// minCost[0] = 1;
-// dist[0] = 0;
-// for (int i = 0; i < n; i++) {
-// int shortes_index = -1;
-// long shortest_path = Long.MAX_VALUE;
-// for (int k = 0; k < dist.length; k++) {
-// if (!visited[k] && (dist[k] < shortest_path)) {
-// shortes_index = k;
-// shortest_path = dist[k];
-// }
-// }
-// visited[shortes_index] = true;
-// for (int k = 0; k < n; k++) {
-// if (!visited[k] && adj[shortes_index][k] != -1
-// && (dist[k] >= dist[shortes_index] + adj[shortes_index][k])) {
-// if (dist[k] == dist[shortes_index] + adj[shortes_index][k]) {
-
-// minCost[k] += minCost[shortes_index];
-// minCost[k] %= 1000000007;
-// } else {
-// minCost[k] = minCost[shortes_index];
-// dist[k] = dist[shortes_index] + adj[shortes_index][k];
-// }
-// }
-// }
-// }
-// System.out.println(minCost[n - 1]);
-// return (int) minCost[n - 1] % 1000000007;
-// }
-// }

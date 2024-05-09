@@ -1,23 +1,22 @@
-// Time -> O(E Log(E))
-// Space -> O(E)
-
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.PriorityQueue;
 
-public class PrimsAlgorithm {
+class PrimsAlgorithm {
     private static class Pair {
-        int node;
-        int weight;
+        private int node;
+        private int weight;
 
-        Pair(int node, int weight) {
+        public Pair(int node, int weight) {
             this.node = node;
             this.weight = weight;
         }
     }
 
-    public static int spanningTree(int v, List<List<List<Integer>>> adj) {
+    // Time -> O(E * log(V)) //
+    // Space -> O(V + E) //
+
+    private static int spanningTree(int v, ArrayList<ArrayList<ArrayList<Integer>>> adj) {
         boolean[] vis = new boolean[v];
 
         PriorityQueue<Pair> pq = new PriorityQueue<Pair>((x, y) -> x.weight - y.weight);
@@ -51,18 +50,18 @@ public class PrimsAlgorithm {
         return sum;
     }
 
-    private static void addEdge(List<List<List<Integer>>> adj, int u, int v, int w) {
-        adj.get(u).add(Arrays.asList(v, w));
-        adj.get(v).add(Arrays.asList(u, w));
+    private static void addEdge(ArrayList<ArrayList<ArrayList<Integer>>> adj, int u, int v, int w) {
+        adj.get(u).add(new ArrayList<Integer>(Arrays.asList(v, w)));
+        adj.get(v).add(new ArrayList<Integer>(Arrays.asList(u, w)));
     }
 
     public static void main(String[] args) {
         int v = 5;
 
-        List<List<List<Integer>>> adj = new ArrayList<>();
+        ArrayList<ArrayList<ArrayList<Integer>>> adj = new ArrayList<ArrayList<ArrayList<Integer>>>();
 
         for (int i = 0; i < v; i++) {
-            adj.add(new ArrayList<>());
+            adj.add(new ArrayList<ArrayList<Integer>>());
         }
 
         addEdge(adj, 0, 1, 2);
@@ -72,8 +71,6 @@ public class PrimsAlgorithm {
         addEdge(adj, 2, 4, 2);
         addEdge(adj, 3, 4, 1);
 
-        int ans = spanningTree(v, adj);
-
-        System.out.println(ans);
+        System.out.println(spanningTree(v, adj));
     }
 }

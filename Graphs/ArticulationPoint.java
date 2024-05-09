@@ -7,39 +7,38 @@
  * be loops present in the graph.
  */
 
-// Time -> O(V + 2E)
-// Space -> O(5V)
-
 import java.util.ArrayList;
-import java.util.List;
 
-public class ArticulationPoint {
-    public static int timer = 1;
+// Time -> O(V + E) //
+// Space -> O(V + E) //
 
-    public static void dfs(int node, int parent, boolean[] vis, boolean[] mark, int[] time, int[] low,
-            List<List<Integer>> adj) {
+class ArticulationPoint {
+    private static int timer = 1;
+
+    private static void dfs(int node, int parent, boolean[] vis, boolean[] mark, int[] time, int[] low,
+            ArrayList<ArrayList<Integer>> adj) {
         vis[node] = true;
         time[node] = low[node] = timer;
         timer++;
 
         int child = 0;
 
-        for (int adjNode : adj.get(node)) {
-            if (adjNode == parent) {
+        for (int neighbor : adj.get(node)) {
+            if (neighbor == parent) {
                 continue;
             }
 
-            if (!vis[adjNode]) {
-                dfs(adjNode, node, vis, mark, time, low, adj);
+            if (!vis[neighbor]) {
+                dfs(neighbor, node, vis, mark, time, low, adj);
 
-                low[node] = Math.min(low[node], low[adjNode]);
+                low[node] = Math.min(low[node], low[neighbor]);
 
-                if (low[adjNode] >= time[node] && parent != -1) {
+                if (low[neighbor] >= time[node] && parent != -1) {
                     mark[node] = true;
                 }
                 child++;
             } else {
-                low[node] = Math.min(low[node], time[adjNode]);
+                low[node] = Math.min(low[node], time[neighbor]);
             }
         }
 
@@ -48,7 +47,7 @@ public class ArticulationPoint {
         }
     }
 
-    public static List<Integer> articulationPoints(int v, List<List<Integer>> adj) {
+    private static ArrayList<Integer> articulationPoints(int v, ArrayList<ArrayList<Integer>> adj) {
         boolean[] vis = new boolean[v];
         boolean[] mark = new boolean[v];
         int[] time = new int[v];
@@ -60,7 +59,7 @@ public class ArticulationPoint {
             }
         }
 
-        List<Integer> points = new ArrayList<Integer>();
+        ArrayList<Integer> points = new ArrayList<Integer>();
 
         for (int i = 0; i < v; i++) {
             if (mark[i]) {
@@ -75,7 +74,7 @@ public class ArticulationPoint {
         return points;
     }
 
-    public static void addEdge(List<List<Integer>> adj, int vertex1, int vertex2) {
+    private static void addEdge(ArrayList<ArrayList<Integer>> adj, int vertex1, int vertex2) {
         adj.get(vertex1).add(vertex2);
         adj.get(vertex2).add(vertex1);
     }
@@ -83,7 +82,7 @@ public class ArticulationPoint {
     public static void main(String[] args) {
         int v = 7;
 
-        List<List<Integer>> adjList = new ArrayList<List<Integer>>();
+        ArrayList<ArrayList<Integer>> adjList = new ArrayList<ArrayList<Integer>>();
 
         for (int i = 0; i <= v; i++) {
             adjList.add(new ArrayList<Integer>());
@@ -98,8 +97,6 @@ public class ArticulationPoint {
         addEdge(adjList, 4, 6);
         addEdge(adjList, 5, 6);
 
-        List<Integer> ans = articulationPoints(v, adjList);
-
-        System.out.println(ans);
+        System.out.println(articulationPoints(v, adjList));
     }
 }

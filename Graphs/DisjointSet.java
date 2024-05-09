@@ -1,13 +1,14 @@
-// Time -> O(4α) || O(1)
 
 import java.util.ArrayList;
 
-public class DisjointSet {
-    ArrayList<Integer> rank = new ArrayList<Integer>();
-    ArrayList<Integer> parent = new ArrayList<Integer>();
-    ArrayList<Integer> size = new ArrayList<Integer>();
+// Time -> O(4α) || O(n) || O(1) //
 
-    DisjointSet(int n) {
+class DisjointSet {
+    private ArrayList<Integer> rank = new ArrayList<Integer>();
+    private ArrayList<Integer> parent = new ArrayList<Integer>();
+    private ArrayList<Integer> size = new ArrayList<Integer>();
+
+    public DisjointSet(int n) {
         for (int i = 0; i <= n; i++) {
             rank.add(0);
             parent.add(i);
@@ -15,7 +16,7 @@ public class DisjointSet {
         }
     }
 
-    public int findUltimateParent(int node) {
+    private int findUltimateParent(int node) {
         if (node == parent.get(node)) {
             return node;
         }
@@ -48,7 +49,7 @@ public class DisjointSet {
         }
     }
 
-    public void unionBySize(int u, int v) {
+    private void unionBySize(int u, int v) {
         int ulp_u = findUltimateParent(u);
         int ulp_v = findUltimateParent(v);
 

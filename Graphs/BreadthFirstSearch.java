@@ -1,13 +1,14 @@
-// Time -> O(V + 2E)
-// Space -> O(V)
 
-import java.util.List;
-import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.ArrayDeque;
 
-public class BreadthFirstSearch {
-    public static List<Integer> breadthFirstSearch(int v, List<List<Integer>> adj) {
-        List<Integer> res = new ArrayList<Integer>();
+class BreadthFirstSearch {
+
+    // Time -> O(V + E) //
+    // Space -> O(V) //
+
+    private static ArrayList<Integer> breadthFirstSearch(int v, ArrayList<ArrayList<Integer>> adj) {
+        ArrayList<Integer> res = new ArrayList<Integer>();
 
         boolean[] vis = new boolean[v];
 
@@ -19,17 +20,18 @@ public class BreadthFirstSearch {
             int node = queue.poll();
             res.add(node);
 
-            for (int vertex : adj.get(node)) {
-                if (!vis[vertex]) {
-                    vis[vertex] = true;
-                    queue.offer(vertex);
+            for (int neighbor : adj.get(node)) {
+                if (!vis[neighbor]) {
+                    queue.offer(neighbor);
+                    vis[neighbor] = true;
                 }
             }
         }
+
         return res;
     }
 
-    public static void addEdge(List<List<Integer>> adj, int vertex1, int vertex2) {
+    private static void addEdge(ArrayList<ArrayList<Integer>> adj, int vertex1, int vertex2) {
         adj.get(vertex1).add(vertex2);
         adj.get(vertex2).add(vertex1);
     }
@@ -37,7 +39,7 @@ public class BreadthFirstSearch {
     public static void main(String[] args) {
         int v = 10;
 
-        List<List<Integer>> adjList = new ArrayList<List<Integer>>();
+        ArrayList<ArrayList<Integer>> adjList = new ArrayList<ArrayList<Integer>>();
 
         for (int i = 0; i <= v; i++) {
             adjList.add(new ArrayList<Integer>());
@@ -53,8 +55,6 @@ public class BreadthFirstSearch {
         addEdge(adjList, 4, 5);
         addEdge(adjList, 7, 8);
 
-        List<Integer> ans = breadthFirstSearch(v, adjList);
-
-        System.out.println(ans);
+        System.out.println(breadthFirstSearch(v, adjList));
     }
 }

@@ -12,49 +12,48 @@
  * Bridges In Graph
  */
 
-// Time -> O(V + 2E)
-// Space -> O(V + 2E) + O(3V)
-
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
-public class CriticalConnectionsInANetwork {
+// Time -> O(V + E) //
+// Space -> O(V + E) //
+
+class CriticalConnectionsInANetwork {
     private static int timer = 1;
 
-    public static void dfs(int node, int parent, ArrayList<ArrayList<Integer>> adj, boolean[] vis, int[] time,
-            int[] low, List<List<Integer>> bridges) {
+    private static void dfs(int node, int parent, ArrayList<ArrayList<Integer>> adj, boolean[] vis, int[] time,
+            int[] low, ArrayList<ArrayList<Integer>> bridges) {
         vis[node] = true;
         time[node] = low[node] = timer;
         timer++;
 
-        for (int adjNode : adj.get(node)) {
-            if (adjNode == parent) {
+        for (int neighbor : adj.get(node)) {
+            if (neighbor == parent) {
                 continue;
             }
 
-            if (!vis[adjNode]) {
-                dfs(adjNode, node, adj, vis, time, low, bridges);
+            if (!vis[neighbor]) {
+                dfs(neighbor, node, adj, vis, time, low, bridges);
 
-                low[node] = Math.min(low[node], low[adjNode]);
+                low[node] = Math.min(low[node], low[neighbor]);
 
-                if (low[adjNode] > time[node]) {
-                    bridges.add(Arrays.asList(node, adjNode));
+                if (low[neighbor] > time[node]) {
+                    bridges.add(new ArrayList<>(Arrays.asList(node, neighbor)));
                 }
             } else {
-                low[node] = Math.min(low[node], low[adjNode]);
+                low[node] = Math.min(low[node], low[neighbor]);
             }
         }
     }
 
-    public static List<List<Integer>> criticalConnections(int n, List<List<Integer>> connections) {
+    private static ArrayList<ArrayList<Integer>> criticalConnections(int n, ArrayList<ArrayList<Integer>> connections) {
         ArrayList<ArrayList<Integer>> adj = new ArrayList<ArrayList<Integer>>();
 
         for (int i = 0; i < n; i++) {
             adj.add(new ArrayList<Integer>());
         }
 
-        for (List<Integer> connection : connections) {
+        for (ArrayList<Integer> connection : connections) {
             int u = connection.get(0);
             int v = connection.get(1);
 
@@ -66,7 +65,7 @@ public class CriticalConnectionsInANetwork {
         int[] time = new int[n];
         int[] low = new int[n];
 
-        List<List<Integer>> bridges = new ArrayList<List<Integer>>();
+        ArrayList<ArrayList<Integer>> bridges = new ArrayList<ArrayList<Integer>>();
 
         dfs(0, -1, adj, vis, time, low, bridges);
 
@@ -76,7 +75,7 @@ public class CriticalConnectionsInANetwork {
     public static void main(String[] args) {
         int v = 13;
 
-        List<List<Integer>> adjList = new ArrayList<List<Integer>>();
+        ArrayList<ArrayList<Integer>> adjList = new ArrayList<ArrayList<Integer>>();
 
         adjList.add(new ArrayList<Integer>(Arrays.asList(0, 1)));
         adjList.add(new ArrayList<Integer>(Arrays.asList(1, 2)));
@@ -94,54 +93,7 @@ public class CriticalConnectionsInANetwork {
         adjList.add(new ArrayList<Integer>(Arrays.asList(10, 12)));
         adjList.add(new ArrayList<Integer>(Arrays.asList(11, 12)));
 
-        List<List<Integer>> ans = criticalConnections(v, adjList);
-
-        System.out.println(ans);
+        System.out.println(criticalConnections(v, adjList));
 
     }
 }
-
-// class Solution {
-// public List<List<Integer>> criticalConnections(int n, List<List<Integer>>
-// connections) {
-// List<List<Integer>> ans = new ArrayList<>();
-// List<Integer>[] graph = new List[n];
-
-// for (int i = 0; i < n; ++i)
-// graph[i] = new ArrayList<>();
-
-// for (List<Integer> connection : connections) {
-// final int u = connection.get(0);
-// final int v = connection.get(1);
-// graph[u].add(v);
-// graph[v].add(u);
-// }
-// int[] rank = new int[n];
-// Arrays.fill(rank, NO_RANK);
-// getRank(graph, 0, 0, rank, ans);
-// return ans;
-// }
-
-// private static final int NO_RANK = -2;
-
-// private int getRank(List<Integer>[] graph, int u, int myRank, int[] rank,
-// List<List<Integer>> ans) {
-// if (rank[u] != NO_RANK)
-// return rank[u];
-
-// rank[u] = myRank;
-// int minRank = myRank;
-
-// for (final int v : graph[u]) {
-// if (rank[u] == rank.length || rank[v] == myRank - 1)
-// continue;
-// final int nextRank = getRank(graph, v, myRank + 1, rank, ans);
-// if (nextRank == myRank + 1)
-// ans.add(Arrays.asList(u, v));
-// minRank = Math.min(minRank, nextRank);
-// }
-
-// rank[u] = rank.length; // Mark as visited.
-// return minRank;
-// }
-// }

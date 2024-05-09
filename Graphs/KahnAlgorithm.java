@@ -3,20 +3,20 @@
  * Topological Sorting of that Graph.
  */
 
-// Time -> O(V + E)
-// Space -> O(V)
-
 import java.util.ArrayDeque;
 import java.util.ArrayList;
-import java.util.List;
 
-public class KahnAlgorithm {
-    public static int[] topoSort(int v, List<List<Integer>> adj) {
+class KahnAlgorithm {
+
+    // Time -> O(V + E) //
+    // Space -> O(V) //
+
+    private static int[] topoSort(int v, ArrayList<ArrayList<Integer>> adj) {
         int[] indegree = new int[v];
 
         for (int i = 0; i < v; i++) {
-            for (int adjNode : adj.get(i)) {
-                indegree[adjNode]++;
+            for (int neighbor : adj.get(i)) {
+                indegree[neighbor]++;
             }
         }
 
@@ -36,25 +36,26 @@ public class KahnAlgorithm {
 
             res[index++] = node;
 
-            for (int adjNode : adj.get(node)) {
-                indegree[adjNode]--;
+            for (int neighbor : adj.get(node)) {
+                indegree[neighbor]--;
 
-                if (indegree[adjNode] == 0) {
-                    queue.offer(adjNode);
+                if (indegree[neighbor] == 0) {
+                    queue.offer(neighbor);
                 }
             }
         }
+
         return res;
     }
 
-    public static void addEdge(List<List<Integer>> adj, int vertex1, int vertex2) {
+    private static void addEdge(ArrayList<ArrayList<Integer>> adj, int vertex1, int vertex2) {
         adj.get(vertex1).add(vertex2);
     }
 
     public static void main(String[] args) {
         int v = 6;
 
-        List<List<Integer>> adjList = new ArrayList<List<Integer>>();
+        ArrayList<ArrayList<Integer>> adjList = new ArrayList<ArrayList<Integer>>();
 
         for (int i = 0; i <= v; i++) {
             adjList.add(new ArrayList<Integer>());
@@ -69,8 +70,8 @@ public class KahnAlgorithm {
 
         int[] ans = topoSort(v, adjList);
 
-        for (int answer : ans) {
-            System.out.print(answer + " ");
+        for (int an : ans) {
+            System.out.print(an + " ");
         }
     }
 }

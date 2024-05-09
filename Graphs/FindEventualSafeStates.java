@@ -12,28 +12,31 @@
  * be sorted in ascending order.
  */
 
-// Time -> O(V + E)
-// Space -> O(V)
-
 import java.util.Collections;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
-import java.util.List;
 
-public class FindEventualSafeStates {
-    public static List<Integer> bfs(int[][] graph) {
+class FindEventualSafeStates {
+
+    // Time -> O(V + E) //
+    // Space -> O(V) //
+
+    private static ArrayList<Integer> topoSort(int[][] graph) {
         int n = graph.length;
 
-        List<List<Integer>> adj = new ArrayList<List<Integer>>();
+        ArrayList<ArrayList<Integer>> adj = new ArrayList<ArrayList<Integer>>();
 
         for (int i = 0; i < n; i++) {
             adj.add(new ArrayList<Integer>());
+        }
+
+        for (int i = 0; i < n; i++) {
             for (int j = 0; j < graph[i].length; j++) {
                 adj.get(i).add(graph[i][j]);
             }
         }
 
-        List<List<Integer>> adjRev = new ArrayList<List<Integer>>();
+        ArrayList<ArrayList<Integer>> adjRev = new ArrayList<ArrayList<Integer>>();
 
         for (int i = 0; i < n; i++) {
             adjRev.add(new ArrayList<Integer>());
@@ -42,15 +45,13 @@ public class FindEventualSafeStates {
         int[] indegree = new int[n];
 
         for (int i = 0; i < n; i++) {
-            for (int adjNode : adj.get(i)) {
-                adjRev.get(adjNode).add(i);
+            for (int neighbor : adj.get(i)) {
+                adjRev.get(neighbor).add(i);
                 indegree[i]++;
             }
         }
 
         ArrayDeque<Integer> queue = new ArrayDeque<Integer>();
-
-        List<Integer> safeNodes = new ArrayList<Integer>();
 
         for (int i = 0; i < n; i++) {
             if (indegree[i] == 0) {
@@ -58,16 +59,18 @@ public class FindEventualSafeStates {
             }
         }
 
+        ArrayList<Integer> safeNodes = new ArrayList<Integer>();
+
         while (!queue.isEmpty()) {
             int node = queue.poll();
 
             safeNodes.add(node);
 
-            for (int adjNode : adjRev.get(node)) {
-                indegree[adjNode]--;
+            for (int neighbor : adjRev.get(node)) {
+                indegree[neighbor]--;
 
-                if (indegree[adjNode] == 0) {
-                    queue.offer(adjNode);
+                if (indegree[neighbor] == 0) {
+                    queue.offer(neighbor);
                 }
             }
         }
@@ -77,33 +80,41 @@ public class FindEventualSafeStates {
         return safeNodes;
     }
 
-    public static boolean dfs(int node, boolean[] vis, boolean[] pathVis, boolean[] check, List<List<Integer>> adj) {
+    // Time -> O(V + E) //
+    // Space -> O(V) //
+
+    private static boolean dfs(int node, boolean[] vis, boolean[] pathVis, boolean[] check,
+            ArrayList<ArrayList<Integer>> adj) {
         vis[node] = true;
         pathVis[node] = true;
         check[node] = false;
 
-        for (int adjNode : adj.get(node)) {
-            if (!vis[adjNode]) {
-                if (dfs(adjNode, vis, pathVis, check, adj)) {
+        for (int neighbor : adj.get(node)) {
+            if (!vis[neighbor]) {
+                if (dfs(neighbor, vis, pathVis, check, adj)) {
                     return true;
                 }
-            } else if (pathVis[adjNode]) {
+            } else if (pathVis[neighbor]) {
                 return true;
             }
         }
+
         check[node] = true;
         pathVis[node] = false;
 
         return false;
     }
 
-    public static List<Integer> eventualSafeNodes(int[][] graph) {
+    private static ArrayList<Integer> eventualSafeNodes(int[][] graph) {
         int n = graph.length;
 
-        List<List<Integer>> adj = new ArrayList<List<Integer>>();
+        ArrayList<ArrayList<Integer>> adj = new ArrayList<ArrayList<Integer>>();
 
         for (int i = 0; i < n; i++) {
-            adj.add(new ArrayList<Integer>());
+            adj.add(new ArrayList<>());
+        }
+
+        for (int i = 0; i < n; i++) {
             for (int j = 0; j < graph[i].length; j++) {
                 adj.get(i).add(graph[i][j]);
             }
@@ -119,7 +130,7 @@ public class FindEventualSafeStates {
             }
         }
 
-        List<Integer> safeNodes = new ArrayList<Integer>();
+        ArrayList<Integer> safeNodes = new ArrayList<Integer>();
 
         for (int i = 0; i < n; i++) {
             if (check[i]) {
@@ -132,36 +143,7 @@ public class FindEventualSafeStates {
     public static void main(String[] args) {
         int[][] graph = { { 1, 2 }, { 2, 3 }, { 5 }, { 0 }, { 5 }, {}, {} };
 
-        List<Integer> ans = eventualSafeNodes(graph);
-
-        System.out.println(ans);
+        System.out.println(eventualSafeNodes(graph));
+        System.out.println(topoSort(graph));
     }
 }
-
-// class Solution {
-// public List<Integer> eventualSafeNodes(int[][] graph) {
-// int n = graph.length;
-// int[] color = new int[n];
-// List<Integer> ans = new ArrayList<Integer>();
-// for (int i = 0; i < n; ++i) {
-// if (safe(graph, color, i)) {
-// ans.add(i);
-// }
-// }
-// return ans;
-// }
-
-// public boolean safe(int[][] graph, int[] color, int x) {
-// if (color[x] > 0) {
-// return color[x] == 2;
-// }
-// color[x] = 1;
-// for (int y : graph[x]) {
-// if (!safe(graph, color, y)) {
-// return false;
-// }
-// }
-// color[x] = 2;
-// return true;
-// }
-// }

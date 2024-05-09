@@ -13,40 +13,25 @@
  * Return the total number of provinces.
  */
 
-// Time -> O(V + 2E)
-// Space -> O(V)
+class NumberOfProvinces {
 
-import java.util.ArrayList;
-import java.util.List;
+    // Time -> O(V + E) //
+    // Space -> O(V) //
 
-public class NumberOfProvinces {
-    public static void dfs(int node, boolean[] vis, List<List<Integer>> adj) {
+    private static void dfs(int node, boolean[] vis, int[][] isConnected) {
+        int n = isConnected.length;
+
         vis[node] = true;
 
-        for (int vertex : adj.get(node)) {
-            if (!vis[vertex]) {
-                dfs(vertex, vis, adj);
+        for (int neighbor = 0; neighbor < n; neighbor++) {
+            if (!vis[neighbor] && isConnected[node][neighbor] == 1) {
+                dfs(neighbor, vis, isConnected);
             }
         }
     }
 
-    public static int findCircleNum(int[][] isConnected) {
+    private static int findCircleNum(int[][] isConnected) {
         int v = isConnected.length;
-
-        List<List<Integer>> adj = new ArrayList<List<Integer>>();
-
-        for (int i = 0; i < v; i++) {
-            adj.add(new ArrayList<Integer>());
-        }
-
-        for (int i = 0; i < v; i++) {
-            for (int j = 0; j < v; j++) {
-                if (isConnected[i][j] == 1 && i != j) {
-                    adj.get(i).add(j);
-                    adj.get(j).add(i);
-                }
-            }
-        }
 
         boolean[] vis = new boolean[v];
 
@@ -54,10 +39,11 @@ public class NumberOfProvinces {
 
         for (int i = 0; i < v; i++) {
             if (!vis[i]) {
+                dfs(i, vis, isConnected);
                 provinces++;
-                dfs(i, vis, adj);
             }
         }
+
         return provinces;
     }
 
@@ -66,32 +52,6 @@ public class NumberOfProvinces {
                 { 1, 1, 0 }, { 1, 1, 0 }, { 0, 0, 1 }
         };
 
-        int ans = findCircleNum(isConnected);
-
-        System.out.println(ans);
+        System.out.println(findCircleNum(isConnected));
     }
 }
-
-// class Solution {
-// public int findCircleNum(int[][] isConnected) {
-// int n = isConnected.length;
-// boolean[] visited = new boolean[n];
-// int ans = 0;
-// for (int i = 0; i < n; i++) {
-// if (!visited[i]) {
-// ans++;
-// dfs(isConnected, i, visited);
-// }
-// }
-// return ans;
-// }
-
-// private void dfs(int[][] isConnected, int index, boolean[] visited) {
-// visited[index] = true;
-// for (int j = 0; j < isConnected.length; j++) {
-// if (!visited[j] && isConnected[index][j] == 1) {
-// dfs(isConnected, j, visited);
-// }
-// }
-// }
-// }

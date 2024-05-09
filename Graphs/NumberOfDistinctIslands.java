@@ -5,19 +5,19 @@
  * island is not equal to another (not rotated or reflected).
  */
 
-// Time -> O(N x M)
-// Space -> O(N x M)
-
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 
-public class NumberOfDistinctIslands {
-    public static String toSting(int row, int col) {
+class NumberOfDistinctIslands {
+    private static String toSting(int row, int col) {
         return Integer.toString(row) + " " + Integer.toString(col);
     }
 
-    public static void dfs(int row, int col, int row0, int col0, boolean[][] vis, int[][] grid, List<String> island,
+    // Time -> O(n * m) //
+    // Space -> O(n * m) //
+
+    private static void dfs(int row, int col, int row0, int col0, boolean[][] vis, int[][] grid,
+            ArrayList<String> island,
             int[] dx, int[] dy) {
         int n = grid.length;
         int m = grid[0].length;
@@ -37,7 +37,7 @@ public class NumberOfDistinctIslands {
         }
     }
 
-    public static int countDistinctIslands(int[][] grid) {
+    private static int countDistinctIslands(int[][] grid) {
         int n = grid.length;
         int m = grid[0].length;
 
@@ -57,6 +57,7 @@ public class NumberOfDistinctIslands {
                 }
             }
         }
+
         return set.size();
     }
 
@@ -68,8 +69,6 @@ public class NumberOfDistinctIslands {
                 { 1, 1, 0, 1, 1 },
         };
 
-        int ans = countDistinctIslands(grid);
-
-        System.out.println(ans);
+        System.out.println(countDistinctIslands(grid));
     }
 }

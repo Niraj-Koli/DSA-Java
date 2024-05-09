@@ -4,19 +4,19 @@
  * return -1 for that vertex.
  */
 
-// Time -> O(V + 2E)
-// Space -> O(N x M)
-
 import java.util.ArrayDeque;
 import java.util.ArrayList;
-import java.util.List;
 
-public class ShortestPathInUndirectedGraphWithUnitWeights {
-    public static int[] shortestPath(int[][] edges, int n, int m, int src) {
-        List<List<Integer>> adj = new ArrayList<List<Integer>>();
+class ShortestPathInUndirectedGraphWithUnitWeights {
+
+    // Time -> O(V + E) //
+    // Space -> O(V + E) //
+
+    private static int[] shortestPath(int[][] edges, int n, int m, int src) {
+        ArrayList<ArrayList<Integer>> adj = new ArrayList<ArrayList<Integer>>();
 
         for (int i = 0; i < n; i++) {
-            adj.add(new ArrayList<Integer>());
+            adj.add(new ArrayList<>());
         }
 
         for (int i = 0; i < m; i++) {
@@ -27,7 +27,7 @@ public class ShortestPathInUndirectedGraphWithUnitWeights {
         int[] dist = new int[n];
 
         for (int i = 0; i < n; i++) {
-            dist[i] = (int) 1e9;
+            dist[i] = (int) (1e9);
         }
 
         dist[src] = 0;
@@ -38,16 +38,16 @@ public class ShortestPathInUndirectedGraphWithUnitWeights {
         while (!queue.isEmpty()) {
             int node = queue.poll();
 
-            for (int adjNode : adj.get(node)) {
-                if (dist[node] + 1 < dist[adjNode]) {
-                    dist[adjNode] = 1 + dist[node];
-                    queue.offer(adjNode);
+            for (int neighbor : adj.get(node)) {
+                if (dist[node] + 1 < dist[neighbor]) {
+                    dist[neighbor] = 1 + dist[node];
+                    queue.offer(neighbor);
                 }
             }
         }
 
         for (int i = 0; i < n; i++) {
-            if (dist[i] == 1e9) {
+            if (dist[i] == (int) (1e9)) {
                 dist[i] = -1;
             }
         }
@@ -68,8 +68,8 @@ public class ShortestPathInUndirectedGraphWithUnitWeights {
 
         int[] ans = shortestPath(edges, n, m, src);
 
-        for (int answer : ans) {
-            System.out.print(answer + " ");
+        for (int an : ans) {
+            System.out.print(an + " ");
         }
     }
 }

@@ -1,8 +1,9 @@
-// Time -> O(V x E)
-// Space -> O(V)
+class BellmanFordAlgorithm {
 
-public class BellmanFordAlgorithm {
-    public static int[] bellmanFord(int n, int[][] edges, int src) {
+    // Time -> O(V * E) //
+    // Space -> O(V) //
+
+    private static int[] bellmanFord(int n, int[][] edges, int src) {
         int[] dist = new int[n];
 
         for (int i = 0; i < n; i++) {
@@ -56,8 +57,8 @@ public class BellmanFordAlgorithm {
 
         int[] ans = bellmanFord(n, edges, src);
 
-        for (int answer : ans) {
-            System.out.print(answer + " ");
+        for (int an : ans) {
+            System.out.print(an + " ");
         }
     }
 }

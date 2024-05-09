@@ -11,13 +11,14 @@
  * fresh orange. If this is impossible, return -1.
  */
 
-// Time -> O(N x M)
-// Space -> O(N x M)
-
 import java.util.ArrayDeque;
 
-public class RottingOranges {
-    public static int orangesRotting(int[][] grid) {
+class RottingOranges {
+
+    // Time -> O(n * m) //
+    // Space -> O(n * m) //
+
+    private static int orangesRotting(int[][] grid) {
         int n = grid.length;
         int m = grid[0].length;
 
@@ -44,8 +45,8 @@ public class RottingOranges {
         int rottenOranges = 0;
         int minutes = 0;
 
-        int[] dx = { 0, 0, 1, -1 };
-        int[] dy = { 1, -1, 0, 0 };
+        int[] dx = { -1, 0, 1, 0 };
+        int[] dy = { 0, 1, 0, -1 };
 
         while (!queue.isEmpty()) {
             int size = queue.size();
@@ -53,19 +54,22 @@ public class RottingOranges {
 
             for (int i = 0; i < size; i++) {
                 int[] point = queue.poll();
+                int row = point[0];
+                int col = point[1];
 
                 for (int j = 0; j < 4; j++) {
-                    int x = point[0] + dx[j];
-                    int y = point[1] + dy[j];
+                    int nrow = row + dx[j];
+                    int ncol = col + dy[j];
 
-                    if (x < 0 || y < 0 || x >= n || y >= m || grid[x][y] == 0 || grid[x][y] == 2) {
-                        continue;
+                    boolean bounds = (nrow >= 0 && nrow < n) && (ncol >= 0 && ncol < m);
+
+                    if (bounds && grid[nrow][ncol] == 1) {
+                        grid[nrow][ncol] = 2;
+                        queue.offer(new int[] { nrow, ncol });
                     }
-
-                    grid[x][y] = 2;
-                    queue.offer(new int[] { x, y });
                 }
             }
+
             if (!queue.isEmpty()) {
                 minutes++;
             }
@@ -76,69 +80,6 @@ public class RottingOranges {
     public static void main(String[] args) {
         int[][] grid = { { 2, 1, 1 }, { 1, 1, 0 }, { 0, 1, 1 } };
 
-        int answer = orangesRotting(grid);
-
-        System.out.println(answer);
+        System.out.println(orangesRotting(grid));
     }
 }
-
-// class Solution {
-// int[][] dirs = new int[][] { { 1, 0 }, { 0, 1 }, { -1, 0 }, { 0, -1 } };
-// int n = 0, m = 0;
-
-// public int orangesRotting(int[][] grid) {
-// Queue<int[]> q = new LinkedList<>();
-
-// n = grid.length;
-// m = grid[0].length;
-// int cnt = 0;
-
-// for (int i = 0; i < n; i++) {
-// for (int j = 0; j < m; j++) {
-// if (grid[i][j] == 2) {
-// q.add(new int[] { i, j });
-// } else if (grid[i][j] == 1)
-// cnt++;
-// }
-// }
-
-// int res = 0;
-// // boolean[][]
-// while (!q.isEmpty()) {
-// int size = q.size();
-// for (int i = 0; i < size; i++) {
-// int[] cur = q.poll();
-// // System.out.println(Arrays.toString(cur));
-
-// if (grid[cur[0]][cur[1]] == 1)
-// cnt--;
-
-// grid[cur[0]][cur[1]] = -1;
-
-// if (cnt == 0)
-// return res;
-
-// for (int[] dir : dirs) {
-// int newx = cur[0] + dir[0];
-// int newy = cur[1] + dir[1];
-
-// if (notValid(newx, newy) || grid[newx][newy] != 1)
-// continue;
-
-// // System.out.println("val1 => "+newx +" val2 => "+newy);
-
-// // if(grid[])
-// q.add(new int[] { newx, newy });
-// }
-// }
-// // return 0;
-// res++;
-
-// }
-// return cnt == 0 ? res : -1;
-// }
-
-// boolean notValid(int i, int j) {
-// return i < 0 || j < 0 || i >= n || j >= m;
-// }
-// }

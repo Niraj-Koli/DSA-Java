@@ -7,25 +7,24 @@
  * impossible to reach any vertex, then return -1 for that vertex.
  */
 
-// Time -> O(V + E)
-// Space -> O(V)
-
 import java.util.ArrayDeque;
 import java.util.ArrayList;
-import java.util.List;
 
-public class ShortestPathInDirectedAcyclicGraph {
+class ShortestPathInDirectedAcyclicGraph {
     private static class Pair {
-        int node;
-        int weight;
+        private int node;
+        private int weight;
 
-        Pair(int node, int weight) {
+        public Pair(int node, int weight) {
             this.node = node;
             this.weight = weight;
         }
     }
 
-    public static void dfs(int node, boolean[] vis, ArrayDeque<Integer> stack, List<List<Pair>> adj) {
+    // Time -> O(V + E) //
+    // Space -> O(V + E) //
+
+    private static void dfs(int node, boolean[] vis, ArrayDeque<Integer> stack, ArrayList<ArrayList<Pair>> adj) {
         vis[node] = true;
 
         int n = adj.get(node).size();
@@ -40,11 +39,11 @@ public class ShortestPathInDirectedAcyclicGraph {
         stack.offer(node);
     }
 
-    public static int[] shortestPath(int[][] edges, int n, int m) {
-        List<List<Pair>> adj = new ArrayList<List<Pair>>();
+    private static int[] shortestPath(int[][] edges, int n, int m) {
+        ArrayList<ArrayList<Pair>> adj = new ArrayList<ArrayList<Pair>>();
 
         for (int i = 0; i < n; i++) {
-            adj.add(new ArrayList<Pair>());
+            adj.add(new ArrayList<>());
         }
 
         for (int i = 0; i < m; i++) {
@@ -68,7 +67,7 @@ public class ShortestPathInDirectedAcyclicGraph {
         int[] dist = new int[n];
 
         for (int i = 0; i < n; i++) {
-            dist[i] = (int) 1e9;
+            dist[i] = (int) (1e9);
         }
 
         dist[0] = 0;
@@ -76,9 +75,9 @@ public class ShortestPathInDirectedAcyclicGraph {
         while (!stack.isEmpty()) {
             int node = stack.pollLast();
 
-            int len = adj.get(node).size();
+            int size = adj.get(node).size();
 
-            for (int i = 0; i < len; i++) {
+            for (int i = 0; i < size; i++) {
                 int v = adj.get(node).get(i).node;
                 int wt = adj.get(node).get(i).weight;
 
@@ -89,7 +88,7 @@ public class ShortestPathInDirectedAcyclicGraph {
         }
 
         for (int i = 0; i < n; i++) {
-            if (dist[i] == 1e9) {
+            if (dist[i] == (int) (1e9)) {
                 dist[i] = -1;
             }
         }
@@ -112,8 +111,8 @@ public class ShortestPathInDirectedAcyclicGraph {
 
         int[] ans = shortestPath(edges, n, m);
 
-        for (int answer : ans) {
-            System.out.print(answer + " ");
+        for (int an : ans) {
+            System.out.print(an + " ");
         }
     }
 }

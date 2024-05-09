@@ -18,22 +18,21 @@ import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Collections;
 
-public class AccountsMerge {
+class AccountsMerge {
     private static class DisjointSet {
-        ArrayList<Integer> parent = new ArrayList<Integer>();
-        ArrayList<Integer> size = new ArrayList<Integer>();
+        private ArrayList<Integer> parent = new ArrayList<Integer>();
+        private ArrayList<Integer> size = new ArrayList<Integer>();
 
-        DisjointSet(int n) {
+        public DisjointSet(int n) {
             for (int i = 0; i <= n; i++) {
                 parent.add(i);
                 size.add(1);
             }
         }
 
-        public int findUltimateParent(int node) {
+        private int findUltimateParent(int node) {
             if (node == parent.get(node)) {
                 return node;
             }
@@ -45,7 +44,7 @@ public class AccountsMerge {
             return parent.get(node);
         }
 
-        public void unionBySize(int u, int v) {
+        private void unionBySize(int u, int v) {
             int ulp_u = findUltimateParent(u);
             int ulp_v = findUltimateParent(v);
 
@@ -63,7 +62,10 @@ public class AccountsMerge {
         }
     }
 
-    public static List<List<String>> accountsMerge(List<List<String>> accounts) {
+    // Time -> O(n * m) //
+    // Space -> O(n * m) //
+
+    private static ArrayList<ArrayList<String>> accountsMerge(ArrayList<ArrayList<String>> accounts) {
         int n = accounts.size();
 
         DisjointSet dsu = new DisjointSet(n);
@@ -95,7 +97,7 @@ public class AccountsMerge {
             mergedMail.get(node).add(mail);
         }
 
-        List<List<String>> res = new ArrayList<List<String>>();
+        ArrayList<ArrayList<String>> res = new ArrayList<ArrayList<String>>();
 
         for (int i = 0; i < n; i++) {
             if (mergedMail.get(i).isEmpty()) {
@@ -104,7 +106,7 @@ public class AccountsMerge {
 
             Collections.sort(mergedMail.get(i));
 
-            List<String> temp = new ArrayList<String>();
+            ArrayList<String> temp = new ArrayList<String>();
 
             temp.add(accounts.get(i).get(0));
 
@@ -119,66 +121,13 @@ public class AccountsMerge {
     }
 
     public static void main(String[] args) {
-        List<List<String>> accounts = new ArrayList<List<String>>();
+        ArrayList<ArrayList<String>> accounts = new ArrayList<ArrayList<String>>();
 
-        accounts.add(Arrays.asList("John", "johnsmith@mail.com", "john_newyork@mail.com"));
-        accounts.add(Arrays.asList("John", "johnsmith@mail.com", "john00@mail.com"));
-        accounts.add(Arrays.asList("Mary", "mary@mail.com"));
-        accounts.add(Arrays.asList("John", "johnnybravo@mail.com"));
+        accounts.add(new ArrayList<String>(Arrays.asList("John", "johnsmith@mail.com", "john_newyork@mail.com")));
+        accounts.add(new ArrayList<String>(Arrays.asList("John", "johnsmith@mail.com", "john00@mail.com")));
+        accounts.add(new ArrayList<String>(Arrays.asList("Mary", "mary@mail.com")));
+        accounts.add(new ArrayList<String>(Arrays.asList("John", "johnnybravo@mail.com")));
 
-        List<List<String>> ans = accountsMerge(accounts);
-
-        System.out.println(ans);
+        System.out.println(accountsMerge(accounts));
     }
 }
-
-// class Solution {
-// Map<String, String> emailToRoot = new HashMap<>();
-// Map<String, String> emailToName = new HashMap<>();
-
-// public List<List<String>> accountsMerge(List<List<String>> accounts) {
-// for (List<String> account : accounts) {
-// String name = account.get(0);
-// String root = account.get(1);
-// for (int i = 1; i < account.size(); i++) {
-// String email = account.get(i);
-// union(email, root);
-// }
-// emailToName.put(root, name);
-// }
-// List<List<String>> res = new ArrayList<>();
-// Map<String, List<String>> map = new HashMap<>();
-// for (String email : emailToRoot.keySet()) {
-// String root = find(email);
-// map.computeIfAbsent(root, k -> new ArrayList<>()).add(email);
-// }
-// for (Map.Entry<String, List<String>> entry : map.entrySet()) {
-// String root = entry.getKey();
-// List<String> emailList = entry.getValue();
-// Collections.sort(emailList);
-// String user = emailToName.get(root);
-// List<String> temp = new ArrayList<>();
-// temp.add(user);
-// temp.addAll(emailList);
-// res.add(temp);
-// }
-// return res;
-// }
-
-// public String find(String email) {
-// if (!emailToRoot.containsKey(email)) {
-// emailToRoot.put(email, email);
-// }
-// String getEmail = emailToRoot.get(email);
-// if (!email.equals(getEmail)) {
-// emailToRoot.put(email, find(getEmail));
-// }
-// return emailToRoot.get(email);
-// }
-
-// public void union(String child, String parent) {
-// String findC = find(child);
-// String findP = find(parent);
-// emailToRoot.put(findC, findP);
-// }
-// }

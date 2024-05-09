@@ -1,5 +1,5 @@
 /*
- * You are given an m x n binary matrix grid, where 0 represents a sea cell and
+ * You are given an m nrow n binary matrix grid, where 0 represents a sea cell and
  * 1 represents a land cell.
  * 
  * A move consists of walking from one land cell to another adjacent
@@ -9,37 +9,28 @@
  * boundary of the grid in any number of moves.
  */
 
-// Time -> O(N x M)
-// Space -> O(N x M)
-
 import java.util.ArrayDeque;
 
-public class NumberOfEnclaves {
-    private static class Pair {
-        int first;
-        int second;
+class NumberOfEnclaves {
 
-        Pair(int first, int second) {
-            this.first = first;
-            this.second = second;
-        }
-    }
+    // Time -> O(n * m) //
+    // Space -> O(n * m) //
 
-    public static int numEnclaves(int[][] grid) {
+    private static int numEnclaves(int[][] grid) {
         int n = grid.length;
         int m = grid[0].length;
 
         boolean[][] vis = new boolean[n][m];
 
-        ArrayDeque<Pair> queue = new ArrayDeque<Pair>();
+        ArrayDeque<int[]> queue = new ArrayDeque<int[]>();
 
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < m; j++) {
-                boolean boundaries = i == 0 || j == 0 || i == n - 1 || j == m - 1;
+                boolean boundaries = (i == 0 || j == 0 || i == n - 1 || j == m - 1);
 
                 if (boundaries && grid[i][j] == 1) {
+                    queue.offer(new int[] { i, j });
                     vis[i][j] = true;
-                    queue.offer(new Pair(i, j));
                 }
             }
         }
@@ -48,9 +39,9 @@ public class NumberOfEnclaves {
         int[] dy = { 0, 1, 0, -1 };
 
         while (!queue.isEmpty()) {
-            int row = queue.peek().first;
-            int col = queue.peek().second;
-            queue.poll();
+            int[] point = queue.poll();
+            int row = point[0];
+            int col = point[1];
 
             for (int i = 0; i < 4; i++) {
                 int nrow = row + dx[i];
@@ -59,8 +50,8 @@ public class NumberOfEnclaves {
                 boolean bounds = (nrow >= 0 && nrow < n) && (ncol >= 0 && ncol < m);
 
                 if (bounds && !vis[nrow][ncol] && grid[nrow][ncol] == 1) {
+                    queue.offer(new int[] { nrow, ncol });
                     vis[nrow][ncol] = true;
-                    queue.offer(new Pair(nrow, ncol));
                 }
             }
         }
@@ -86,52 +77,6 @@ public class NumberOfEnclaves {
                 { 0, 0, 0, 0 }
         };
 
-        int ans = numEnclaves(grid);
-
-        System.out.println(ans);
+        System.out.println(numEnclaves(grid));
     }
 }
-
-// class Solution {
-
-// private int[][] g;
-// private int xlen;
-// private int ylen;
-
-// private void paint(int x, int y) {
-// if (x < 0 || y < 0 || x >= xlen || y >= ylen) {
-// return;
-// }
-// if (g[y][x] != 1) {
-// return;
-// }
-
-// g[y][x] = 0;
-// paint(x + 1, y);
-// paint(x - 1, y);
-// paint(x, y + 1);
-// paint(x, y - 1);
-// }
-
-// public int numEnclaves(int[][] grid) {
-// g = grid;
-// ylen = g.length;
-// xlen = g[0].length;
-// for (int x = 0; x < xlen; x++) {
-// paint(x, 0);
-// paint(x, ylen - 1);
-// }
-// for (int y = 0; y < ylen; y++) {
-// paint(0, y);
-// paint(xlen - 1, y);
-// }
-
-// int ct = 0;
-// for (int x = 0; x < xlen; x++) {
-// for (int y = 0; y < ylen; y++) {
-// ct += g[y][x];
-// }
-// }
-// return ct;
-// }
-// }

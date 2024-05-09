@@ -7,20 +7,20 @@
  * by the function is correct else 0 denoting incorrect string returned.
  */
 
-// Time -> O(N * S + K)
-// Space -> O(K)
-
 import java.util.ArrayDeque;
 import java.util.ArrayList;
-import java.util.List;
 
-public class AlienDictionary {
-    public static List<Integer> topoSort(int v, List<List<Integer>> adj) {
+class AlienDictionary {
+
+    // Time -> O(n + k) //
+    // Space -> O(n + k) //
+
+    private static ArrayList<Integer> topoSort(int v, ArrayList<ArrayList<Integer>> adj) {
         int[] indegree = new int[v];
 
         for (int i = 0; i < v; i++) {
-            for (int adjNode : adj.get(i)) {
-                indegree[adjNode]++;
+            for (int neighbor : adj.get(i)) {
+                indegree[neighbor]++;
             }
         }
 
@@ -32,26 +32,29 @@ public class AlienDictionary {
             }
         }
 
-        List<Integer> res = new ArrayList<Integer>();
+        ArrayList<Integer> res = new ArrayList<Integer>();
 
         while (!queue.isEmpty()) {
             int node = queue.poll();
 
             res.add(node);
 
-            for (int adjNode : adj.get(node)) {
-                indegree[adjNode]--;
+            for (int neighbor : adj.get(node)) {
+                indegree[neighbor]--;
 
-                if (indegree[adjNode] == 0) {
-                    queue.offer(adjNode);
+                if (indegree[neighbor] == 0) {
+                    queue.offer(neighbor);
                 }
             }
         }
+
         return res;
     }
 
-    public static String findOrder(String[] dict, int n, int k) {
-        List<List<Integer>> adj = new ArrayList<List<Integer>>();
+    private static String findOrder(String[] dict, int k) {
+        int n = dict.length;
+
+        ArrayList<ArrayList<Integer>> adj = new ArrayList<ArrayList<Integer>>();
 
         for (int i = 0; i < k; i++) {
             adj.add(new ArrayList<Integer>());
@@ -74,23 +77,21 @@ public class AlienDictionary {
             }
         }
 
-        List<Integer> topo = topoSort(k, adj);
+        ArrayList<Integer> topo = topoSort(k, adj);
 
         StringBuilder order = new StringBuilder();
 
         for (int letter : topo) {
             order.append((char) (letter + 'a'));
         }
+
         return order.toString();
     }
 
     public static void main(String[] args) {
         String[] dict = { "baa", "abcd", "abac", "cab", "cad" };
-        int n = 5;
         int k = 4;
 
-        String ans = findOrder(dict, n, k);
-
-        System.out.println(ans);
+        System.out.println(findOrder(dict, k));
     }
 }

@@ -3,26 +3,26 @@
  * Topological Sorting of that Graph.
  */
 
-// Time -> O(V + E)
-// Space -> O(V)
-
 import java.util.ArrayDeque;
 import java.util.ArrayList;
-import java.util.List;
 
-public class TopologicalSort {
-    public static void dfs(int node, boolean[] vis, ArrayDeque<Integer> stack, List<List<Integer>> adj) {
+class TopologicalSort {
+
+    // Time -> O(V + E) //
+    // Space -> O(V) //
+
+    private static void dfs(int node, boolean[] vis, ArrayDeque<Integer> stack, ArrayList<ArrayList<Integer>> adj) {
         vis[node] = true;
 
-        for (int adjNode : adj.get(node)) {
-            if (!vis[adjNode]) {
-                dfs(adjNode, vis, stack, adj);
+        for (int neighbor : adj.get(node)) {
+            if (!vis[neighbor]) {
+                dfs(neighbor, vis, stack, adj);
             }
         }
         stack.offer(node);
     }
 
-    public static int[] topoSort(int v, List<List<Integer>> adj) {
+    private static int[] topoSort(int v, ArrayList<ArrayList<Integer>> adj) {
         boolean[] vis = new boolean[v];
 
         ArrayDeque<Integer> stack = new ArrayDeque<Integer>();
@@ -39,20 +39,21 @@ public class TopologicalSort {
         while (!stack.isEmpty()) {
             res[index++] = stack.pollLast();
         }
+
         return res;
     }
 
-    public static void addEdge(List<List<Integer>> adj, int vertex1, int vertex2) {
+    private static void addEdge(ArrayList<ArrayList<Integer>> adj, int vertex1, int vertex2) {
         adj.get(vertex1).add(vertex2);
     }
 
     public static void main(String[] args) {
         int v = 6;
 
-        List<List<Integer>> adjList = new ArrayList<List<Integer>>();
+        ArrayList<ArrayList<Integer>> adjList = new ArrayList<ArrayList<Integer>>();
 
         for (int i = 0; i <= v; i++) {
-            adjList.add(new ArrayList<Integer>());
+            adjList.add(new ArrayList<>());
         }
 
         addEdge(adjList, 5, 0);
@@ -64,8 +65,8 @@ public class TopologicalSort {
 
         int[] ans = topoSort(v, adjList);
 
-        for (int answer : ans) {
-            System.out.print(answer + " ");
+        for (int an : ans) {
+            System.out.print(an + " ");
         }
     }
 }

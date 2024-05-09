@@ -12,27 +12,26 @@
  * endWord, or 0 if no such sequence exists.
  */
 
-// Time -> O(N x word.length x 26)
-// Space -> O(N)
-
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
-import java.util.List;
 
-public class WordLadderI {
+class WordLadderI {
     private static class Pair {
-        String word;
-        int level;
+        private String word;
+        private int level;
 
-        Pair(String word, int level) {
+        public Pair(String word, int level) {
             this.word = word;
             this.level = level;
         }
     }
 
-    public static int ladderLength(String beginWord, String endWord, List<String> wordList) {
+    // Time -> O(n * l) //
+    // Space -> O(n) //
+
+    private static int ladderLength(String beginWord, String endWord, ArrayList<String> wordList) {
         int n = wordList.size();
 
         ArrayDeque<Pair> queue = new ArrayDeque<Pair>();
@@ -47,9 +46,9 @@ public class WordLadderI {
         set.remove(beginWord);
 
         while (!queue.isEmpty()) {
-            String word = queue.peek().word;
-            int level = queue.peek().level;
-            queue.poll();
+            Pair pair = queue.poll();
+            String word = pair.word;
+            int level = pair.level;
 
             if (word.equals(endWord)) {
                 return level;
@@ -79,64 +78,8 @@ public class WordLadderI {
 
         String[] words = { "hot", "dot", "dog", "lot", "log", "cog" };
 
-        List<String> wordList = new ArrayList<>(Arrays.asList(words));
+        ArrayList<String> wordList = new ArrayList<String>(Arrays.asList(words));
 
-        int ans = ladderLength(beginWord, endWord, wordList);
-
-        System.out.println(ans);
+        System.out.println(ladderLength(beginWord, endWord, wordList));
     }
 }
-
-// class Solution {
-// public int ladderLength(String beginWord, String endWord, List<String>
-// wordList) {
-
-// if (!wordList.contains(endWord))
-// return 0;
-// int ans = 0;
-// HashSet<String> visited = new HashSet<>();
-// visited.add(beginWord);
-
-// Queue<String> q = new LinkedList<>();
-// q.add(beginWord);
-// // ans++;
-
-// while (!q.isEmpty()) {
-// int size = q.size(); // New size variable to keep track of the current level
-
-// for (int i = 0; i < size; i++) {
-// String cur = q.remove();
-
-// if (cur.equals(endWord))
-// return ans + 1; // Return ladder length if endWord is found
-
-// for (String neighbor : getNeighbors(cur, wordList)) {
-// if (!visited.contains(neighbor)) {
-// visited.add(neighbor);
-// q.add(neighbor);
-// }
-// }
-// }
-
-// ans++;
-// }
-
-// return 0;
-// }
-
-// public static List<String> getNeighbors(String cur, List<String> wordList) {
-// List<String> neighbors = new ArrayList<>();
-
-// for (String s : wordList) {
-// int noOfDifferentChar = 0;
-// for (int i = 0; i < cur.length(); i++) {
-// if (cur.charAt(i) != s.charAt(i)) {
-// noOfDifferentChar++;
-// }
-// }
-// if (noOfDifferentChar == 1)
-// neighbors.add(s);
-// }
-// return neighbors;
-// }
-// }

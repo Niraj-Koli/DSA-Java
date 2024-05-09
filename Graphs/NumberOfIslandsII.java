@@ -10,25 +10,21 @@
  * Note : An island means group of 1s such that they share a common side.
  */
 
-// Time -> O(Q x 4α)
-// Space -> O(N x M)
-
 import java.util.ArrayList;
-import java.util.List;
 
-public class NumberOfIslandsII {
+class NumberOfIslandsII {
     private static class DisjointSet {
-        ArrayList<Integer> parent = new ArrayList<Integer>();
-        ArrayList<Integer> size = new ArrayList<Integer>();
+        private ArrayList<Integer> parent = new ArrayList<Integer>();
+        private ArrayList<Integer> size = new ArrayList<Integer>();
 
-        DisjointSet(int n) {
+        public DisjointSet(int n) {
             for (int i = 0; i <= n; i++) {
                 parent.add(i);
                 size.add(1);
             }
         }
 
-        public int findUltimateParent(int node) {
+        private int findUltimateParent(int node) {
             if (node == parent.get(node)) {
                 return node;
             }
@@ -40,7 +36,7 @@ public class NumberOfIslandsII {
             return parent.get(node);
         }
 
-        public void unionBySize(int u, int v) {
+        private void unionBySize(int u, int v) {
             int ulp_u = findUltimateParent(u);
             int ulp_v = findUltimateParent(v);
 
@@ -58,14 +54,17 @@ public class NumberOfIslandsII {
         }
     }
 
-    public static List<Integer> numOfIslands(int n, int m, int[][] operators) {
+    // Time -> O((n * m) + k) //
+    // Space -> O(n * m) //
+
+    private static ArrayList<Integer> numOfIslands(int n, int m, int[][] operators) {
         int len = operators.length;
 
         DisjointSet dsu = new DisjointSet(n * m);
 
         boolean[][] vis = new boolean[n][m];
 
-        List<Integer> res = new ArrayList<Integer>();
+        ArrayList<Integer> res = new ArrayList<Integer>();
         int islands = 0;
 
         for (int i = 0; i < len; i++) {
@@ -84,23 +83,24 @@ public class NumberOfIslandsII {
             int[] dy = { 0, 1, 0, -1 };
 
             for (int j = 0; j < 4; j++) {
-                int newrow = row + dx[j];
-                int newcol = col + dy[j];
+                int nrow = row + dx[j];
+                int ncol = col + dy[j];
 
-                boolean bounds = (newrow >= 0 && newrow < n) && (newcol >= 0 && newcol < m);
+                boolean bounds = (nrow >= 0 && nrow < n) && (ncol >= 0 && ncol < m);
 
-                if (bounds && vis[newrow][newcol]) {
+                if (bounds && vis[nrow][ncol]) {
                     int nodeNo = row * m + col;
-                    int adjNodeNo = newrow * m + newcol;
+                    int neighborNo = nrow * m + ncol;
 
-                    if (dsu.findUltimateParent(nodeNo) != dsu.findUltimateParent(adjNodeNo)) {
+                    if (dsu.findUltimateParent(nodeNo) != dsu.findUltimateParent(neighborNo)) {
                         islands--;
-                        dsu.unionBySize(nodeNo, adjNodeNo);
+                        dsu.unionBySize(nodeNo, neighborNo);
                     }
                 }
             }
             res.add(islands);
         }
+
         return res;
     }
 
@@ -114,8 +114,6 @@ public class NumberOfIslandsII {
                 { 3, 2 }, { 2, 2 }, { 1, 2 }, { 0, 2 }
         };
 
-        List<Integer> ans = numOfIslands(n, m, operators);
-
-        System.out.println(ans);
+        System.out.println(numOfIslands(n, m, operators));
     }
 }

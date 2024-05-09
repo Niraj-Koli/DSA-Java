@@ -13,25 +13,25 @@
  * bottom-right cell.
  */
 
-// Time -> O(E Log(V)) + O(N x M) + O(Log(N x M))
-// Space -> O(N x M)
-
 import java.util.PriorityQueue;
 
-public class PathWithMinimumEffort {
+class PathWithMinimumEffort {
     private static class Tuple {
-        int distance;
-        int row;
-        int col;
+        private int row;
+        private int col;
+        private int distance;
 
-        Tuple(int distance, int row, int col) {
-            this.distance = distance;
+        public Tuple(int row, int col, int distance) {
             this.row = row;
             this.col = col;
+            this.distance = distance;
         }
     }
 
-    public static int minimumEffortPath(int[][] heights) {
+    // Time -> O((n * m) * log(n * m)) //
+    // Space -> O(n * m) //
+
+    private static int minimumEffortPath(int[][] heights) {
         int n = heights.length;
         int m = heights[0].length;
 
@@ -54,27 +54,27 @@ public class PathWithMinimumEffort {
         while (!pq.isEmpty()) {
             Tuple tuple = pq.poll();
 
-            int diff = tuple.distance;
             int row = tuple.row;
             int col = tuple.col;
+            int diff = tuple.distance;
 
             if (row == n - 1 && col == m - 1) {
                 return diff;
             }
 
             for (int i = 0; i < 4; i++) {
-                int newrow = row + dx[i];
-                int newcol = col + dy[i];
+                int nrow = row + dx[i];
+                int ncol = col + dy[i];
 
-                boolean bounds = (newrow >= 0 && newrow < n) && (newcol >= 0 && newcol < m);
+                boolean bounds = (nrow >= 0 && nrow < n) && (ncol >= 0 && ncol < m);
 
                 if (bounds) {
-                    int curEffort = Math.abs(heights[row][col] - heights[newrow][newcol]);
+                    int curEffort = Math.abs(heights[row][col] - heights[nrow][ncol]);
                     int newEffort = Math.max(diff, curEffort);
 
-                    if (newEffort < dist[newrow][newcol]) {
-                        dist[newrow][newcol] = newEffort;
-                        pq.offer(new Tuple(newEffort, newrow, newcol));
+                    if (newEffort < dist[nrow][ncol]) {
+                        dist[nrow][ncol] = newEffort;
+                        pq.offer(new Tuple(nrow, ncol, newEffort));
                     }
                 }
             }
@@ -90,78 +90,6 @@ public class PathWithMinimumEffort {
                 { 5, 3, 5 }
         };
 
-        int ans = minimumEffortPath(heights);
-
-        System.out.println(ans);
+        System.out.println(minimumEffortPath(heights));
     }
 }
-
-// class Solution {
-// boolean[][] visited;
-
-// public int minimumEffortPath(int[][] heights) {
-// int m = heights.length;
-// int n = heights[0].length;
-// int l = 0;
-// int r = 999998;
-// while (l <= r) {
-// visited = new boolean[m][n];
-// int mid = (l + r) >> 1;
-// if (helper(heights, 0, 0, mid)) {
-// r = mid - 1;
-// } else {
-// l = mid + 1;
-// }
-// }
-
-// return l;
-// }
-
-// public boolean helper(int[][] heights, int x, int y, int mid) {
-// int m = heights.length;
-// int n = heights[0].length;
-// visited[x][y] = true;
-
-// if (x == m - 1 && y == n - 1) {
-// return true;
-// }
-
-// int t = x + 1;
-// if (t < m && !visited[t][y]) {
-// if (Math.abs(heights[x][y] - heights[t][y]) <= mid) {
-// if (helper(heights, t, y, mid)) {
-// return true;
-// }
-// }
-// }
-
-// t = y + 1;
-// if (t < n && !visited[x][t]) {
-// if (Math.abs(heights[x][y] - heights[x][t]) <= mid) {
-// if (helper(heights, x, t, mid)) {
-// return true;
-// }
-// }
-// }
-
-// t = x - 1;
-// if (t >= 0 && !visited[t][y]) {
-// if (Math.abs(heights[x][y] - heights[t][y]) <= mid) {
-// if (helper(heights, t, y, mid)) {
-// return true;
-// }
-// }
-// }
-
-// t = y - 1;
-// if (t >= 0 && !visited[x][t]) {
-// if (Math.abs(heights[x][y] - heights[x][t]) <= mid) {
-// if (helper(heights, x, t, mid)) {
-// return true;
-// }
-// }
-// }
-
-// return false;
-// }
-// }

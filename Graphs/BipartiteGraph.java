@@ -1,32 +1,50 @@
 /*
- * Given an adjacency list of a graph adj of V no. of vertices having 0 based
- * index. Check whether the graph is bipartite or not.
+ * There is an undirected graph with n nodes, where each node is numbered
+ * between 0 and n - 1. You are given a 2D array graph, where graph[u] is an
+ * array of nodes that node u is adjacent to. More formally, for each v in
+ * graph[u], there is an undirected edge between node u and node v. The graph
+ * has the following properties:
+ * 
+ * There are no self-edges (graph[u] does not contain u).
+ * There are no parallel edges (graph[u] does not contain duplicate values).
+ * If v is in graph[u], then u is in graph[v] (the graph is undirected).
+ * The graph may not be connected, meaning there may be two nodes u and v such
+ * that there is no path between them.
+ * A graph is bipartite if the nodes can be partitioned into two independent
+ * sets A and B such that every edge in the graph connects a node in set A and a
+ * node in set B.
+ * 
+ * Return true if and only if it is bipartite.
  */
 
-// Time -> O(V + 2E)
-// Space -> O(V)
-
 import java.util.ArrayDeque;
-import java.util.List;
 import java.util.ArrayList;
 
-public class BipartiteGraph {
-    public static boolean dfs(int node, int col, int[] color, List<List<Integer>> adj) {
+class BipartiteGraph {
+
+    // Time -> O(V + E) //
+    // Space -> O(V) //
+
+    public static boolean dfs(int node, int col, int[] color, ArrayList<ArrayList<Integer>> adj) {
         color[node] = col;
 
-        for (int adjNode : adj.get(node)) {
-            if (color[adjNode] == -1) {
-                if (!dfs(adjNode, 1 - col, color, adj)) {
+        for (int neighbor : adj.get(node)) {
+            if (color[neighbor] == -1) {
+                if (!dfs(neighbor, 1 - col, color, adj)) {
                     return false;
                 }
-            } else if (color[adjNode] == col) {
+            } else if (color[neighbor] == col) {
                 return false;
             }
         }
+        
         return true;
     }
 
-    public static boolean bfs(int start, int v, List<List<Integer>> adj, int[] color) {
+    // Time -> O(V + E) //
+    // Space -> O(V) //
+
+    private static boolean bfs(int start, int v, ArrayList<ArrayList<Integer>> adj, int[] color) {
         ArrayDeque<Integer> queue = new ArrayDeque<Integer>();
         queue.offer(start);
 
@@ -35,19 +53,20 @@ public class BipartiteGraph {
         while (!queue.isEmpty()) {
             int node = queue.poll();
 
-            for (int adjNode : adj.get(node)) {
-                if (color[adjNode] == -1) {
-                    color[adjNode] = 1 - color[node];
-                    queue.offer(adjNode);
-                } else if (color[adjNode] == color[node]) {
+            for (int neighbor : adj.get(node)) {
+                if (color[neighbor] == -1) {
+                    color[neighbor] = 1 - color[node];
+                    queue.offer(neighbor);
+                } else if (color[neighbor] == color[node]) {
                     return false;
                 }
             }
         }
+
         return true;
     }
 
-    public static boolean isBipartite(int v, List<List<Integer>> adj) {
+    private static boolean isBipartite(int v, ArrayList<ArrayList<Integer>> adj) {
         int[] color = new int[v];
 
         for (int i = 0; i < v; i++) {
@@ -65,7 +84,7 @@ public class BipartiteGraph {
         return true;
     }
 
-    public static void addEdge(List<List<Integer>> adj, int vertex1, int vertex2) {
+    private static void addEdge(ArrayList<ArrayList<Integer>> adj, int vertex1, int vertex2) {
         adj.get(vertex1).add(vertex2);
         adj.get(vertex2).add(vertex1);
     }
@@ -73,7 +92,7 @@ public class BipartiteGraph {
     public static void main(String[] args) {
         int v = 8;
 
-        List<List<Integer>> adjList = new ArrayList<List<Integer>>();
+        ArrayList<ArrayList<Integer>> adjList = new ArrayList<ArrayList<Integer>>();
 
         for (int i = 0; i <= v; i++) {
             adjList.add(new ArrayList<Integer>());
@@ -88,8 +107,6 @@ public class BipartiteGraph {
         addEdge(adjList, 4, 7);
         addEdge(adjList, 7, 8);
 
-        boolean ans = isBipartite(v, adjList);
-
-        System.out.println(ans);
+        System.out.println(isBipartite(v, adjList));
     }
 }

@@ -1,8 +1,9 @@
-// Time -> O(N^3)
-// Space -> O(N^2)
+class FloydWarshallAlgorithm {
 
-public class FloydWarshallAlgorithm {
-    public static void floydWarshall(int[][] matrix) {
+    // Time -> O(n^3) //
+    // Space -> O(n^2) //
+
+    private static void floydWarshall(int[][] matrix) {
         int n = matrix.length;
 
         for (int i = 0; i < n; i++) {

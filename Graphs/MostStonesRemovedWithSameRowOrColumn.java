@@ -17,19 +17,19 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MostStonesRemovedWithSameRowOrColumn {
+class MostStonesRemovedWithSameRowOrColumn {
     private static class DisjointSet {
-        ArrayList<Integer> parent = new ArrayList<Integer>();
-        ArrayList<Integer> size = new ArrayList<Integer>();
+        private ArrayList<Integer> parent = new ArrayList<Integer>();
+        private ArrayList<Integer> size = new ArrayList<Integer>();
 
-        DisjointSet(int n) {
+        public DisjointSet(int n) {
             for (int i = 0; i <= n; i++) {
                 parent.add(i);
                 size.add(1);
             }
         }
 
-        public int findUltimateParent(int node) {
+        private int findUltimateParent(int node) {
             if (node == parent.get(node)) {
                 return node;
             }
@@ -41,7 +41,7 @@ public class MostStonesRemovedWithSameRowOrColumn {
             return parent.get(node);
         }
 
-        public void unionBySize(int u, int v) {
+        private void unionBySize(int u, int v) {
             int ulp_u = findUltimateParent(u);
             int ulp_v = findUltimateParent(v);
 
@@ -59,7 +59,10 @@ public class MostStonesRemovedWithSameRowOrColumn {
         }
     }
 
-    public static int removeStones(int[][] stones) {
+    // Time -> O(N) //
+    // Space -> (maxRow + maxCol) //
+
+    private static int removeStones(int[][] stones) {
         int n = stones.length;
 
         int maxRow = 0;
@@ -101,42 +104,6 @@ public class MostStonesRemovedWithSameRowOrColumn {
                 { 1, 2 }, { 2, 1 }, { 2, 2 }
         };
 
-        int ans = removeStones(stones);
-
-        System.out.println(ans);
+        System.out.println(removeStones(stones));
     }
 }
-
-// class Solution {
-// public int numOfIslands = 0;
-
-// public int removeStones(int[][] stones) {
-// int[] parent = new int[20003];
-// for (int[] stone : stones) {
-// unionSets(stone[0] + 1, stone[1] + 10002, parent);
-// }
-// return stones.length - numOfIslands;
-// }
-
-// public void unionSets(int a, int b, int[] parent) {
-// int parA = findParent(a, parent), parB = findParent(b, parent);
-// if (parA != parB) {
-// parent[parB] = parA;
-// numOfIslands--;
-// }
-// return;
-// }
-
-// public int findParent(int node, int[] parent) {
-// if (parent[node] == 0) {
-// parent[node] = node;
-// numOfIslands++;
-// }
-// if (parent[node] == node) {
-// return node;
-// }
-// int par = findParent(parent[node], parent);
-// parent[node] = par;
-// return par;
-// }
-// }

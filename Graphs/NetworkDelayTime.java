@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.PriorityQueue;
 
-public class NetworkDelayTime {
+class NetworkDelayTime {
     private static class Pair {
         private int node;
         private int distance;
@@ -30,10 +30,10 @@ public class NetworkDelayTime {
     private static int networkDelayTime(int[][] times, int n, int k) {
         int m = times.length;
 
-        ArrayList<ArrayList<ArrayList<Integer>>> adj = new ArrayList<>();
+        ArrayList<ArrayList<ArrayList<Integer>>> adj = new ArrayList<ArrayList<ArrayList<Integer>>>();
 
         for (int i = 0; i <= n; i++) {
-            adj.add(new ArrayList<>());
+            adj.add(new ArrayList<ArrayList<Integer>>());
         }
 
         for (int i = 0; i < m; i++) {
@@ -41,7 +41,7 @@ public class NetworkDelayTime {
             int v = times[i][1];
             int w = times[i][2];
 
-            adj.get(u).add(new ArrayList<>(Arrays.asList(v, w)));
+            adj.get(u).add(new ArrayList<Integer>(Arrays.asList(v, w)));
         }
 
         int[] dist = new int[n + 1];

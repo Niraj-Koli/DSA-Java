@@ -7,36 +7,36 @@
  * from src to dst with at most k stops. If there is no such route, return -1.
  */
 
-// Time -> O(E)
-// Space -> O(N)
-
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 
-public class CheapestFlightsWithinKStops {
+class CheapestFlightsWithinKStops {
     private static class Pair {
-        int node;
-        int weight;
+        private int node;
+        private int weight;
 
-        Pair(int node, int weight) {
+        public Pair(int node, int weight) {
             this.node = node;
             this.weight = weight;
         }
     }
 
     private static class Tuple {
-        int stops;
-        int node;
-        int distance;
+        private int node;
+        private int stops;
+        private int distance;
 
-        Tuple(int stops, int node, int distance) {
-            this.stops = stops;
+        public Tuple(int node, int stops, int distance) {
             this.node = node;
+            this.stops = stops;
             this.distance = distance;
         }
     }
 
-    public static int findCheapestPrice(int n, int[][] flights, int src, int dst, int k) {
+    // Time -> O(V * E) //
+    // Space -> O(V + E) //
+
+    private static int findCheapestPrice(int n, int[][] flights, int src, int dst, int k) {
         int m = flights.length;
 
         ArrayList<ArrayList<Pair>> adj = new ArrayList<ArrayList<Pair>>();
@@ -46,7 +46,11 @@ public class CheapestFlightsWithinKStops {
         }
 
         for (int i = 0; i < m; i++) {
-            adj.get(flights[i][0]).add(new Pair(flights[i][1], flights[i][2]));
+            int u = flights[i][0];
+            int v = flights[i][1];
+            int w = flights[i][2];
+
+            adj.get(u).add(new Pair(v, w));
         }
 
         int[] dist = new int[n];
@@ -58,13 +62,13 @@ public class CheapestFlightsWithinKStops {
         dist[src] = 0;
 
         ArrayDeque<Tuple> queue = new ArrayDeque<Tuple>();
-        queue.offer(new Tuple(0, src, 0));
+        queue.offer(new Tuple(src, 0, 0));
 
         while (!queue.isEmpty()) {
             Tuple tuple = queue.poll();
 
-            int stops = tuple.stops;
             int node = tuple.node;
+            int stops = tuple.stops;
             int distance = tuple.distance;
 
             if (stops > k) {
@@ -77,7 +81,7 @@ public class CheapestFlightsWithinKStops {
 
                 if (distance + edgeWeight < dist[adjNode] && stops <= k) {
                     dist[adjNode] = distance + edgeWeight;
-                    queue.offer(new Tuple(stops + 1, adjNode, distance + edgeWeight));
+                    queue.offer(new Tuple(adjNode, stops + 1, distance + edgeWeight));
                 }
             }
         }
@@ -101,43 +105,9 @@ public class CheapestFlightsWithinKStops {
         };
 
         int src = 0;
-        int dist = 3;
+        int dst = 3;
         int k = 1;
 
-        int ans = findCheapestPrice(n, flights, src, dist, k);
-
-        System.out.println(ans);
+        System.out.println(findCheapestPrice(n, flights, src, dst, k));
     }
 }
-
-// class Solution {
-// public int findCheapestPrice(int n, int[][] flights, int src, int dst, int k)
-// {
-// int[] distance = new int[n];
-// Arrays.fill(distance, Integer.MAX_VALUE);
-// distance[src] = 0;
-// for (int i = 0; i <= k; i++) {
-// if (isRoutePossible(distance, flights)) {
-// break;
-// }
-// }
-// return distance[dst] == Integer.MAX_VALUE ? -1 : distance[dst];
-// }
-
-// private boolean isRoutePossible(int[] dist, int[][] flights) {
-// int[] copy = Arrays.copyOf(dist, dist.length);
-// boolean result = true;
-
-// for (int[] flight : flights) {
-// int src = flight[0];
-// int dst = flight[1];
-// int cost = flight[2];
-
-// if (copy[src] < Integer.MAX_VALUE && dist[dst] > dist[src] + cost) {
-// dist[dst] = cost + copy[src];
-// result = false;
-// }
-// }
-// return result;
-// }
-// }

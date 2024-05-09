@@ -3,20 +3,20 @@
  * check whether it contains any cycle or not.
  */
 
-// Time -> O(V + E)
-// Space -> O(V)
-
-import java.util.List;
-import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.ArrayDeque;
 
-public class DetectACycleInADirectedGraph {
-    public static boolean bfs(int v, List<List<Integer>> adj) {
+class DetectACycleInADirectedGraph {
+
+    // Time -> O(V + E)
+    // Space -> O(V)
+
+    private static boolean topoSort(int v, ArrayList<ArrayList<Integer>> adj) {
         int[] indegree = new int[v];
 
         for (int i = 0; i < v; i++) {
-            for (int adjNode : adj.get(i)) {
-                indegree[adjNode]++;
+            for (int neighbor : adj.get(i)) {
+                indegree[neighbor]++;
             }
         }
 
@@ -32,30 +32,33 @@ public class DetectACycleInADirectedGraph {
 
         while (!queue.isEmpty()) {
             int node = queue.poll();
-
             count++;
 
-            for (int adjNode : adj.get(node)) {
-                indegree[adjNode]--;
+            for (int neighbor : adj.get(node)) {
+                indegree[neighbor]--;
 
-                if (indegree[adjNode] == 0) {
-                    queue.offer(adjNode);
+                if (indegree[neighbor] == 0) {
+                    queue.offer(neighbor);
                 }
             }
         }
+
         return count == v ? false : true;
     }
 
-    public static boolean dfs(int node, boolean[] vis, boolean[] pathVis, List<List<Integer>> adj) {
+    // Time -> O(V + E)
+    // Space -> O(V)
+
+    private static boolean dfs(int node, boolean[] vis, boolean[] pathVis, ArrayList<ArrayList<Integer>> adj) {
         vis[node] = true;
         pathVis[node] = true;
 
-        for (int adjNode : adj.get(node)) {
-            if (!vis[adjNode]) {
-                if (dfs(adjNode, vis, pathVis, adj)) {
+        for (int neighbor : adj.get(node)) {
+            if (!vis[neighbor]) {
+                if (dfs(neighbor, vis, pathVis, adj)) {
                     return true;
                 }
-            } else if (pathVis[adjNode]) {
+            } else if (pathVis[neighbor]) {
                 return true;
             }
         }
@@ -64,7 +67,7 @@ public class DetectACycleInADirectedGraph {
         return false;
     }
 
-    public static boolean isCyclic(int v, List<List<Integer>> adj) {
+    private static boolean isCyclic(int v, ArrayList<ArrayList<Integer>> adj) {
         boolean[] vis = new boolean[v];
         boolean[] pathVis = new boolean[v];
 
@@ -78,14 +81,14 @@ public class DetectACycleInADirectedGraph {
         return false;
     }
 
-    public static void addEdge(List<List<Integer>> adj, int vertex1, int vertex2) {
+    private static void addEdge(ArrayList<ArrayList<Integer>> adj, int vertex1, int vertex2) {
         adj.get(vertex1).add(vertex2);
     }
 
     public static void main(String[] args) {
         int v = 11;
 
-        List<List<Integer>> adjList = new ArrayList<List<Integer>>();
+        ArrayList<ArrayList<Integer>> adjList = new ArrayList<ArrayList<Integer>>();
 
         for (int i = 0; i <= v; i++) {
             adjList.add(new ArrayList<Integer>());
@@ -102,8 +105,7 @@ public class DetectACycleInADirectedGraph {
         addEdge(adjList, 9, 10);
         addEdge(adjList, 10, 8);
 
-        boolean ans = isCyclic(v, adjList);
-
-        System.out.println(ans);
+        System.out.println(topoSort(v, adjList));
+        System.out.println(isCyclic(v, adjList));
     }
 }

@@ -11,13 +11,16 @@
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
-import java.util.List;
 
-public class CourseSchedule {
-    public static boolean canFinish(int numCourses, int[][] prerequisites) {
+class CourseSchedule {
+
+    // Time -> O(V + E) //
+    // Space -> O(V) //
+
+    private static boolean canFinish(int numCourses, int[][] prerequisites) {
         int n = prerequisites.length;
 
-        List<List<Integer>> adj = new ArrayList<List<Integer>>();
+        ArrayList<ArrayList<Integer>> adj = new ArrayList<ArrayList<Integer>>();
 
         for (int i = 0; i < numCourses; i++) {
             adj.add(new ArrayList<Integer>());
@@ -30,8 +33,8 @@ public class CourseSchedule {
         int[] indegree = new int[numCourses];
 
         for (int i = 0; i < numCourses; i++) {
-            for (int adjNode : adj.get(i)) {
-                indegree[adjNode]++;
+            for (int neighbor : adj.get(i)) {
+                indegree[neighbor]++;
             }
         }
 
@@ -50,54 +53,22 @@ public class CourseSchedule {
 
             count++;
 
-            for (int adjNode : adj.get(node)) {
-                indegree[adjNode]--;
+            for (int neighbor : adj.get(node)) {
+                indegree[neighbor]--;
 
-                if (indegree[adjNode] == 0) {
-                    queue.offer(adjNode);
+                if (indegree[neighbor] == 0) {
+                    queue.offer(neighbor);
                 }
             }
         }
 
-        return count == numCourses ? true : false;
+        return count == numCourses;
     }
 
     public static void main(String[] args) {
         int numCourses = 2;
         int[][] prerequisites = { { 1, 0 }, { 0, 1 } };
 
-        boolean ans = canFinish(numCourses, prerequisites);
-
-        System.out.println(ans);
+        System.out.println(canFinish(numCourses, prerequisites));
     }
 }
-
-// class Solution {
-// public boolean canFinish(int numCourses, int[][] prerequisites) {
-// int[] pointer = new int[numCourses];
-// for (int[] pre : prerequisites) {
-// pointer[pre[1]]++;
-// }
-// int totalRemove = 0;
-// int[] remove = new int[prerequisites.length];
-// while (totalRemove < prerequisites.length) {
-// int curRemove = 0;
-// for (int i = 0; i < prerequisites.length; i++) {
-// if (remove[i] == 1) {
-// continue;
-// }
-// int[] pre = prerequisites[i];
-// if (pointer[pre[0]] == 0) {
-// pointer[pre[1]]--;
-// remove[i] = 1;
-// curRemove++;
-// }
-// }
-// if (curRemove == 0) {
-// return false;
-// }
-// totalRemove += curRemove;
-// }
-// return true;
-// }
-// }

@@ -11,8 +11,12 @@
  * sum of the edges' weights along that path.
  */
 
-public class FindTheCityWithTheSmallestNumberOfNeighborsAtAThresholdDistance {
-    public static int findTheCity(int n, int[][] edges, int distanceThreshold) {
+class FindTheCityWithTheSmallestNumberOfNeighborsAtAThresholdDistance {
+
+    // Time -> O(n^3) //
+    // Space -> O(n^2) //
+
+    private static int findTheCity(int n, int[][] edges, int distanceThreshold) {
         int m = edges.length;
 
         int[][] dist = new int[n][n];
@@ -80,61 +84,6 @@ public class FindTheCityWithTheSmallestNumberOfNeighborsAtAThresholdDistance {
 
         int distanceThreshold = 4;
 
-        int ans = findTheCity(n, edges, distanceThreshold);
-
-        System.out.println(ans);
+        System.out.println(findTheCity(n, edges, distanceThreshold));
     }
 }
-
-// class Solution {
-
-// public int findTheCity(int n, int[][] edges, int distanceThreshold) {
-
-// ArrayList<ArrayList<ArrayList<Integer>>> l = new ArrayList<>();
-// int[][] dist = new int[n][n];
-// for (int i = 0; i < n; i++) {
-// Arrays.fill(dist[i], Integer.MAX_VALUE);
-// dist[i][i] = 0;
-// }
-
-// for (int i = 0; i < edges.length; i++) {
-// if (edges[i][2] <= distanceThreshold) {
-// dist[edges[i][0]][edges[i][1]] = edges[i][2];
-// dist[edges[i][1]][edges[i][0]] = edges[i][2];
-// }
-// }
-
-// for (int k = 0; k < n; k++) {
-
-// for (int i = 0; i < n; i++) {
-
-// if (dist[i][k] == Integer.MAX_VALUE) {
-// continue;
-// }
-// for (int j = i; j < n; j++) {
-// if (dist[k][j] < Integer.MAX_VALUE && dist[i][j] > dist[i][k] + dist[k][j]) {
-// dist[j][i] = dist[i][j] = dist[i][k] + dist[k][j];
-// }
-// }
-// }
-// }
-// int minCount = Integer.MAX_VALUE;
-// int city = 0;
-// for (int i = 0; i < n; i++) {
-// int count = 0;
-// for (int j = 0; j < dist[i].length; j++) {
-// if (dist[i][j] <= distanceThreshold) {
-// count++;
-// }
-// }
-
-// if (count <= minCount) {
-// minCount = count;
-// city = i;
-// }
-
-// }
-
-// return city;
-// }
-// }

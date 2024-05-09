@@ -19,23 +19,23 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 
-public class WordLadderII {
-    static String b;
-    static HashMap<String, Integer> map;
-    static List<List<String>> res;
+class WordLadderII {
+    private static String b;
+    private static HashMap<String, Integer> map;
+    private static ArrayList<ArrayList<String>> res;
 
-    public static void dfs(String word, List<String> seq) {
+    private static void dfs(String word, ArrayList<String> seq) {
         if (word.equals(b)) {
-            List<String> dup = new ArrayList<>(seq);
+            ArrayList<String> dup = new ArrayList<String>(seq);
             Collections.reverse(dup);
             res.add(dup);
             return;
         }
 
-        int steps = map.get(word);
         int n = word.length();
+
+        int steps = map.get(word);
 
         for (int i = 0; i < n; i++) {
             for (char ch = 'a'; ch <= 'z'; ch++) {
@@ -53,7 +53,11 @@ public class WordLadderII {
         }
     }
 
-    public static List<List<String>> findSequences(String beginWord, String endWord, List<String> wordList) {
+    // Time -> O((n * l)^2) //
+    // Space -> O((n * l)^2) //
+
+    private static ArrayList<ArrayList<String>> findSequences(String beginWord, String endWord,
+            ArrayList<String> wordList) {
         int n = wordList.size();
 
         HashSet<String> set = new HashSet<String>();
@@ -97,10 +101,10 @@ public class WordLadderII {
             }
         }
 
-        res = new ArrayList<List<String>>();
+        res = new ArrayList<ArrayList<String>>();
 
         if (map.containsKey(endWord)) {
-            List<String> seq = new ArrayList<String>();
+            ArrayList<String> seq = new ArrayList<String>();
             seq.add(endWord);
             dfs(endWord, seq);
         }
@@ -108,7 +112,11 @@ public class WordLadderII {
         return res;
     }
 
-    public static List<List<String>> findLadders(String beginWord, String endWord, List<String> wordList) {
+    // Time -> O(n * l) //
+    // Space -> O(n * l) //
+
+    private static ArrayList<ArrayList<String>> findLadders(String beginWord, String endWord,
+            ArrayList<String> wordList) {
         int n = wordList.size();
 
         HashSet<String> set = new HashSet<String>();
@@ -127,7 +135,7 @@ public class WordLadderII {
 
         int level = 0;
 
-        List<List<String>> res = new ArrayList<List<String>>();
+        ArrayList<ArrayList<String>> res = new ArrayList<ArrayList<String>>();
 
         while (!queue.isEmpty()) {
             ArrayList<String> vec = queue.poll();
@@ -179,106 +187,9 @@ public class WordLadderII {
 
         String[] words = { "hot", "dot", "dog", "lot", "log", "cog" };
 
-        List<String> wordList = new ArrayList<>(Arrays.asList(words));
+        ArrayList<String> wordList = new ArrayList<String>(Arrays.asList(words));
 
-        List<List<String>> ans = findSequences(beginWord, endWord, wordList);
-
-        System.out.println(ans);
+        System.out.println(findLadders(beginWord, endWord, wordList));
+        System.out.println(findSequences(beginWord, endWord, wordList));
     }
 }
-
-// class Solution {
-// List<List<String>> ans = new ArrayList<>();
-// Map<String, Integer> wordToId = new HashMap<>();
-// Map<Integer, String> idToWord = new HashMap<>();
-// Map<Integer, List<Integer>> path = new HashMap<Integer, List<Integer>>();
-// Deque<String> list = new LinkedList<>();
-// int[] ne, e, h;
-// boolean[] vis;
-// int len, idx, start, end;
-
-// void add(int u, int v) {
-// e[++len] = v;
-// ne[len] = h[u];
-// h[u] = len;
-// }
-
-// public List<List<String>> findLadders(String beginWord, String endWord,
-// List<String> wordList) {
-// int n = wordList.size();
-// ne = new int[20 * n];
-// e = new int[20 * n];
-// h = new int[20 * n];
-// vis = new boolean[10 * n];
-// if (!wordList.contains(beginWord))
-// wordList.add(beginWord);
-// if (!wordList.contains(endWord))
-// return ans;
-// for (int i = 0; i < wordList.size(); i++)
-// addEdge(wordList.get(i));
-// Queue<Integer> q = new LinkedList<>();
-// start = wordToId.get(beginWord);
-// end = wordToId.get(endWord);
-// q.add(start);
-// while (!q.isEmpty()) {
-// int u = q.poll();
-// if (u == end)
-// break;
-// if (vis[u])
-// continue;
-// vis[u] = true;
-// for (int j = h[u]; j != 0; j = ne[j]) {
-// int v = e[j];
-// if (vis[v])
-// continue;
-// if (!path.containsKey(v))
-// path.put(v, new ArrayList<>());
-// path.get(v).add(u);
-// q.add(v);
-// }
-// }
-// list.add(endWord);
-// dfs(end, 0);
-// return ans;
-// }
-
-// void dfs(int u, int level) {
-// if (u == start) {
-// ans.add(new ArrayList<>(list));
-// return;
-// }
-// List<Integer> p = path.get(u);
-// if (p == null)
-// return;
-// for (int i = 0; i < p.size(); i++) {
-// int v = p.get(i);
-// if (level % 2 == 1)
-// list.addFirst(idToWord.get(v));
-// dfs(v, level + 1);
-// if (level % 2 == 1)
-// list.pollFirst();
-// }
-// }
-
-// void addEdge(String word) {
-// int u = idx;
-// char[] arr = word.toCharArray();
-// wordToId.put(word, idx);
-// idToWord.put(idx++, word);
-// for (int i = 0; i < arr.length; i++) {
-// char t = arr[i];
-// arr[i] = '*';
-// String vstr = new String(arr);
-// if (!wordToId.containsKey(vstr)) {
-// wordToId.put(vstr, idx);
-// idToWord.put(idx++, vstr);
-// }
-// int v = wordToId.get(vstr);
-// add(u, v);
-// add(v, u);
-// arr[i] = t;
-// }
-// }
-// }
-
-

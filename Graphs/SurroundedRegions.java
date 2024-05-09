@@ -6,11 +6,12 @@
  * region.
  */
 
-// Time -> O(N x M)
-// Space -> O(N x M)
+class SurroundedRegions {
 
-public class SurroundedRegions {
-    public static void dfs(int row, int col, boolean[][] vis, char[][] board, int[] dx, int[] dy) {
+    // Time -> O(n * m) //
+    // Space -> O(n * m) //
+
+    private static void dfs(int row, int col, boolean[][] vis, char[][] board, int[] dx, int[] dy) {
         int n = board.length;
         int m = board[0].length;
 
@@ -28,7 +29,7 @@ public class SurroundedRegions {
         }
     }
 
-    public static void solve(char[][] board) {
+    private static void solve(char[][] board) {
         int n = board.length;
         int m = board[0].length;
 
@@ -84,50 +85,3 @@ public class SurroundedRegions {
         }
     }
 }
-
-// class Solution {
-// int n, m;
-// char[][] arr;
-
-// public void solve(char[][] board) {
-// n = board.length;
-// m = board[0].length;
-// arr = board;
-// for (int i = 0; i < m; i++) {
-// if (arr[0][i] == 'O')
-// mark(0, i);
-// if (arr[n - 1][i] == 'O')
-// mark(n - 1, i);
-// }
-// for (int i = 0; i < n; i++) {
-// if (arr[i][0] == 'O')
-// mark(i, 0);
-// if (arr[i][m - 1] == 'O')
-// mark(i, m - 1);
-// }
-// for (int i = 0; i < n; i++) {
-// mass(arr[i]);
-// }
-// }
-
-// void mass(char[] grid) {
-// for (int i = 0; i < m; i++) {
-// if (grid[i] == 'O')
-// grid[i] = 'X';
-// if (grid[i] == '*')
-// grid[i] = 'O';
-// }
-// }
-
-// void mark(int i, int j) {
-// arr[i][j] = '*';
-// if (i > 0 && arr[i - 1][j] == 'O')
-// mark(i - 1, j);
-// if (i < n - 1 && arr[i + 1][j] == 'O')
-// mark(i + 1, j);
-// if (j > 0 && arr[i][j - 1] == 'O')
-// mark(i, j - 1);
-// if (j < m - 1 && arr[i][j + 1] == 'O')
-// mark(i, j + 1);
-// }
-// }

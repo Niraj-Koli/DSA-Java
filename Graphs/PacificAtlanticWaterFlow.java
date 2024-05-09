@@ -22,8 +22,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class PacificAtlanticWaterFlow {
-    public static void bfs(int[][] heights, ArrayDeque<int[]> queue, boolean[][] visited) {
+class PacificAtlanticWaterFlow {
+
+    // Time -> O(n * m) //
+    // Space -> O(n * m) //
+
+    private static void bfs(int[][] heights, ArrayDeque<int[]> queue, boolean[][] visited) {
         int n = heights.length;
         int m = heights[0].length;
 
@@ -47,7 +51,7 @@ public class PacificAtlanticWaterFlow {
         }
     }
 
-    public static List<List<Integer>> pacificAtlantic(int[][] heights) {
+    private static List<List<Integer>> pacificAtlantic(int[][] heights) {
         List<List<Integer>> res = new ArrayList<List<Integer>>();
 
         if (heights == null || heights.length == 0 || heights[0].length == 0) {
@@ -102,65 +106,6 @@ public class PacificAtlanticWaterFlow {
                 { 5, 1, 1, 2, 4 }
         };
 
-        List<List<Integer>> ans = pacificAtlantic(heights);
-
-        System.out.println(ans);
+        System.out.println(pacificAtlantic(heights));
     }
 }
-
-// class Solution {
-// List<int[]> DIRECTION = new ArrayList<>(
-// Arrays.asList(new int[] { 1, 0 }, new int[] { 0, 1 }, new int[] { -1, 0 },
-// new int[] { 0, -1 }));
-// int m;
-// int n;
-
-// public List<List<Integer>> pacificAtlantic(int[][] heights) {
-// m = heights.length;
-// n = heights[0].length;
-// boolean[][] pacific = new boolean[m][n];
-// boolean[][] atlantic = new boolean[m][n];
-// List<List<Integer>> list = new ArrayList<>();
-
-// for (int row = 0; row < m; row++) {
-// pacific[row][0] = true;
-// dfs(row, 0, heights, pacific);
-// }
-
-// for (int col = 0; col < n; col++) {
-// pacific[0][col] = true;
-// dfs(0, col, heights, pacific);
-// }
-
-// for (int row = 0; row < m; row++) {
-// atlantic[row][n - 1] = true;
-// dfs(row, n - 1, heights, atlantic);
-// }
-
-// for (int col = 0; col < n; col++) {
-// atlantic[m - 1][col] = true;
-// dfs(m - 1, col, heights, atlantic);
-// }
-
-// for (int i = 0; i < m; i++) {
-// for (int j = 0; j < n; j++) {
-// if (pacific[i][j] && atlantic[i][j]) {
-// list.add(new ArrayList<>(Arrays.asList(i, j)));
-// }
-// }
-// }
-// return list;
-// }
-
-// void dfs(int row, int col, int[][] heights, boolean[][] seen) {
-// for (int[] direction : DIRECTION) {
-// int r = row + direction[0];
-// int c = col + direction[1];
-// if (r >= 0 && r < m && c >= 0 && c < n && heights[row][col] <= heights[r][c]
-// && !seen[r][c]) {
-// seen[r][c] = true;
-// dfs(r, c, heights, seen);
-// }
-// }
-// }
-// }

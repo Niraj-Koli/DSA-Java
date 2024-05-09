@@ -7,7 +7,7 @@
 
 import java.util.ArrayDeque;
 
-public class ZeroOneMatrix {
+class ZeroOneMatrix {
 
     // Time -> O(n * m) //
     // Space -> O(n * m) //

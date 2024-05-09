@@ -1,81 +1,68 @@
 /*
- * Given a n * m matrix grid where each element can either be 0 or 1. You need
- * to find the shortest distance between a given source cell to a destination
- * cell. The path can only be created out of a cell if its value is 1.
+ * Given an n nrow n binary matrix grid, return the length of the shortest clear
+ * path in the matrix. If there is no clear path, return -1.
  * 
- * If the path is not possible between source cell and destination cell, then
- * return -1.
+ * A clear path in a binary matrix is a path from the top-left cell (i.e., (0,
+ * 0)) to the bottom-right cell (i.e., (n - 1, n - 1)) such that:
  * 
- * Note : You can move into an adjacent cell if that adjacent cell is filled
- * with element 1. Two cells are adjacent if they share a side. In other words,
- * you can move in one of the four directions, Up, Down, Left and Right. The
- * source and destination cell are based on the zero based indexing. The
- * destination cell should be 1.
+ * All the visited cells of the path are 0.
+ * All the adjacent cells of the path are 8-directionally connected (i.e., they
+ * are different and they share an edge or a corner).
+ * The length of a clear path is the number of visited cells of this path.
  */
-
-// Time -> O(N x M)
-// Space -> O(N x M)
 
 import java.util.ArrayDeque;
 
-public class ShortestPathInBinaryMatrix {
-    private static class Tuple {
-        int distance;
-        int row;
-        int col;
+class ShortestPathInBinaryMatrix {
 
-        Tuple(int distance, int row, int col) {
-            this.distance = distance;
-            this.row = row;
-            this.col = col;
-        }
-    }
+    // Time -> O(n) //
+    // Space -> O(n) //
 
-    public static int shortestPathBinaryMatrix(int[][] grid, int[] src, int[] dest) {
-        if (src[0] == dest[0] && src[1] == dest[1]) {
+    private static int shortestPathBinaryMatrix(int[][] grid, int[] src, int[] dest) {
+        int srcX = src[0];
+        int srcY = src[1];
+        int destX = dest[0];
+        int destY = dest[1];
+
+        if ((srcX == destX) && (srcY == destY)) {
             return 0;
         }
-        
+
         int n = grid.length;
         int m = grid[0].length;
 
-        int[][] dist = new int[n][m];
-
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < m; j++) {
-                dist[i][j] = (int) (1e9);
-            }
+        if (grid[srcX][srcY] != 1 || grid[destX][destY] != 1) {
+            return -1;
         }
 
-        dist[src[0]][src[1]] = 0;
+        boolean[][] vis = new boolean[n][m];
 
-        ArrayDeque<Tuple> queue = new ArrayDeque<Tuple>();
-        queue.offer(new Tuple(0, src[0], src[1]));
+        ArrayDeque<int[]> queue = new ArrayDeque<int[]>();
+        queue.offer(new int[] { srcX, srcY, 1 });
+        vis[srcX][srcY] = true;
 
-        int[] dx = { -1, 0, 1, 0 };
-        int[] dy = { 0, 1, 0, -1 };
+        int[] dx = { -1, 0, 1, 0, 1, -1, -1, 1 };
+        int[] dy = { 0, 1, 0, -1, -1, -1, 1, 1 };
 
         while (!queue.isEmpty()) {
-            Tuple tuple = queue.poll();
+            int[] data = queue.poll();
+            int row = data[0];
+            int col = data[1];
+            int distance = data[2];
 
-            int distance = tuple.distance;
-            int row = tuple.row;
-            int col = tuple.col;
+            if (row == destX && col == destY) {
+                return distance;
+            }
 
-            for (int i = 0; i < 4; i++) {
-                int newrow = row + dx[i];
-                int newcol = col + dy[i];
+            for (int i = 0; i < 8; i++) {
+                int nrow = row + dx[i];
+                int ncol = col + dy[i];
 
-                boolean bounds = (newrow >= 0 && newrow < n) && (newcol >= 0 && newcol < m);
+                boolean bounds = (nrow >= 0 && nrow < n) && (ncol >= 0 && ncol < m);
 
-                if (bounds && grid[newrow][newcol] == 1 && distance + 1 < dist[newrow][newcol]) {
-                    dist[newrow][newcol] = 1 + distance;
-
-                    if (newrow == dest[0] && newcol == dest[1]) {
-                        return distance + 1;
-                    }
-
-                    queue.offer(new Tuple(distance + 1, newrow, newcol));
+                if (bounds && !vis[nrow][ncol] && grid[nrow][ncol] == 1) {
+                    queue.offer(new int[] { nrow, ncol, distance + 1 });
+                    vis[nrow][ncol] = true;
                 }
             }
         }
@@ -91,12 +78,9 @@ public class ShortestPathInBinaryMatrix {
                 { 1, 1, 0, 0 },
                 { 1, 0, 0, 1 }
         };
+        int[] src = { 0, 1 };
+        int[] dest = { 2, 2 };
 
-        int[] source = { 0, 1 };
-        int[] destination = { 2, 2 };
-
-        int ans = shortestPathBinaryMatrix(grid, source, destination);
-
-        System.out.println(ans);
+        System.out.println(shortestPathBinaryMatrix(grid, src, dest));
     }
 }

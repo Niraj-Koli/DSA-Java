@@ -1,23 +1,22 @@
-// Time -> O(E log(V))
-// Space -> O(V)
-
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.PriorityQueue;
 
-public class DijkstrasAlgorithm {
+class DijkstrasAlgorithm {
     private static class Pair {
-        int node;
-        int distance;
+        private int node;
+        private int distance;
 
-        Pair(int node, int distance) {
+        public Pair(int node, int distance) {
             this.node = node;
             this.distance = distance;
         }
     }
 
-    public static int[] dijkstra(int v, List<List<List<Integer>>> adj, int src) {
+    // Time -> O(E * log(V)) //
+    // Space -> O(V) //
+
+    private static int[] dijkstra(int v, ArrayList<ArrayList<ArrayList<Integer>>> adj, int src) {
         int[] dist = new int[v];
 
         for (int i = 0; i < v; i++) {
@@ -30,17 +29,17 @@ public class DijkstrasAlgorithm {
         pq.offer(new Pair(src, 0));
 
         while (!pq.isEmpty()) {
-            int node = pq.peek().node;
-            int distance = pq.peek().distance;
-            pq.poll();
+            Pair pair = pq.poll();
+            int node = pair.node;
+            int distance = pair.distance;
 
             for (int i = 0; i < adj.get(node).size(); i++) {
-                int adjNode = adj.get(node).get(i).get(0);
+                int neighbor = adj.get(node).get(i).get(0);
                 int edgeWeight = adj.get(node).get(i).get(1);
 
-                if (distance + edgeWeight < dist[adjNode]) {
-                    dist[adjNode] = distance + edgeWeight;
-                    pq.offer(new Pair(adjNode, dist[adjNode]));
+                if (distance + edgeWeight < dist[neighbor]) {
+                    dist[neighbor] = distance + edgeWeight;
+                    pq.offer(new Pair(neighbor, dist[neighbor]));
                 }
             }
         }
@@ -48,18 +47,18 @@ public class DijkstrasAlgorithm {
         return dist;
     }
 
-    private static void addEdge(List<List<List<Integer>>> adj, int u, int v, int w) {
-        adj.get(u).add(Arrays.asList(v, w));
-        adj.get(v).add(Arrays.asList(u, w));
+    private static void addEdge(ArrayList<ArrayList<ArrayList<Integer>>> adj, int u, int v, int w) {
+        adj.get(u).add(new ArrayList<>(Arrays.asList(v, w)));
+        adj.get(v).add(new ArrayList<>(Arrays.asList(u, w)));
     }
 
     public static void main(String[] args) {
         int v = 6;
 
-        List<List<List<Integer>>> adj = new ArrayList<>();
+        ArrayList<ArrayList<ArrayList<Integer>>> adj = new ArrayList<>();
 
         for (int i = 0; i < v; i++) {
-            adj.add(new ArrayList<>());
+            adj.add(new ArrayList<ArrayList<Integer>>());
         }
 
         addEdge(adj, 0, 1, 4);
@@ -75,8 +74,8 @@ public class DijkstrasAlgorithm {
 
         int[] ans = dijkstra(v, adj, src);
 
-        for (int answer : ans) {
-            System.out.print(answer + " ");
+        for (int an : ans) {
+            System.out.print(an + " ");
         }
     }
 }

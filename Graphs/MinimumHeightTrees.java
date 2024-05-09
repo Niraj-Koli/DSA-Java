@@ -22,8 +22,12 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 
-public class MinimumHeightTrees {
-    public static List<Integer> findMinHeightTrees(int n, int[][] edges) {
+class MinimumHeightTrees {
+
+    // Time -> O(V + E) //
+    // Space -> O(V + E) //
+
+    private static List<Integer> findMinHeightTrees(int n, int[][] edges) {
         if (n == 1) {
             return Collections.singletonList(0);
         }
@@ -62,6 +66,7 @@ public class MinimumHeightTrees {
             }
             leaves = newLeaves;
         }
+
         return leaves;
     }
 
@@ -72,60 +77,6 @@ public class MinimumHeightTrees {
                 { 3, 4 }, { 5, 4 }
         };
 
-        List<Integer> ans = findMinHeightTrees(n, edges);
-
-        System.out.println(ans);
+        System.out.println(findMinHeightTrees(n, edges));
     }
 }
-
-// class Solution {
-// public List<Integer> findMinHeightTrees(int n, int[][] edges) {
-// if (n <= 2) {
-// List<Integer> ans = new ArrayList<>();
-// while (n > 0) {
-// n--;
-// ans.add(n);
-// }
-// return ans;
-// }
-// int[] neighbors = new int[n];
-// int[] degree = new int[n];
-// for (int[] edge : edges) {
-// int start = edge[0];
-// int end = edge[1];
-// degree[start]++;
-// degree[end]++;
-
-// neighbors[start] ^= end;
-// neighbors[end] ^= start;
-// }
-// LinkedList<Integer> leaves = new LinkedList();
-// for (int i = 0; i < n; i++) {
-// if (degree[i] == 1)
-// leaves.offer(i);
-// }
-// while (n > 2) {
-// int leavesSize = leaves.size();
-// n -= leavesSize;
-// while (leavesSize > 0) {
-// leavesSize--;
-// int leaf = leaves.poll();
-// int neighbor = neighbors[leaf];
-
-// this
-
-// would
-
-// neighbors[neighbor] ^= leaf;
-// degree[neighbor]--;
-// if (degree[neighbor] == 1)
-// leaves.offer(neighbor);
-
-// }
-
-// }
-// return leaves;
-
-// }
-
-// }
