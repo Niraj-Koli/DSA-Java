@@ -30,7 +30,7 @@ class CheckIfArrayIsSortedAndRotated {
             rotations++;
         }
 
-        return rotations > 1 ? false : true;
+        return rotations <= 1;
     }
 
     public static void main(String[] args) {

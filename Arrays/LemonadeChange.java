@@ -27,11 +27,13 @@ class LemonadeChange {
             } else if (bill == 10) {
                 ten++;
                 five--;
-            } else if (bill == 20 && ten > 0) {
-                ten--;
-                five--;
-            } else {
-                five -= 3;
+            } else if (bill == 20) {
+                if (ten > 0) {
+                    ten--;
+                    five--;
+                } else {
+                    five -= 3;
+                }
             }
 
             if (five < 0) {

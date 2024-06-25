@@ -41,8 +41,8 @@ class NMeetingsInOneRoom {
 
         for (int i = 1; i < n; i++) {
             if (endTime < meetings[i].start) {
-                res++;
                 endTime = meetings[i].end;
+                res++;
             }
         }
 

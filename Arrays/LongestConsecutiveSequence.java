@@ -24,12 +24,14 @@ class LongestConsecutiveSequence {
         for (int element : set) {
             if (!set.contains(element - 1)) {
                 int index = element + 1;
+                int streak = 1;
 
                 while (set.contains(index)) {
                     index++;
+                    streak++;
                 }
 
-                longest = Math.max(longest, index - element);
+                longest = Math.max(longest, streak);
             }
         }
 

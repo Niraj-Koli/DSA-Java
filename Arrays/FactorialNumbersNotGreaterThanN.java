@@ -21,12 +21,12 @@ class FactorialNumbersNotGreaterThanN {
         long fact = 1;
         int count = 1;
 
-        while (fact <= n / count) {
-            fact *= count;
-
+        while (fact <= n) {
             res.add(fact);
-            
+        
             count++;
+            
+            fact *= count;
         }
 
         return res;

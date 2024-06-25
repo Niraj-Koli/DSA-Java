@@ -24,12 +24,10 @@ class LongestSubarrayWithZeroSum {
 
             if (sum == 0) {
                 res = i + 1;
+            } else if (map.containsKey(sum)) {
+                res = Math.max(res, i - map.get(sum));
             } else {
-                if (map.containsKey(sum)) {
-                    res = Math.max(res, i - map.get(sum));
-                } else {
-                    map.put(sum, i);
-                }
+                map.put(sum, i);
             }
         }
 

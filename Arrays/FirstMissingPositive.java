@@ -8,7 +8,7 @@
 
 class FirstMissingPositive {
 
-    // Time -> O(2 * n) //
+    // Time -> O(n) //
     // Space -> O(1) //
 
     private static void swap(int[] nums, int i, int j) {
