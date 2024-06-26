@@ -23,7 +23,7 @@ class KadaneAlgorithm {
                 currentMax = nums[i];
                 tempStart = i;
             } else {
-                currentMax = currentMax + nums[i];
+                currentMax += nums[i];
             }
 
             if (currentMax > maxSum) {

@@ -21,12 +21,17 @@ class LongestRepeatingCharacterReplacement {
         int res = 0;
 
         for (int i = 0, j = 0; j < n; j++) {
-            map[s.charAt(j) - 'A']++;
+            char charAtJ = s.charAt(j);
 
-            max = Math.max(max, map[s.charAt(j) - 'A']);
+            map[charAtJ - 'A']++;
+
+            max = Math.max(max, map[charAtJ - 'A']);
 
             if (j - i + 1 - max > k) {
-                map[s.charAt(i) - 'A']--;
+                char charAtI = s.charAt(i);
+
+                map[charAtI - 'A']--;
+                
                 i++;
             }
 

@@ -18,9 +18,11 @@ class LongestSubstringWithKUniqueCharacters {
         int count = 0;
 
         for (int i = 0, j = 0; j < n; j++) {
-            map[s.charAt(j) - 'a']++;
+            char charAtJ = s.charAt(j);
 
-            if (map[s.charAt(j) - 'a'] == 1) {
+            map[charAtJ - 'a']++;
+
+            if (map[charAtJ - 'a'] == 1) {
                 count++;
             }
 
@@ -29,9 +31,11 @@ class LongestSubstringWithKUniqueCharacters {
             }
 
             while (count > k) {
-                map[s.charAt(i) - 'a']--;
+                char charAtI = s.charAt(i);
 
-                if (map[s.charAt(i) - 'a'] == 0) {
+                map[charAtI - 'a']--;
+
+                if (map[charAtI - 'a'] == 0) {
                     count--;
                 }
                 i++;

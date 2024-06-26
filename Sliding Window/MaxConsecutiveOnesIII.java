@@ -13,23 +13,26 @@ class MaxConsecutiveOnesIII {
 
         int zeros = 0;
 
-        int i = 0;
-        int j = 0;
+        int max = 0;
 
-        while (j < n) {
+        for (int i = 0, j = 0; j < n; j++) {
             if (nums[j] == 0) {
                 zeros++;
             }
 
-            if (zeros > k) {
-                if (nums[i] == 0) {
-                    zeros--;
+            while (zeros > k) {
+                if (zeros > k) {
+                    if (nums[i] == 0) {
+                        zeros--;
+                    }
+                    i++;
                 }
-                i++;
             }
+
+            max = Math.max(max, j - i + 1);
         }
 
-        return j - i;
+        return max;
     }
 
     public static void main(String[] args) {
