@@ -10,7 +10,11 @@ class FactorialTrailingZeroes {
     // Space -> O(1) //
 
     private static int trailingZeroes(int n) {
-        return n == 0 ? 0 : n / 5 + trailingZeroes(n / 5);
+        if (n == 0) {
+            return 0;
+        }
+
+        return n / 5 + trailingZeroes(n / 5);
     }
 
     public static void main(String[] args) {
