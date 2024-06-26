@@ -75,12 +75,16 @@ class FindFirstAndLastPositionOfElementInSortedArray {
         int firstOcc = firstOccurrence(nums, target);
         int lastOcc = lastOccurrence(nums, target);
 
+        if (lastOcc == -1 || firstOcc == -1) {
+            return 0;
+        }
+
         return lastOcc - firstOcc + 1;
     }
 
     public static void main(String[] args) {
         int[] nums = { 5, 7, 7, 8, 8, 10 };
-        int target = 8;
+        int target = 9;
 
         int[] ans = searchRange(nums, target);
 
