@@ -35,6 +35,7 @@ class DailyTemperatures {
                     res[i] = stack.peekLast() - i;
                 }
             }
+            
             stack.offer(i);
         }
 

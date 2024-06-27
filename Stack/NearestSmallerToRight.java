@@ -56,6 +56,7 @@ class NearestSmallerToRight {
                     res[i] = stack.peekLast();
                 }
             }
+            
             stack.offer(nums[i]);
         }
 

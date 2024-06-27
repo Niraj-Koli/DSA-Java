@@ -56,6 +56,7 @@ class NearestGreaterToLeft {
                     res[i] = stack.peekLast();
                 }
             }
+            
             stack.offer(nums[i]);
         }
 
