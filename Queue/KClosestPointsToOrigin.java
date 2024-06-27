@@ -13,7 +13,7 @@ import java.util.PriorityQueue;
 
 class KClosestPointsToOrigin {
     private static int compare(int[] a, int[] b) {
-        return ((a[0] * a[0]) + (a[1] * a[1])) - ((b[0] * b[0]) - (b[1] * b[1]));
+        return ((a[0] * a[0]) + (a[1] * a[1])) - ((b[0] * b[0]) + (b[1] * b[1]));
     }
 
     // Time -> O(n * log(k)) //
