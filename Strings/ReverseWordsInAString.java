@@ -25,9 +25,9 @@ class ReverseWordsInAString {
         int j = n - 1;
 
         while (i < j) {
-            String t = words[i];
+            String temp = words[i];
             words[i] = words[j];
-            words[j] = t;
+            words[j] = temp;
 
             i++;
             j--;

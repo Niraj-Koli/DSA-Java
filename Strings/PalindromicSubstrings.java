@@ -13,6 +13,14 @@ class PalindromicSubstrings {
 
     private static int count = 0;
 
+    private static void extendPalindrome(String s, int left, int right) {
+        while (left >= 0 && right < s.length() && s.charAt(left) == s.charAt(right)) {
+            count++;
+            left--;
+            right++;
+        }
+    }
+
     private static int countSubstrings(String s) {
         int n = s.length();
 
@@ -26,14 +34,6 @@ class PalindromicSubstrings {
         }
 
         return count;
-    }
-
-    private static void extendPalindrome(String s, int left, int right) {
-        while (left >= 0 && right < s.length() && s.charAt(left) == s.charAt(right)) {
-            count++;
-            left--;
-            right++;
-        }
     }
 
     public static void main(String[] args) {

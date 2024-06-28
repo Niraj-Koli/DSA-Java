@@ -15,13 +15,9 @@ class LongestPalindrome {
     // Space -> O(n) //
 
     private static int longestPalindrome(String s) {
-        int n = s.length();
-
         HashMap<Character, Integer> map = new HashMap<Character, Integer>();
 
-        for (int i = 0; i < n; i++) {
-            char ch = s.charAt(i);
-
+        for (char ch : s.toCharArray()) {
             map.put(ch, map.getOrDefault(ch, 0) + 1);
         }
 

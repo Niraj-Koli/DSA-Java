@@ -26,7 +26,7 @@ class LargestOddNumberInString {
     }
 
     public static void main(String[] args) {
-        String num = "35427";
+        String num = "3852";
 
         System.out.println(largestOddNumber(num));
     }
