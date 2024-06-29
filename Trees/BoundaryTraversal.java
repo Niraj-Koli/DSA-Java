@@ -45,7 +45,7 @@ class BoundaryTraversal {
 
         while (node != null) {
             if (!isLeaf(node)) {
-                stack.offerLast(node.data);
+                stack.offer(node.data);
             }
 
             if (node.right != null) {

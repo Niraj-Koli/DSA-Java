@@ -26,6 +26,7 @@ class InvertBinaryTree {
 
         while (!queue.isEmpty()) {
             TreeNode node = queue.poll();
+
             TreeNode left = node.left;
             node.left = node.right;
             node.right = left;
@@ -33,6 +34,7 @@ class InvertBinaryTree {
             if (node.left != null) {
                 queue.offer(node.left);
             }
+            
             if (node.right != null) {
                 queue.offer(node.right);
             }

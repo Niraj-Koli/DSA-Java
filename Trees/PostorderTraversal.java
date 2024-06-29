@@ -35,7 +35,7 @@ class PostorderTraversal {
 
         while (root != null || !stack.isEmpty()) {
             if (root != null) {
-                stack.offerLast(root);
+                stack.offer(root);
                 root = root.left;
             } else {
                 TreeNode node = stack.peekLast().right;

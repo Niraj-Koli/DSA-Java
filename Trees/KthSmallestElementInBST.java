@@ -32,6 +32,7 @@ class KthSmallestElementInBST {
             helper[1] = root.data;
             return;
         }
+        
         traverse(root.right, k, helper);
     }
 

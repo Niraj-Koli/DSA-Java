@@ -62,6 +62,7 @@ class FlattenBinaryTreeToLinkedList {
             if (!stack.isEmpty()) {
                 node.right = stack.peekLast();
             }
+
             node.left = null;
         }
     }
@@ -79,10 +80,12 @@ class FlattenBinaryTreeToLinkedList {
                 while (prev.right != null) {
                     prev = prev.right;
                 }
+
                 prev.right = node.right;
                 node.right = node.left;
                 node.left = null;
             }
+            
             node = node.right;
         }
     }

@@ -52,6 +52,7 @@ class LevelOrderTraversal {
 
                 subList.add(node.data);
             }
+
             res.add(subList);
         }
 
@@ -77,7 +78,7 @@ class LevelOrderTraversal {
     }
 
     private static ArrayList<ArrayList<Integer>> levelOrder(TreeNode root) {
-        ArrayList<ArrayList<Integer>> res = new ArrayList<>();
+        ArrayList<ArrayList<Integer>> res = new ArrayList<ArrayList<Integer>>();
 
         levelOrderRecursive(root, 0, res);
 

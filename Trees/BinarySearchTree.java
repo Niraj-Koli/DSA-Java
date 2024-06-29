@@ -1,4 +1,4 @@
-class BinaryTree {
+class BinarySearchTree {
     private static class TreeNode {
         private int data;
         private TreeNode left;

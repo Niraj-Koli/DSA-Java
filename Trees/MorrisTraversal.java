@@ -26,26 +26,26 @@ class MorrisTraversal {
     private static ArrayList<Integer> morrisPreOrder(TreeNode root) {
         ArrayList<Integer> preOrder = new ArrayList<Integer>();
 
-        TreeNode curr = root;
+        TreeNode node = root;
 
-        while (curr != null) {
-            if (curr.left == null) {
-                preOrder.add(curr.data);
-                curr = curr.right;
+        while (node != null) {
+            if (node.left == null) {
+                preOrder.add(node.data);
+                node = node.right;
             } else {
-                TreeNode prev = curr.left;
+                TreeNode prev = node.left;
 
-                while (prev.right != null && prev.right != curr) {
+                while (prev.right != null && prev.right != node) {
                     prev = prev.right;
                 }
 
                 if (prev.right == null) {
-                    prev.right = curr;
-                    preOrder.add(curr.data);
-                    curr = curr.left;
+                    prev.right = node;
+                    preOrder.add(node.data);
+                    node = node.left;
                 } else {
                     prev.right = null;
-                    curr = curr.right;
+                    node = node.right;
                 }
             }
         }
@@ -59,26 +59,26 @@ class MorrisTraversal {
     private static ArrayList<Integer> morrisInOrder(TreeNode root) {
         ArrayList<Integer> inOrder = new ArrayList<Integer>();
 
-        TreeNode curr = root;
+        TreeNode node = root;
 
-        while (curr != null) {
-            if (curr.left == null) {
-                inOrder.add(curr.data);
-                curr = curr.right;
+        while (node != null) {
+            if (node.left == null) {
+                inOrder.add(node.data);
+                node = node.right;
             } else {
-                TreeNode prev = curr.left;
+                TreeNode prev = node.left;
 
-                while (prev.right != null && prev.right != curr) {
+                while (prev.right != null && prev.right != node) {
                     prev = prev.right;
                 }
 
                 if (prev.right == null) {
-                    prev.right = curr;
-                    curr = curr.left;
+                    prev.right = node;
+                    node = node.left;
                 } else {
                     prev.right = null;
-                    inOrder.add(curr.data);
-                    curr = curr.right;
+                    inOrder.add(node.data);
+                    node = node.right;
                 }
             }
         }

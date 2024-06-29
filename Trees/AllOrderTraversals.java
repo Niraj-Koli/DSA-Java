@@ -34,7 +34,7 @@ class AllOrderTraversals {
         }
 
         ArrayDeque<Pair> stack = new ArrayDeque<Pair>();
-        stack.offerLast(new Pair(root, 1));
+        stack.offer(new Pair(root, 1));
 
         while (!stack.isEmpty()) {
             Pair element = stack.pollLast();
@@ -43,19 +43,19 @@ class AllOrderTraversals {
                 pre.add(element.node.data);
 
                 element.number++;
-                stack.offerLast(element);
+                stack.offer(element);
 
                 if (element.node.left != null) {
-                    stack.offerLast(new Pair(element.node.left, 1));
+                    stack.offer(new Pair(element.node.left, 1));
                 }
             } else if (element.number == 2) {
                 in.add(element.node.data);
 
                 element.number++;
-                stack.offerLast(element);
+                stack.offer(element);
 
                 if (element.node.right != null) {
-                    stack.offerLast(new Pair(element.node.right, 1));
+                    stack.offer(new Pair(element.node.right, 1));
                 }
             } else {
                 post.add(element.node.data);

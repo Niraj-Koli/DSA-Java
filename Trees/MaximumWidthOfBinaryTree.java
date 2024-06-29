@@ -59,6 +59,7 @@ class MaximumWidthOfBinaryTree {
 
             for (int i = 0; i < size; i++) {
                 Pair pair = queue.poll();
+                
                 TreeNode node = pair.node;
                 int state = pair.state - min;
 
@@ -78,6 +79,7 @@ class MaximumWidthOfBinaryTree {
                     queue.offer(new Pair(node.right, state * 2 + 2));
                 }
             }
+
             res = Math.max(res, last - first + 1);
         }
 

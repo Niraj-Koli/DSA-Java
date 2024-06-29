@@ -19,16 +19,17 @@ class SymmetricTree {
     // Time -> O(n) //
     // Space -> O(n) //
 
-    private static boolean isSymmetrical(TreeNode left, TreeNode right) {
-        if (left == null || right == null) {
-            return left == right;
+    private static boolean isSymmetrical(TreeNode leftSubTree, TreeNode rightSubTree) {
+        if (leftSubTree == null || rightSubTree == null) {
+            return leftSubTree == rightSubTree;
         }
 
-        if (left.data != right.data) {
+        if (leftSubTree.data != rightSubTree.data) {
             return false;
         }
 
-        return isSymmetrical(left.left, right.right) && isSymmetrical(left.right, right.left);
+        return isSymmetrical(leftSubTree.left, rightSubTree.right)
+                && isSymmetrical(leftSubTree.right, rightSubTree.left);
     }
 
     private static boolean isSymmetric(TreeNode root) {

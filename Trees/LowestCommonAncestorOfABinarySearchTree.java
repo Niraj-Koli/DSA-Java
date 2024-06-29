@@ -39,14 +39,6 @@ class LowestCommonAncestorOfABinarySearchTree {
         return root;
     }
 
-    private static void preOrder(TreeNode node) {
-        if (node != null) {
-            System.out.print(node.data + " ");
-            preOrder(node.left);
-            preOrder(node.right);
-        }
-    }
-
     public static void main(String[] args) {
         TreeNode root = new TreeNode(6);
         TreeNode p = root.left = new TreeNode(2);
@@ -58,6 +50,6 @@ class LowestCommonAncestorOfABinarySearchTree {
         root.right.left = new TreeNode(7);
         root.right.right = new TreeNode(9);
 
-        preOrder(lowestCommonAncestor(root, p, q));
+        System.out.println(lowestCommonAncestor(root, p, q).data);
     }
 }

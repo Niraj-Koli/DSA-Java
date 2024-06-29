@@ -61,11 +61,11 @@ class VerticalOrderTraversal {
             int y = tuple.col;
 
             if (!map.containsKey(x)) {
-                map.put(x, new TreeMap<>());
+                map.put(x, new TreeMap<Integer, PriorityQueue<Integer>>());
             }
 
             if (!map.get(x).containsKey(y)) {
-                map.get(x).put(y, new PriorityQueue<>());
+                map.get(x).put(y, new PriorityQueue<Integer>());
             }
 
             map.get(x).get(y).offer(node.data);
@@ -82,7 +82,7 @@ class VerticalOrderTraversal {
         ArrayList<ArrayList<Integer>> res = new ArrayList<ArrayList<Integer>>();
 
         for (TreeMap<Integer, PriorityQueue<Integer>> depth : map.values()) {
-            res.add(new ArrayList<>());
+            res.add(new ArrayList<Integer>());
 
             for (PriorityQueue<Integer> nodes : depth.values()) {
                 while (!nodes.isEmpty()) {

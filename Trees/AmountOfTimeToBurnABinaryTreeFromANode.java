@@ -51,6 +51,7 @@ class AmountOfTimeToBurnABinaryTreeFromANode {
                 queue.offer(node.right);
             }
         }
+
         return target;
     }
 
@@ -58,12 +59,12 @@ class AmountOfTimeToBurnABinaryTreeFromANode {
     // Space -> O(n) //
 
     private static int findMinTime(HashMap<TreeNode, TreeNode> map, TreeNode target) {
-        HashMap<TreeNode, Boolean> visited = new HashMap<TreeNode, Boolean>();
+        HashMap<TreeNode, Boolean> vis = new HashMap<TreeNode, Boolean>();
 
         ArrayDeque<TreeNode> queue = new ArrayDeque<TreeNode>();
         queue.offer(target);
 
-        visited.put(target, true);
+        vis.put(target, true);
 
         int time = 0;
 
@@ -75,24 +76,25 @@ class AmountOfTimeToBurnABinaryTreeFromANode {
             for (int i = 0; i < size; i++) {
                 TreeNode node = queue.poll();
 
-                if (node.left != null && visited.get(node.left) == null) {
+                if (node.left != null && vis.get(node.left) == null) {
                     flag = true;
-                    visited.put(node.left, true);
+                    vis.put(node.left, true);
                     queue.offer(node.left);
                 }
 
-                if (node.right != null && visited.get(node.right) == null) {
+                if (node.right != null && vis.get(node.right) == null) {
                     flag = true;
-                    visited.put(node.right, true);
+                    vis.put(node.right, true);
                     queue.offer(node.right);
                 }
 
-                if (map.get(node) != null && visited.get(map.get(node)) == null) {
+                if (map.get(node) != null && vis.get(map.get(node)) == null) {
                     flag = true;
-                    visited.put(map.get(node), true);
+                    vis.put(map.get(node), true);
                     queue.offer(map.get(node));
                 }
             }
+
             if (flag) {
                 time++;
             }
