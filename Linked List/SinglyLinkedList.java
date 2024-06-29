@@ -78,7 +78,7 @@ class SinglyLinkedList {
     private static ListNode reverse(ListNode head) {
         ListNode prev = null;
         ListNode temp = head;
-        ListNode front;
+        ListNode front = null;
 
         while (temp != null) {
             front = temp.next;

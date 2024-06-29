@@ -36,12 +36,18 @@ class DesignBrowserHistory {
         currentPage = new Node(homepage);
     }
 
+    // Time -> O(1) //
+    // Space -> O(n) //
+
     public void visit(String url) {
         Node newNode = new Node(url);
         currentPage.next = newNode;
         newNode.prev = currentPage;
         currentPage = newNode;
     }
+
+    // Time -> O(min(steps, n)) //
+    // Space -> O(1) //
 
     public String back(int steps) {
         while (steps > 0) {
@@ -56,6 +62,9 @@ class DesignBrowserHistory {
         return currentPage.data;
     }
 
+    // Time -> O(min(steps, n)) //
+    // Space -> O(1) //
+
     public String forward(int steps) {
         while (steps > 0) {
             if (currentPage.next != null) {
@@ -65,7 +74,7 @@ class DesignBrowserHistory {
             }
             steps--;
         }
-        
+
         return currentPage.data;
     }
 

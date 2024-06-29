@@ -58,6 +58,7 @@ class RemoveLinkedListElements {
             } else {
                 prev = temp;
             }
+            
             temp = temp.next;
         }
 

@@ -49,9 +49,10 @@ class ReorderList {
     private static ListNode reverseList(ListNode head) {
         ListNode prev = null;
         ListNode temp = head;
+        ListNode front = null;
 
         while (temp != null) {
-            ListNode front = temp.next;
+            front = temp.next;
             temp.next = prev;
             prev = temp;
             temp = front;

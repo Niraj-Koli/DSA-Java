@@ -42,7 +42,7 @@ class Add1ToANumberRepresentedByLinkedList {
     private static ListNode reverse(ListNode head) {
         ListNode prev = null;
         ListNode temp = head;
-        ListNode front;
+        ListNode front = null;
 
         while (temp != null) {
             front = temp.next;
@@ -74,6 +74,7 @@ class Add1ToANumberRepresentedByLinkedList {
                 temp.data = 0;
                 carry = 1;
             }
+
             temp = temp.next;
         }
 
@@ -105,6 +106,7 @@ class Add1ToANumberRepresentedByLinkedList {
             return 0;
         } else {
             temp.data = 0;
+
             return 1;
         }
     }
@@ -119,7 +121,9 @@ class Add1ToANumberRepresentedByLinkedList {
 
         if (carry == 1) {
             ListNode newHead = new ListNode(1);
+
             newHead.next = head;
+            
             return newHead;
         }
         

@@ -59,9 +59,6 @@ class RemoveDuplicatesFromASortedDoublyLinkedList {
 
             temp.next = nextNode;
 
-            if (nextNode != null) {
-            }
-
             temp = temp.next;
         }
 

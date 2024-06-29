@@ -55,7 +55,7 @@ class AddTwoNumbers {
         int carry = 0;
 
         while (l1 != null || l2 != null || carry == 1) {
-            int sum = 0;
+            int sum = carry;
 
             if (l1 != null) {
                 sum += l1.data;
@@ -67,7 +67,6 @@ class AddTwoNumbers {
                 l2 = l2.next;
             }
 
-            sum += carry;
             carry = sum / 10;
 
             ListNode node = new ListNode(sum % 10);
