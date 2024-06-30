@@ -36,6 +36,7 @@ class ArticulationPoint {
                 if (low[neighbor] >= time[node] && parent != -1) {
                     mark[node] = true;
                 }
+                
                 child++;
             } else {
                 low[node] = Math.min(low[node], time[neighbor]);
@@ -50,6 +51,7 @@ class ArticulationPoint {
     private static ArrayList<Integer> articulationPoints(int v, ArrayList<ArrayList<Integer>> adj) {
         boolean[] vis = new boolean[v];
         boolean[] mark = new boolean[v];
+
         int[] time = new int[v];
         int[] low = new int[v];
 

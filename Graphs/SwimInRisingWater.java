@@ -36,7 +36,7 @@ class SwimInRisingWater {
 
         boolean[][] vis = new boolean[n][m];
 
-        PriorityQueue<Pair> pq = new PriorityQueue<Pair>((x, y) -> x.distance - y.distance);
+        PriorityQueue<Pair> pq = new PriorityQueue<Pair>((x, y) -> Integer.compare(x.distance, y.distance));
         pq.offer(new Pair(0, 0, grid[0][0]));
         vis[0][0] = true;
 
@@ -45,6 +45,7 @@ class SwimInRisingWater {
 
         while (!pq.isEmpty()) {
             Pair pair = pq.poll();
+
             int row = pair.row;
             int col = pair.col;
             int distance = pair.distance;
@@ -58,8 +59,8 @@ class SwimInRisingWater {
                 if (bounds && !vis[nrow][ncol]) {
                     int newmax = Math.max(distance, grid[nrow][ncol]);
 
-                    pq.offer(new Pair(nrow, ncol, newmax));
                     vis[nrow][ncol] = true;
+                    pq.offer(new Pair(nrow, ncol, newmax));
 
                     if (nrow == n - 1 && ncol == m - 1) {
                         return newmax;

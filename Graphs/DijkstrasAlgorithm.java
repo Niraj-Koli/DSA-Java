@@ -25,11 +25,12 @@ class DijkstrasAlgorithm {
 
         dist[src] = 0;
 
-        PriorityQueue<Pair> pq = new PriorityQueue<Pair>((x, y) -> x.distance - y.distance);
+        PriorityQueue<Pair> pq = new PriorityQueue<Pair>((x, y) -> Integer.compare(x.distance, y.distance));
         pq.offer(new Pair(src, 0));
 
         while (!pq.isEmpty()) {
             Pair pair = pq.poll();
+
             int node = pair.node;
             int distance = pair.distance;
 
@@ -48,14 +49,14 @@ class DijkstrasAlgorithm {
     }
 
     private static void addEdge(ArrayList<ArrayList<ArrayList<Integer>>> adj, int u, int v, int w) {
-        adj.get(u).add(new ArrayList<>(Arrays.asList(v, w)));
-        adj.get(v).add(new ArrayList<>(Arrays.asList(u, w)));
+        adj.get(u).add(new ArrayList<Integer>(Arrays.asList(v, w)));
+        adj.get(v).add(new ArrayList<Integer>(Arrays.asList(u, w)));
     }
 
     public static void main(String[] args) {
         int v = 6;
 
-        ArrayList<ArrayList<ArrayList<Integer>>> adj = new ArrayList<>();
+        ArrayList<ArrayList<ArrayList<Integer>>> adj = new ArrayList<ArrayList<ArrayList<Integer>>>();
 
         for (int i = 0; i < v; i++) {
             adj.add(new ArrayList<ArrayList<Integer>>());

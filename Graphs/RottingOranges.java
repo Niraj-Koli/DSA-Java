@@ -50,10 +50,12 @@ class RottingOranges {
 
         while (!queue.isEmpty()) {
             int size = queue.size();
+
             rottenOranges += size;
 
             for (int i = 0; i < size; i++) {
                 int[] point = queue.poll();
+
                 int row = point[0];
                 int col = point[1];
 
@@ -74,6 +76,7 @@ class RottingOranges {
                 minutes++;
             }
         }
+        
         return totalOranges == rottenOranges ? minutes : -1;
     }
 

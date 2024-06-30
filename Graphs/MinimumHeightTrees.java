@@ -38,11 +38,11 @@ class MinimumHeightTrees {
         }
 
         for (int[] edge : edges) {
-            int vertex1 = edge[0];
-            int vertex2 = edge[1];
+            int u = edge[0];
+            int v = edge[1];
 
-            adj.get(vertex1).add(vertex2);
-            adj.get(vertex2).add(vertex1);
+            adj.get(u).add(v);
+            adj.get(v).add(u);
         }
 
         ArrayList<Integer> leaves = new ArrayList<Integer>();
@@ -60,10 +60,12 @@ class MinimumHeightTrees {
             for (int i : leaves) {
                 int j = adj.get(i).iterator().next();
                 adj.get(j).remove(i);
+
                 if (adj.get(j).size() == 1) {
                     newLeaves.add(j);
                 }
             }
+            
             leaves = newLeaves;
         }
 

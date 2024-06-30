@@ -39,13 +39,14 @@ class DetectACycleInAnUndirectedGraph {
 
         while (!queue.isEmpty()) {
             int[] point = queue.poll();
+
             int node = point[0];
             int parent = point[1];
 
             for (int neighbor : adj.get(node)) {
                 if (!vis[neighbor]) {
-                    queue.offer(new int[] { neighbor, node });
                     vis[neighbor] = true;
+                    queue.offer(new int[] { neighbor, node });
                 } else if (vis[neighbor] && (parent != neighbor)) {
                     return true;
                 }

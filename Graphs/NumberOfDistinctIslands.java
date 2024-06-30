@@ -16,12 +16,9 @@ class NumberOfDistinctIslands {
     // Time -> O(n * m) //
     // Space -> O(n * m) //
 
-    private static void dfs(int row, int col, int row0, int col0, boolean[][] vis, int[][] grid,
+    private static void dfs(int n, int m, int row, int col, int row0, int col0, boolean[][] vis, int[][] grid,
             ArrayList<String> island,
             int[] dx, int[] dy) {
-        int n = grid.length;
-        int m = grid[0].length;
-
         vis[row][col] = true;
         island.add(toSting(row - row0, col - col0));
 
@@ -32,7 +29,7 @@ class NumberOfDistinctIslands {
             boolean bounds = (nrow >= 0 && nrow < n) && (ncol >= 0 && ncol < m);
 
             if (bounds && !vis[nrow][ncol] && grid[nrow][ncol] == 1) {
-                dfs(nrow, ncol, row0, col0, vis, grid, island, dx, dy);
+                dfs(n, m, nrow, ncol, row0, col0, vis, grid, island, dx, dy);
             }
         }
     }
@@ -52,7 +49,7 @@ class NumberOfDistinctIslands {
             for (int j = 0; j < m; j++) {
                 if (!vis[i][j] && grid[i][j] == 1) {
                     ArrayList<String> island = new ArrayList<String>();
-                    dfs(i, j, i, j, vis, grid, island, dx, dy);
+                    dfs(n, m, i, j, i, j, vis, grid, island, dx, dy);
                     set.add(island);
                 }
             }

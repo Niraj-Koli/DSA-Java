@@ -62,6 +62,7 @@ class DetectACycleInADirectedGraph {
                 return true;
             }
         }
+        
         pathVis[node] = false;
 
         return false;

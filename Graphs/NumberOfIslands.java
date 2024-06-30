@@ -25,6 +25,7 @@ class NumberOfIslands {
 
         while (!queue.isEmpty()) {
             int[] point = queue.poll();
+
             int row = point[0];
             int col = point[1];
 
@@ -36,8 +37,8 @@ class NumberOfIslands {
                     boolean bounds = (nrow >= 0 && nrow < n) && (ncol >= 0 && ncol < m);
 
                     if (bounds && !vis[nrow][ncol] && grid[nrow][ncol] == '1') {
-                        queue.offer(new int[] { nrow, ncol });
                         vis[nrow][ncol] = true;
+                        queue.offer(new int[] { nrow, ncol });
                     }
                 }
             }
@@ -60,6 +61,7 @@ class NumberOfIslands {
                 }
             }
         }
+
         return islands;
     }
 

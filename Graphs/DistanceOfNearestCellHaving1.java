@@ -14,14 +14,14 @@ import java.util.ArrayDeque;
 
 class DistanceOfNearestCellHaving1 {
     private static class Node {
-        private int first;
-        private int second;
-        private int third;
+        private int row;
+        private int col;
+        private int steps;
 
-        public Node(int first, int second, int third) {
-            this.first = first;
-            this.second = second;
-            this.third = third;
+        public Node(int row, int col, int steps) {
+            this.row = row;
+            this.col = col;
+            this.steps = steps;
         }
     }
 
@@ -48,10 +48,11 @@ class DistanceOfNearestCellHaving1 {
         int[] dy = { 0, 1, 0, -1 };
 
         while (!queue.isEmpty()) {
-            int row = queue.peek().first;
-            int col = queue.peek().second;
-            int steps = queue.peek().third;
-            queue.poll();
+            Node node = queue.poll();
+
+            int row = node.row;
+            int col = node.col;
+            int steps = node.steps;
 
             dist[row][col] = steps;
 
@@ -67,7 +68,7 @@ class DistanceOfNearestCellHaving1 {
                 }
             }
         }
-        
+
         return dist;
     }
 

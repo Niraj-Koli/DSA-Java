@@ -111,7 +111,7 @@ class FindEventualSafeStates {
         ArrayList<ArrayList<Integer>> adj = new ArrayList<ArrayList<Integer>>();
 
         for (int i = 0; i < n; i++) {
-            adj.add(new ArrayList<>());
+            adj.add(new ArrayList<Integer>());
         }
 
         for (int i = 0; i < n; i++) {
@@ -137,6 +137,7 @@ class FindEventualSafeStates {
                 safeNodes.add(i);
             }
         }
+
         return safeNodes;
     }
 

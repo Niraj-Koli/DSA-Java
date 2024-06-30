@@ -19,11 +19,8 @@ class FloodFillAlgorithm {
     // Time -> O(n * m) //
     // Space -> O(n * m) //
 
-    private static void dfs(int[][] image, int[][] res, int row, int col, int color, int[] dx, int[] dy,
+    private static void dfs(int n, int m, int[][] image, int[][] res, int row, int col, int color, int[] dx, int[] dy,
             int initColor) {
-        int n = image.length;
-        int m = image[0].length;
-
         res[row][col] = color;
 
         for (int i = 0; i < 4; i++) {
@@ -33,12 +30,15 @@ class FloodFillAlgorithm {
             boolean bounds = (nrow >= 0 && nrow < n) && (ncol >= 0 && ncol < m);
 
             if (bounds && image[nrow][ncol] == initColor && res[nrow][ncol] != color) {
-                dfs(image, res, nrow, ncol, color, dx, dy, initColor);
+                dfs(n, m, image, res, nrow, ncol, color, dx, dy, initColor);
             }
         }
     }
 
     private static int[][] floodFill(int[][] image, int sr, int sc, int color) {
+        int n = image.length;
+        int m = image[0].length;
+
         int initColor = image[sr][sc];
 
         int[][] res = image;
@@ -46,7 +46,7 @@ class FloodFillAlgorithm {
         int[] dx = { -1, 0, 1, 0 };
         int[] dy = { 0, 1, 0, -1 };
 
-        dfs(image, res, sr, sc, color, dx, dy, initColor);
+        dfs(n, m, image, res, sr, sc, color, dx, dy, initColor);
 
         return res;
     }

@@ -11,10 +11,7 @@ class SurroundedRegions {
     // Time -> O(n * m) //
     // Space -> O(n * m) //
 
-    private static void dfs(int row, int col, boolean[][] vis, char[][] board, int[] dx, int[] dy) {
-        int n = board.length;
-        int m = board[0].length;
-
+    private static void dfs(int n, int m, int row, int col, boolean[][] vis, char[][] board, int[] dx, int[] dy) {
         vis[row][col] = true;
 
         for (int i = 0; i < 4; i++) {
@@ -24,7 +21,7 @@ class SurroundedRegions {
             boolean bounds = (nrow >= 0 && nrow < n) && (ncol >= 0 && ncol < m);
 
             if (bounds && !vis[nrow][ncol] && board[nrow][ncol] == 'O') {
-                dfs(nrow, ncol, vis, board, dx, dy);
+                dfs(n, m, nrow, ncol, vis, board, dx, dy);
             }
         }
     }
@@ -40,21 +37,21 @@ class SurroundedRegions {
 
         for (int i = 0; i < n; i++) {
             if (!vis[i][0] && board[i][0] == 'O') {
-                dfs(i, 0, vis, board, dx, dy);
+                dfs(n, m, i, 0, vis, board, dx, dy);
             }
 
             if (!vis[i][m - 1] && board[i][m - 1] == 'O') {
-                dfs(i, m - 1, vis, board, dx, dy);
+                dfs(n, m, i, m - 1, vis, board, dx, dy);
             }
         }
 
         for (int j = 0; j < m; j++) {
             if (!vis[0][j] && board[0][j] == 'O') {
-                dfs(0, j, vis, board, dx, dy);
+                dfs(n, m, 0, j, vis, board, dx, dy);
             }
 
             if (!vis[n - 1][j] && board[n - 1][j] == 'O') {
-                dfs(n - 1, j, vis, board, dx, dy);
+                dfs(n, m, n - 1, j, vis, board, dx, dy);
             }
         }
 

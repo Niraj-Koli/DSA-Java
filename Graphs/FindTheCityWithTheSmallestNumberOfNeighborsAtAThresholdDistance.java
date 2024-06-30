@@ -30,10 +30,10 @@ class FindTheCityWithTheSmallestNumberOfNeighborsAtAThresholdDistance {
         for (int i = 0; i < m; i++) {
             int u = edges[i][0];
             int v = edges[i][1];
-            int wt = edges[i][2];
+            int w = edges[i][2];
 
-            dist[u][v] = wt;
-            dist[v][u] = wt;
+            dist[u][v] = w;
+            dist[v][u] = w;
         }
 
         for (int i = 0; i < n; i++) {

@@ -83,10 +83,10 @@ class KruskalsAlgorithm {
         for (int i = 0; i < m; i++) {
             int u = edges.get(i).src;
             int v = edges.get(i).dest;
-            int wt = edges.get(i).weight;
+            int w = edges.get(i).weight;
 
             if (dsu.findUltimateParent(u) != dsu.findUltimateParent(v)) {
-                sum += wt;
+                sum += w;
                 dsu.unionBySize(u, v);
             }
         }

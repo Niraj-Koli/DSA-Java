@@ -36,6 +36,7 @@ class ShortestPathInDirectedAcyclicGraph {
                 dfs(v, vis, stack, adj);
             }
         }
+
         stack.offer(node);
     }
 
@@ -43,15 +44,15 @@ class ShortestPathInDirectedAcyclicGraph {
         ArrayList<ArrayList<Pair>> adj = new ArrayList<ArrayList<Pair>>();
 
         for (int i = 0; i < n; i++) {
-            adj.add(new ArrayList<>());
+            adj.add(new ArrayList<Pair>());
         }
 
         for (int i = 0; i < m; i++) {
             int u = edges[i][0];
             int v = edges[i][1];
-            int wt = edges[i][2];
+            int w = edges[i][2];
 
-            adj.get(u).add(new Pair(v, wt));
+            adj.get(u).add(new Pair(v, w));
         }
 
         boolean[] vis = new boolean[n];

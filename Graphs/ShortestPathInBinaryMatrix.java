@@ -46,6 +46,7 @@ class ShortestPathInBinaryMatrix {
 
         while (!queue.isEmpty()) {
             int[] data = queue.poll();
+
             int row = data[0];
             int col = data[1];
             int distance = data[2];
@@ -61,8 +62,8 @@ class ShortestPathInBinaryMatrix {
                 boolean bounds = (nrow >= 0 && nrow < n) && (ncol >= 0 && ncol < m);
 
                 if (bounds && !vis[nrow][ncol] && grid[nrow][ncol] == 1) {
-                    queue.offer(new int[] { nrow, ncol, distance + 1 });
                     vis[nrow][ncol] = true;
+                    queue.offer(new int[] { nrow, ncol, distance + 1 });
                 }
             }
         }

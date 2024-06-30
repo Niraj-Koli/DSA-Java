@@ -27,9 +27,9 @@ class BellmanFordAlgorithm {
         for (int[] edge : edges) {
             int u = edge[0];
             int v = edge[1];
-            int wt = edge[2];
+            int w = edge[2];
 
-            if (dist[u] != 1e8 && dist[u] + wt < dist[v]) {
+            if (dist[u] != 1e8 && dist[u] + w < dist[v]) {
                 // Negative Cycle
                 int[] temp = new int[1];
                 temp[0] = -1;

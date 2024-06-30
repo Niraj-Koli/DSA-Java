@@ -16,12 +16,15 @@ class ShortestPathInUndirectedGraphWithUnitWeights {
         ArrayList<ArrayList<Integer>> adj = new ArrayList<ArrayList<Integer>>();
 
         for (int i = 0; i < n; i++) {
-            adj.add(new ArrayList<>());
+            adj.add(new ArrayList<Integer>());
         }
 
         for (int i = 0; i < m; i++) {
-            adj.get(edges[i][0]).add(edges[i][1]);
-            adj.get(edges[i][1]).add(edges[i][0]);
+            int u = edges[i][0];
+            int v = edges[i][1];
+
+            adj.get(u).add(v);
+            adj.get(v).add(u);
         }
 
         int[] dist = new int[n];

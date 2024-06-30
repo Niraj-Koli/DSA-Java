@@ -52,11 +52,12 @@ class NetworkDelayTime {
 
         dist[k] = 0;
 
-        PriorityQueue<Pair> pq = new PriorityQueue<Pair>((x, y) -> x.distance - y.distance);
+        PriorityQueue<Pair> pq = new PriorityQueue<Pair>((x, y) -> Integer.compare(x.distance, y.distance));
         pq.offer(new Pair(k, 0));
 
         while (!pq.isEmpty()) {
             Pair pair = pq.poll();
+
             int node = pair.node;
             int distance = pair.distance;
 
@@ -77,6 +78,7 @@ class NetworkDelayTime {
             if (dist[i] == (int) (1e9)) {
                 return -1;
             }
+
             time = Math.max(time, dist[i]);
         }
 

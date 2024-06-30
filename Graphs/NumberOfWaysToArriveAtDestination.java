@@ -63,7 +63,7 @@ class NumberOfWaysToArriveAtDestination {
         dist[0] = 0;
         ways[0] = 1;
 
-        PriorityQueue<Pair> pq = new PriorityQueue<Pair>((x, y) -> (int) (x.distance - y.distance));
+        PriorityQueue<Pair> pq = new PriorityQueue<Pair>((x, y) -> Long.compare(x.distance, y.distance));
         pq.offer(new Pair(0, 0));
 
         while (!pq.isEmpty()) {

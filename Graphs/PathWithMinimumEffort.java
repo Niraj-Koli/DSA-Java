@@ -45,7 +45,7 @@ class PathWithMinimumEffort {
 
         dist[0][0] = 0;
 
-        PriorityQueue<Tuple> pq = new PriorityQueue<Tuple>((x, y) -> x.distance - y.distance);
+        PriorityQueue<Tuple> pq = new PriorityQueue<Tuple>((x, y) -> Integer.compare(x.distance, y.distance));
         pq.offer(new Tuple(0, 0, 0));
 
         int[] dx = { -1, 0, 1, 0 };

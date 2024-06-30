@@ -79,6 +79,7 @@ class WordLadderII {
 
         while (!queue.isEmpty()) {
             String word = queue.poll();
+            
             int steps = map.get(word);
 
             if (word.equals(endWord)) {

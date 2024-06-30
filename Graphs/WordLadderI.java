@@ -47,6 +47,7 @@ class WordLadderI {
 
         while (!queue.isEmpty()) {
             Pair pair = queue.poll();
+            
             String word = pair.word;
             int level = pair.level;
 

@@ -19,6 +19,7 @@ class TopologicalSort {
                 dfs(neighbor, vis, stack, adj);
             }
         }
+        
         stack.offer(node);
     }
 

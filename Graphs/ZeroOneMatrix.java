@@ -25,8 +25,8 @@ class ZeroOneMatrix {
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < m; j++) {
                 if (grid[i][j] == 0) {
-                    queue.offer(new int[] { i, j, 0 });
                     vis[i][j] = true;
+                    queue.offer(new int[] { i, j, 0 });
                 }
             }
         }
@@ -36,6 +36,7 @@ class ZeroOneMatrix {
 
         while (!queue.isEmpty()) {
             int[] data = queue.poll();
+
             int row = data[0];
             int col = data[1];
             int steps = data[2];
@@ -49,8 +50,8 @@ class ZeroOneMatrix {
                 boolean bounds = (nrow >= 0 && nrow < n) && (ncol >= 0 && ncol < m);
 
                 if (bounds && !vis[nrow][ncol]) {
-                    queue.offer(new int[] { nrow, ncol, steps + 1 });
                     vis[nrow][ncol] = true;
+                    queue.offer(new int[] { nrow, ncol, steps + 1 });
                 }
             }
         }

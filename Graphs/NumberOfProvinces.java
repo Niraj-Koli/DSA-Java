@@ -18,14 +18,12 @@ class NumberOfProvinces {
     // Time -> O(V + E) //
     // Space -> O(V) //
 
-    private static void dfs(int node, boolean[] vis, int[][] isConnected) {
-        int n = isConnected.length;
-
+    private static void dfs(int v, int node, boolean[] vis, int[][] isConnected) {
         vis[node] = true;
 
-        for (int neighbor = 0; neighbor < n; neighbor++) {
+        for (int neighbor = 0; neighbor < v; neighbor++) {
             if (!vis[neighbor] && isConnected[node][neighbor] == 1) {
-                dfs(neighbor, vis, isConnected);
+                dfs(v, neighbor, vis, isConnected);
             }
         }
     }
@@ -39,7 +37,7 @@ class NumberOfProvinces {
 
         for (int i = 0; i < v; i++) {
             if (!vis[i]) {
-                dfs(i, vis, isConnected);
+                dfs(v, i, vis, isConnected);
                 provinces++;
             }
         }

@@ -31,8 +31,12 @@ class PrintShortestPathInAWeightedUndirectedGraph {
         }
 
         for (int i = 0; i < m; i++) {
-            adj.get(edges[i][0]).add(new Pair(edges[i][1], edges[i][2]));
-            adj.get(edges[i][1]).add(new Pair(edges[i][0], edges[i][2]));
+            int u = edges[i][0];
+            int v = edges[i][1];
+            int w = edges[i][2];
+
+            adj.get(u).add(new Pair(v, w));
+            adj.get(v).add(new Pair(u, w));
         }
 
         PriorityQueue<Pair> pq = new PriorityQueue<Pair>((x, y) -> Integer.compare(x.distance, y.distance));
@@ -59,8 +63,8 @@ class PrintShortestPathInAWeightedUndirectedGraph {
 
                 if (distance + edgeWeight < dist[adjNode]) {
                     dist[adjNode] = distance + edgeWeight;
-                    pq.offer(new Pair(adjNode, dist[adjNode]));
                     parent[adjNode] = node;
+                    pq.offer(new Pair(adjNode, dist[adjNode]));
                 }
             }
         }

@@ -62,6 +62,7 @@ class CriticalConnectionsInANetwork {
         }
 
         boolean[] vis = new boolean[n];
+        
         int[] time = new int[n];
         int[] low = new int[n];
 
